@@ -17,9 +17,8 @@ app.use((req, res, next) => {
 
 //Rutas
 app.get('*', (req, res) => {
-    res.status(200).send({ message: "Primeros cambios en el repositorio por Daniel Tapia" });
+    res.status(200).send({ message: "Cambios por DY" });
 });
-
 
 
 

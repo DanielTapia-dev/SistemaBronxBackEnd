@@ -10,10 +10,10 @@ module.exports = (sequelize, DateTypes) => {
         password: DateTypes.STRING,
         idrol: DateTypes.INTEGER,
         activo: DateTypes.BOOLEAN,
-        crepor: DateTypes.STRING,
-        modpor: DateTypes.STRING,
-        createdat: DateTypes.DATE,
-        updatedat: DateTypes.DATE
+        crepor: DateTypes.INTEGER,
+        modpor: DateTypes.INTEGER,
+        createdAt: DateTypes.DATE,
+        updatedAt: DateTypes.DATE
     });
 
     return usuarios;

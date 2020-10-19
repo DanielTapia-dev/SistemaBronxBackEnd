@@ -16,6 +16,8 @@ app.use((req, res, next) => {
 });
 
 //Rutas
+require('./server/routes/usuarios')(app);
+
 app.get('*', (req, res) => {
     res.status(200).send({ message: "Cambios por Daniel Tapia" });
 });

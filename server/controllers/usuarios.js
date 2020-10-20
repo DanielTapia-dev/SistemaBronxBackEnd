@@ -1,4 +1,5 @@
 const usuarios = require('../models').usuarios;
+const jwt = require('../services/jwt');
 
 function create(req, res) {
     usuarios.create(req.body)
@@ -19,7 +20,15 @@ function login(req, res) {
         })
         .then(usuario => {
             if (usuario) {
-                res.status(200).send({ usuario });
+                if (req.body.token) {
+                    res.status(200).send({
+                        token: jwt.createToken(usuario)
+                    });
+                } else {
+                    res.status(200).send({
+                        usuario: usuario
+                    });
+                }
             } else {
                 res.status(401).send({ message: "Acceso no autorizado" })
             }

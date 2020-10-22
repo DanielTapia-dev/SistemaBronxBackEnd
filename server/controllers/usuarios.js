@@ -39,8 +39,19 @@ function login(req, res) {
 
 }
 
+function getAll(req, res) {
+    usuarios.findAll()
+        .then(usuarios => {
+            res.status(200).send({ usuarios });
+        })
+        .catch(err => {
+            res.status(500).send({ message: "Ocurrio un error al buscar los usuarios" });
+        })
+}
+
 
 module.exports = {
     create,
-    login
+    login,
+    getAll
 }

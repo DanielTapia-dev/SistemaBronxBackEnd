@@ -9,14 +9,12 @@ module.exports=(sequelize,DataTypes)=>{
         ruccicliente: DataTypes.STRING,
         nocliente: DataTypes.STRING,
         dircliente: DataTypes.STRING,
-        telfcliente: DataTypes.STRING,
+        teflcliente: DataTypes.STRING,
         emailcliente: DataTypes.STRING,
         crepor: DataTypes.INTEGER,
-        fechacre: DataTypes.DATE,
         modpor: DataTypes.INTEGER,
-        fechamod: DataTypes.DATE,
-        estacliente: DataTypes.INTEGER,
         idsucursal: DataTypes.STRING,
+        activo: DataTypes.INTEGER,
         createdAt: DataTypes.DATE,
         updatedAt: DataTypes.DATE
     });

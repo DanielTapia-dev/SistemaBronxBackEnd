@@ -17,9 +17,10 @@ app.use((req, res, next) => {
 
 //Rutas
 require('./server/routes/usuarios')(app);
+require('./server/routes/clientes')(app);
 
 app.get('*', (req, res) => {
-    res.status(200).send({ message: "Cambios por Daniel Tapia" });
+    res.status(200).send({ message: "Bienvenido al servidor de Facturacion" });
 });
 
 

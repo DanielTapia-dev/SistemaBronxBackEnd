@@ -1,8 +1,8 @@
-module.exports=(sequelize,DataTypes)=>{
-    const empresa=sequelize.define('empresa',{
+module.exports = (sequelize, DataTypes) => {
+    const empresa = sequelize.define('empresa', {
         idempresa: {
-            primaryKey:true,
-            type:DataTypes.STRING,
+            primaryKey: true,
+            type: DataTypes.STRING,
         },
         nomempresa: DataTypes.STRING,
         rucciempresa: DataTypes.STRING,
@@ -11,8 +11,8 @@ module.exports=(sequelize,DataTypes)=>{
         logoempresa: DataTypes.STRING,
         monempresa: DataTypes.STRING,
         decempresa: DataTypes.INTEGER,
-        tefl1empresa: DataTypes.STRING,
-        tefl2empresa: DataTypes.STRING,
+        telf1empresa: DataTypes.STRING,
+        telf2empresa: DataTypes.STRING,
         email1empresa: DataTypes.STRING,
         email2empresa: DataTypes.STRING,
         crepor: DataTypes.INTEGER,
@@ -21,8 +21,8 @@ module.exports=(sequelize,DataTypes)=>{
         activo: DataTypes.BOOLEAN,
         createdAt: DataTypes.DATE,
         updatedAt: DataTypes.DATE
-    },{
-        freezeTableName:true
+    }, {
+        freezeTableName: true
     });
 
     return empresa;

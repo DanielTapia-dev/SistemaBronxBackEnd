@@ -11,8 +11,11 @@ function create(req, res) {
 function update(req, res) {
     var id = req.params.id;
     var body = req.body;
-
-    clientes.getById(id)
+    clientes.findOne({
+            where: {
+                idcliente: id
+            }
+        })
         .then(cliente => {
             cliente.update(body)
                 .then(() => {

@@ -12,7 +12,11 @@ function update(req, res) {
     var id = req.params.id;
     var body = req.body;
 
-    empresa.getById(id)
+    empresa.findOne({
+            where: {
+                idempresa: id
+            }
+        })
         .then(emp => {
             emp.update(body)
                 .then(() => {

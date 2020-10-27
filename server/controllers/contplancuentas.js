@@ -41,8 +41,24 @@ function getAll(req, res) {
         })
 }
 
+function getAllMov(req, res) {
+    contplancuentas.findAll({
+            where: {
+                tipocuenta: true
+            }
+        })
+        .then(contplancuentas => {
+            res.status(200).send({ contplancuentas });
+        })
+        .catch(err => {
+            res.status(500).send({ message: "Ocurrio un error al buscar las cuentas contables" });
+        })
+}
+
+
 module.exports = {
     create,
     update,
-    getAll
+    getAll,
+    getAllMov
 }

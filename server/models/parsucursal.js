@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const sucursal = sequelize.define('parsucursal', {
+    const parsucursal = sequelize.define('parsucursal', {
         idempresa: DataTypes.STRING,
         idsucursal: {
             primaryKey: true,
@@ -13,5 +13,5 @@ module.exports = (sequelize, DataTypes) => {
         freezeTableName: true
     });
 
-    return sucursal;
+    return parsucursal;
 }

@@ -8,10 +8,6 @@ function create(req, res) {
     })
 }
 
-module.exports = {
-    create
-}
-
 function update(req, res) {
     var id = req.params.id;
     var body = req.body;

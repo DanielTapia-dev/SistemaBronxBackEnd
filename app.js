@@ -19,6 +19,7 @@ app.use((req, res, next) => {
 require('./server/routes/usuarios')(app);
 require('./server/routes/clientes')(app);
 require('./server/routes/empresa')(app);
+require('./server/routes/sucursal')(app);
 
 app.get('*', (req, res) => {
     res.status(200).send({ message: "Bienvenido al servidor de Facturacion" });

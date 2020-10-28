@@ -7,6 +7,7 @@ const contplancuentas = require('./contplancuentas');
 const parformapago = require('./parformapago');
 const parfamilia = require('./parfamilia');
 const parunidad = require('./parunidad');
+const parimpuesto = require('./parimpuesto');
 
 module.exports = {
     usuarios,
@@ -17,5 +18,6 @@ module.exports = {
     contplancuentas,
     parformapago,
     parfamilia,
-    parunidad
+    parunidad,
+    parimpuesto
 }

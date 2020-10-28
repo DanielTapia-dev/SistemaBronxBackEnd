@@ -5,6 +5,7 @@ const parsucursal = require('./parsucursal');
 const planestructura = require('./planestructura');
 const contplancuentas = require('./contplancuentas');
 const parformapago = require('./parformapago');
+const parfamilia = require('./parfamilia');
 
 module.exports = {
     usuarios,
@@ -13,5 +14,6 @@ module.exports = {
     parsucursal,
     planestructura,
     contplancuentas,
-    parformapago
+    parformapago,
+    parfamilia
 }

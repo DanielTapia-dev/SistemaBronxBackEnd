@@ -4,6 +4,7 @@ const empresa = require('./empresa');
 const parsucursal = require('./parsucursal');
 const planestructura = require('./planestructura');
 const contplancuentas = require('./contplancuentas');
+const parformapago = require('./parformapago');
 
 module.exports = {
     usuarios,
@@ -11,5 +12,6 @@ module.exports = {
     empresa,
     parsucursal,
     planestructura,
-    contplancuentas
+    contplancuentas,
+    parformapago
 }

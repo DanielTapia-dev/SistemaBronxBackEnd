@@ -24,6 +24,7 @@ require('./server/routes/planestructura')(app);
 require('./server/routes/contplancuentas')(app);
 require('./server/routes/parformapago')(app);
 require('./server/routes/parfamilia')(app);
+require('./server/routes/parunidad')(app);
 
 app.get('*', (req, res) => {
     res.status(200).send({ message: "Bienvenido al servidor de Facturacion" });

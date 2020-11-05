@@ -31,7 +31,12 @@ function update(req, res) {
 }
 
 function getAll(req, res) {
-    clientes.findAll()
+    var id = req.params.id;
+    clientes.findAll({
+        where:{
+            idempresa: id
+        }
+    })
         .then(clientes => {
             res.status(200).send({ clientes });
         })

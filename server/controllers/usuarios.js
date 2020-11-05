@@ -2,13 +2,27 @@ const usuarios = require('../models').usuarios;
 const jwt = require('../services/jwt');
 
 function create(req, res) {
-    usuarios.create(req.body)
+
+    const usuarioIngresado = req.body.usuario;
+    usuarios.findOne({
+        where: {
+            usuario: req.body.usuario
+        }
+    })
+    .then(usuario => {
+        if (usuario) {
+            console.log("El usuario ya existe");
+            res.status(500).send({ message: "El nombre de usuario ya existe" });
+        }else{
+            usuarios.create(req.body)
         .then(usuario => {
             res.status(200).send({ usuario });
         })
         .catch(err => {
             res.status(500).send({ err });
         })
+        } 
+    })
 }
 
 function login(req, res) {

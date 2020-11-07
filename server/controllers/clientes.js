@@ -31,10 +31,10 @@ function update(req, res) {
 }
 
 function getAll(req, res) {
-    var id = req.params.id;
+    var idEmpresa = req.params.id;
     clientes.findAll({
         where:{
-            idempresa: id
+            idempresa: idEmpresa
         }
     })
         .then(clientes => {

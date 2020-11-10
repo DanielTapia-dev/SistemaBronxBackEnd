@@ -36,7 +36,8 @@ function login(req, res) {
             if (usuario) {
                 if (req.body.token) {
                     res.status(200).send({
-                        token: jwt.createToken(usuario)
+                        token: jwt.createToken(usuario),
+                        usuario: usuario
                     });
                 } else {
                     res.status(200).send({

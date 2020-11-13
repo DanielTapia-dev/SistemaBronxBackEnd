@@ -5,24 +5,24 @@ function create(req, res) {
 
     const usuarioIngresado = req.body.usuario;
     usuarios.findOne({
-        where: {
-            usuario: req.body.usuario
-        }
-    })
-    .then(usuario => {
-        if (usuario) {
-            console.log("El usuario ya existe");
-            res.status(500).send({ message: "El nombre de usuario ya existe" });
-        }else{
-            usuarios.create(req.body)
+            where: {
+                usuario: req.body.usuario
+            }
+        })
         .then(usuario => {
-            res.status(200).send({ usuario });
+            if (usuario) {
+                console.log("El usuario ya existe");
+                res.status(500).send({ message: "El nombre de usuario ya existe" });
+            } else {
+                usuarios.create(req.body)
+                    .then(usuario => {
+                        res.status(200).send({ usuario });
+                    })
+                    .catch(err => {
+                        res.status(500).send({ err });
+                    })
+            }
         })
-        .catch(err => {
-            res.status(500).send({ err });
-        })
-        } 
-    })
 }
 
 function login(req, res) {
@@ -49,7 +49,7 @@ function login(req, res) {
             }
         })
         .catch(err => {
-            res.status(500).send({ message: "Ocurrió un error al buscar el Usuario." });
+            res.status(500).send({ message: "Ocurrió un error al buscar el Usuario." } + err);
         })
 
 }
@@ -61,6 +61,7 @@ function getAll(req, res) {
         })
         .catch(err => {
             res.status(500).send({ message: "Ocurrio un error al buscar los usuarios" });
+            console.log(err);
         })
 }
 

@@ -40,32 +40,20 @@ function update(req, res) {
 }
 
 function getOne(req, res) {
+  var idcliente = req.params.id;
   clientes
     .findOne({
       where: {
-        idcliente: req.body.cliente,
+        idcliente: idcliente,
       },
     })
     .then((cliente) => {
-      if (cliente) {
-        if (req.body.token) {
-          res.status(200).send({
-            token: jwt.createToken(usuario),
-            usuario: usuario,
-          });
-        } else {
-          res.status(200).send({
-            usuario: usuario,
-          });
-        }
-      } else {
-        res.status(401).send({ message: "Acceso no autorizado" });
-      }
+      res.status(200).send(cliente);
     })
     .catch((err) => {
       res
         .status(500)
-        .send({ message: "Ocurrió un error al buscar el Usuario." });
+        .send({ message: "Ocurrió un error al buscar el Cliente." + err });
     });
 }
 

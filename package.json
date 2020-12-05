@@ -2,10 +2,11 @@
   "name": "BackEnd",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./bin/www.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./bin/www.js"
+    "start:dev": "nodemon ./bin/www.js",
+    "start": "node ./bin/www.js"
   },
   "keywords": [],
   "author": "",

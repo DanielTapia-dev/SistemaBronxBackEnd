@@ -5,8 +5,13 @@
   "main": "./bin/www.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+<<<<<<< HEAD
     "start:dev": "nodemon ./bin/www.js",
     "start": "node ./bin/www.js"
+=======
+    "start:dev": "nodemon app.js",
+    "start": "node app.js"
+>>>>>>> 79725104aaad56cd8315e64671fc241f51eb8b78
   },
   "keywords": [],
   "author": "",

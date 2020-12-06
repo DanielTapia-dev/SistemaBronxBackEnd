@@ -32,7 +32,12 @@ function update(req, res) {
 }
 
 function getAll(req, res) {
-    contplancuentas.findAll()
+    var idempresa = req.params.id;
+    contplancuentas.findAll({
+        where: {
+            idempresa: idempresa
+        }
+    })
         .then(contplancuentas => {
             res.status(200).send({ contplancuentas });
         })

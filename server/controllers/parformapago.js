@@ -45,6 +45,34 @@ function update(req, res) {
     });
 }
 
+function borrar(req, res) {
+  var id = req.params.id;
+  var body = req.body;
+  parformapago
+    .findOne({
+      where: {
+        idformapago: id,
+      },
+    })
+    .then((formapago) => {
+      formapago
+        .destroy(body)
+        .then(() => {
+          res.status(200).send({ message: "Forma de pago eliminada" });
+        })
+        .catch((erro) => {
+          res
+            .status(500)
+            .send({ message: "Ocurrio un error al borrar la forma de pago 1" });
+        });
+    })
+    .catch((err) => {
+      res
+        .status(500)
+        .send({ message: "Ocurrio un error al borrar la forma de pago 2" });
+    });
+}
+
 function getAll(req, res) {
   var idEmpresa = req.params.id;
   parformapago
@@ -63,8 +91,28 @@ function getAll(req, res) {
     });
 }
 
+function getOne(req, res) {
+  var idformapago = req.params.id;
+  parformapago
+    .findOne({
+      where: {
+        idformapago: idformapago,
+      },
+    })
+    .then((parformapago) => {
+      res.status(200).send(parformapago);
+    })
+    .catch((err) => {
+      res
+        .status(500)
+        .send({ message: "Ocurrió un error al buscar la forma de pago." + err });
+    });
+}
+
 module.exports = {
   create,
   update,
   getAll,
+  borrar,
+  getOne
 };

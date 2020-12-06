@@ -5,4 +5,6 @@ module.exports = (app) => {
     app.post('/api/parformapago', md_auth.auth, parformapagoController.create);
     app.put('/api/parformapago/:id', md_auth.auth, parformapagoController.update);
     app.get('/api/parformapagos/:id', md_auth.auth, parformapagoController.getAll);
+    app.get('/api/parformapago/:id', md_auth.auth, parformapagoController.getOne);
+    app.delete('/api/parformapago/delete/:id', md_auth.auth, parformapagoController.borrar);
 }

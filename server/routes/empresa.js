@@ -1,4 +1,5 @@
 const empresasController = require('../controllers').empresa;
+const md_auth = require('../authenticated/authenticated');
 
 module.exports = (app) => {
     app.post('/api/empresa', md_auth.auth, empresasController.create);

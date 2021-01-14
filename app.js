@@ -31,6 +31,7 @@ require('./server/routes/parfamilia')(app);
 require('./server/routes/parunidad')(app);
 require('./server/routes/parimpuesto')(app);
 require('./server/routes/producto')(app);
+require('./server/routes/parserie')(app);
 
 
 app.get('*', (req, res) => {

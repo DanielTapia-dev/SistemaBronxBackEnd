@@ -32,7 +32,7 @@ require('./server/routes/parunidad')(app);
 require('./server/routes/parimpuesto')(app);
 require('./server/routes/producto')(app);
 require('./server/routes/parserie')(app);
-
+require('./server/routes/parcaja')(app);
 
 app.get('*', (req, res) => {
     res.status(200).send({ message: "Bienvenido al servidor de Facturacion" });

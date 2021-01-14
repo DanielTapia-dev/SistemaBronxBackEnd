@@ -19,6 +19,8 @@ module.exports = (sequelize, DataTypes) => {
         activo: DataTypes.BOOLEAN,
         createdAt: DataTypes.DATE,
         updatedAt: DataTypes.DATE
+    }, {
+        freezeTableName: true
     });
 
     return producto;

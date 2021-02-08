@@ -35,6 +35,8 @@ require('./server/routes/parserie')(app);
 require('./server/routes/parcaja')(app);
 require('./server/routes/cabproforma')(app);
 require('./server/routes/detproforma')(app);
+require('./server/routes/cabmovfac')(app);
+
 
 app.get('*', (req, res) => {
     res.status(200).send({ message: "Bienvenido al servidor de Facturacion" });

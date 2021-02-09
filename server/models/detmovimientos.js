@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const detproforma = sequelize.define('detproforma', {
+    const detmovimientos = sequelize.define('detmovimientos', {
         idempresa: DataTypes.STRING,
         idsucursal: DataTypes.STRING,
         secmovdet: {
@@ -23,8 +23,6 @@ module.exports = (sequelize, DataTypes) => {
         createdAt: DataTypes.DATE,
         updatedAt: DataTypes.DATE
     }, {
-        freezeTableName: true
     });
-
-    return detproforma;
+    return detmovimientos;
 }

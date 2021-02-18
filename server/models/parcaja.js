@@ -2,7 +2,6 @@ module.exports = (sequelize, DataTypes) => {
     const parcaja = sequelize.define('parcaja', {
         idempresa: DataTypes.STRING,
         idsucursal: DataTypes.STRING,
-        idserie: DataTypes.STRING,
         idcaja: {
             primaryKey: true,
             type: DataTypes.STRING,

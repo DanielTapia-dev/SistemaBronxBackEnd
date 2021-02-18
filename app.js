@@ -42,6 +42,7 @@ require('./server/routes/detcobro')(app);
 require('./server/routes/cabasiento')(app);
 require('./server/routes/detasiento')(app);
 require('./server/routes/usucajaserie')(app);
+require('./server/routes/parempresa')(app);
 
 app.get('*', (req, res) => {
     res.status(200).send({ message: "Bienvenido al servidor de Facturacion" });

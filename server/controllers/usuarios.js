@@ -1,5 +1,6 @@
 const usuarios = require('../models').usuarios;
 const jwt = require('../services/jwt');
+const { getMenuFrontEnd } = require('../helpers/menu-frontend');
 
 function create(req, res) {
 
@@ -37,11 +38,13 @@ function login(req, res) {
                 if (req.body.token) {
                     res.status(200).send({
                         token: jwt.createToken(usuario),
-                        usuario: usuario
+                        usuario: usuario,
+                        menu: getMenuFrontEnd(usuario.idrol.toString())
                     });
                 } else {
                     res.status(200).send({
-                        usuario: usuario
+                        usuario: usuario,
+                        menu: getMenuFrontEnd(usuario.idrol.toString())
                     });
                 }
             } else {

@@ -32,7 +32,12 @@ function update(req, res) {
 }
 
 function getAll(req, res) {
-    parimpuesto.findAll()
+    var idEmpresa = req.params.id;
+    parimpuesto.findAll({
+            where: {
+                idempresa: idEmpresa,
+            },
+        })
         .then(parimpuesto => {
             res.status(200).send({ parimpuesto });
         })
@@ -41,8 +46,26 @@ function getAll(req, res) {
         })
 }
 
+function getOne(req, res) {
+    var idimpuesto = req.params.id;
+    parimpuesto.findOne({
+            where: {
+                idimpuesto: idimpuesto,
+            },
+        })
+        .then((parimpuesto) => {
+            res.status(200).send(parimpuesto);
+        })
+        .catch((err) => {
+            res
+                .status(500)
+                .send({ message: "Ocurrió un error al buscar la forma de pago." + err });
+        });
+}
+
 module.exports = {
     create,
     update,
-    getAll
+    getAll,
+    getOne
 }

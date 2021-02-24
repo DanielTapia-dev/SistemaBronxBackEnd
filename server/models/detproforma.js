@@ -2,10 +2,6 @@ module.exports = (sequelize, DataTypes) => {
     const detproforma = sequelize.define('detproforma', {
         idempresa: DataTypes.STRING,
         idsucursal: DataTypes.STRING,
-        secmovdet: {
-            primaryKey: true,
-            type: DataTypes.INTEGER,
-        },
         secmovcab: DataTypes.INTEGER,
         idproducto: DataTypes.STRING,
         cantidad: DataTypes.INTEGER,

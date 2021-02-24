@@ -15,8 +15,6 @@ module.exports = (sequelize, DataTypes) => {
         subtotal: DataTypes.FLOAT,    
         subtotaliva0: DataTypes.FLOAT,
         subtotaliva12: DataTypes.FLOAT,
-        iva0: DataTypes.FLOAT,
-        iva12: DataTypes.FLOAT,
         total: DataTypes.FLOAT,
         crepor: DataTypes.INTEGER,
         modpor: DataTypes.INTEGER,

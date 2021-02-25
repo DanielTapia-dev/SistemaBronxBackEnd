@@ -1,6 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
     const cabmovfac = sequelize.define('cabmovfac', {
         secmovcab: {
+            autoIncrement: true,
             primaryKey: true,
             type: DataTypes.INTEGER,
         },

@@ -1,6 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
     const cabproforma = sequelize.define('cabproforma', {
         secmovcab: {
+            autoIncrement: true,
             primaryKey: true,
             type: DataTypes.INTEGER,
         },

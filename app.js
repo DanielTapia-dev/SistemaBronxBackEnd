@@ -45,6 +45,7 @@ require('./server/routes/usucajaserie')(app);
 require('./server/routes/parempresa')(app);
 require('./server/routes/tabprecio')(app);
 require('./server/routes/lisprecios')(app);
+require('./server/routes/precioclientes')(app);
 
 
 app.get('*', (req, res) => {

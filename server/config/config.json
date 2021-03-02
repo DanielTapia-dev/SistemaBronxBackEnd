@@ -1,7 +1,7 @@
 {
     "development": {
         "username": "postgres",
-        "password": "postgres",
+        "password": "dannyalejo7123tapia",
         "database": "contable",
         "host": "localhost",
         "dialect": "postgres"
@@ -9,16 +9,16 @@
     "test": {
         "username": "root",
         "password": null,
-        "database": "database_test",
+        "database": "contable",
         "host": "127.0.0.1",
-        "dialect": "mysql"
+        "dialect": "postgres"
     },
     "production": {
         "username": "root",
         "password": null,
-        "database": "database_production",
+        "database": "contable",
         "host": "127.0.0.1",
-        "dialect": "mysql"
+        "dialect": "postgres"
     },
     "token_secret": "123ABc456r%SERT987o_"
 

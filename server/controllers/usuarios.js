@@ -1,6 +1,9 @@
 const usuarios = require('../models').usuarios;
 const jwt = require('../services/jwt');
 const { getMenuFrontEnd } = require('../helpers/menu-frontend');
+var nJwt = require('njwt');
+var config = require('../config/config');
+var secret = config.token_secret;
 
 function create(req, res) {
 
@@ -68,9 +71,28 @@ function getAll(req, res) {
         })
 }
 
+function auth(req, res, next) {
+    if (!req.headers.authorization) {
+        return res.status(403).send({ message: "La petición no tiene la cabecera de autenticación" });
+    }
+
+    var token = req.headers.authorization.replace(/['"]+/g, '');
+    var payload = nJwt.verify(token, secret, (err, verifiedJwt) => {
+        if (err) {
+            return res.status(401).send({ message: "Acceso no autorizado." });
+        } else {
+            res.json({
+                verifiedJwt
+            });
+            next();
+        }
+    })
+}
+
 
 module.exports = {
     create,
     login,
-    getAll
+    getAll,
+    auth
 }

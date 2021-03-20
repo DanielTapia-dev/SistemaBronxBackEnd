@@ -4,6 +4,7 @@ const getMenuFrontEnd = (role) => {
             icono: 'icon-cart2',
             submenu: [
                 { titulo: 'Facturar', url: 'facturar' },
+                { titulo: 'Lista de facturas', url: 'listafacturas' },
             ]
         },
         {
@@ -11,6 +12,7 @@ const getMenuFrontEnd = (role) => {
             icono: 'icon-dash',
             submenu: [
                 { titulo: 'Proformar', url: 'proformar' },
+                { titulo: 'Lista de proformas', url: 'listaproformas' },
             ]
         },
         {

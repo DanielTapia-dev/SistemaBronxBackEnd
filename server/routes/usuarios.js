@@ -1,5 +1,5 @@
 const usuariosController = require('../controllers').usuarios;
-const md_auth = require('../authenticated/authenticated');
+const md_auth = require('../controllers/usuarios');
 
 module.exports = (app) => {
     app.post('/api/usuario', md_auth.auth, usuariosController.create);

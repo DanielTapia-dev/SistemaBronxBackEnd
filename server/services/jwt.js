@@ -7,7 +7,6 @@ exports.createToken = (usuario) => {
         sub: usuario.id,
         usuario: usuario.usuario,
         idrol: usuario.idrol
-
     }
 
     var jwt = nJwt.create(params, secret);

@@ -29,13 +29,13 @@ function update(req, res) {
                 .catch((erro) => {
                     res
                         .status(500)
-                        .send({ message: "Ocurrio un error al actualizar el cliente" });
+                        .send({ message: "Ocurrio un error al actualizar el cliente, " + erro });
                 });
         })
         .catch((err) => {
             res
                 .status(500)
-                .send({ message: "Ocurrio un error al actualizar el cliente" });
+                .send({ message: "Ocurrio un error al actualizar el cliente, " + err });
         });
 }
 

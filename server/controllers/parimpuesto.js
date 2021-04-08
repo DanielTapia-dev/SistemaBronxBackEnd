@@ -63,9 +63,38 @@ function getOne(req, res) {
         });
 }
 
+function borrar(req, res) {
+    var id = req.params.id;
+    var body = req.body;
+    parimpuesto
+      .findOne({
+        where: {
+          idimpuesto: id,
+        },
+      })
+      .then((impuesto) => {
+        impuesto
+          .destroy(body)
+          .then(() => {
+            res.status(200).send({ message: "Impuesto eliminado" });
+          })
+          .catch((erro) => {
+            res
+              .status(500)
+              .send({ message: "Ocurrio un error al borrar el impuesto" });
+          });
+      })
+      .catch((err) => {
+        res
+          .status(500)
+          .send({ message: "Ocurrio un error al borrar la unidad" });
+      });
+  }
+
 module.exports = {
     create,
     update,
     getAll,
-    getOne
+    getOne,
+    borrar
 }

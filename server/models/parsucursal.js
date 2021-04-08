@@ -8,7 +8,9 @@ module.exports = (sequelize, DataTypes) => {
         nomsucursal: DataTypes.STRING,
         activo: DataTypes.BOOLEAN,
         createdAt: DataTypes.DATE,
-        updatedAt: DataTypes.DATE
+        updatedAt: DataTypes.DATE,
+        crepor: DataTypes.INTEGER,
+        modpor: DataTypes.INTEGER
     }, {
         freezeTableName: true
     });

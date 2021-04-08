@@ -25,7 +25,14 @@ const getMenuFrontEnd = (role) => {
     ];
 
     if (role === '1') {
-        menu[2].submenu.push({ titulo: 'Formas de pago', url: 'formasPago' }, { titulo: 'Unidades', url: 'unidades' }, { titulo: 'Productos', url: 'productos' }, { titulo: 'Impuesto', url: 'impuesto' }, { titulo: 'Sucursales', url: 'sucursales' });
+        menu[2].submenu.push({ titulo: 'Formas de pago', url: 'formasPago' }, { titulo: 'Unidades', url: 'unidades' }, { titulo: 'Productos', url: 'productos' }, { titulo: 'Impuesto', url: 'impuesto' }, { titulo: 'Sucursales', url: 'sucursales' }, { titulo: 'Familia', url: 'familia' });
+        menu.push({
+            titulo: 'Reporteria',
+            icono: 'icon-speedometer',
+            submenu: [
+                { titulo: 'Reportes facturas', url: 'reporteFactura' },
+            ]
+        });
     }
 
     return menu;

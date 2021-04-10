@@ -25,7 +25,11 @@ const getMenuFrontEnd = (role) => {
     ];
 
     if (role === '1') {
-        menu[2].submenu.push({ titulo: 'Formas de pago', url: 'formasPago' }, { titulo: 'Unidades', url: 'unidades' }, { titulo: 'Productos', url: 'productos' }, { titulo: 'Impuesto', url: 'impuesto' }, { titulo: 'Sucursales', url: 'sucursales' }, { titulo: 'Familia', url: 'familia' });
+        menu[2].submenu.push({ titulo: 'Usuarios', url: 'usuarios' }, { titulo: 'Formas de pago', url: 'formasPago' }, 
+        { titulo: 'Unidades', url: 'unidades' }, { titulo: 'Productos', url: 'productos' }, 
+        { titulo: 'Impuesto', url: 'impuesto' }, { titulo: 'Sucursales', url: 'sucursales' }, 
+        { titulo: 'Familia', url: 'familia' }, { titulo: 'Serie de Comprobantes', url: 'serie' },
+        { titulo: 'Cajas', url: 'caja' },{ titulo: 'Usuarios Asignados a Caja', url: 'usuariocajas'});
         menu.push({
             titulo: 'Reporteria',
             icono: 'icon-speedometer',

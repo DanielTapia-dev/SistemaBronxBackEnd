@@ -6,4 +6,5 @@ module.exports = (app) => {
     app.put('/api/parimpuesto/:id', md_auth.auth, parimpuestoController.update);
     app.get('/api/parimpuestos/:id', md_auth.auth, parimpuestoController.getAll);
     app.get('/api/parimpuesto/:id', md_auth.auth, parimpuestoController.getOne);
+    app.delete('/api/parimpuesto/delete/:id', md_auth.auth, parimpuestoController.borrar);
 }

@@ -60,18 +60,48 @@ function login(req, res) {
 
 }
 
+
 function getAll(req, res) {
-    usuarios.findAll()
-        .then(usuarios => {
-            res.status(200).send({ usuarios });
+    var idEmpresa = req.params.id;
+    usuarios
+      .findAll({
+        where: {
+          idempresa: idEmpresa,
+        },
+      })
+      .then((usuarios) => {
+        res.status(200).send({ usuarios });
+      })
+      .catch((err) => {
+        res
+          .status(500)
+          .send({ message: "Ocurrio un error al buscar el usuario" });
+      });
+  }
+
+  function update(req, res) {
+    var id = req.params.id;
+    var body = req.body;
+    usuarios.findOne({
+            where: {
+                idusuario: id
+            }
+        })
+        .then(user => {
+            user.update(body)
+                .then(() => {
+                    res.status(200).send({ user });
+                })
+                .catch(erro => {
+                    res.status(500).send({ message: "Ocurrio un error al actualizar el usuario" });
+                })
         })
         .catch(err => {
-            res.status(500).send({ message: "Ocurrio un error al buscar los usuarios" });
-            console.log(err);
-        })
+            res.status(500).send({ message: "Ocurrio un error al actualizar el usuario - No se encontro el usuario" });
+        });
 }
 
-function auth(req, res, next) {
+  function auth(req, res, next) {
     if (!req.headers.authorization) {
         return res.status(403).send({ message: "La petición no tiene la cabecera de autenticación" });
     }
@@ -89,10 +119,40 @@ function auth(req, res, next) {
     })
 }
 
+function borrar(req, res) {
+    var id = req.params.id;
+    var body = req.body;
+    usuarios
+      .findOne({
+        where: {
+          idusuario: id,
+        },
+      })
+      .then((user) => {
+        user
+          .destroy(body)
+          .then(() => {
+            res.status(200).send({ message: "Usuario eliminado" });
+          })
+          .catch((erro) => {
+            res
+              .status(500)
+              .send({ message: "Ocurrio un error al borrar el usuario" });
+          });
+      })
+      .catch((err) => {
+        res
+          .status(500)
+          .send({ message: "Ocurrio un error al borrar el usuario" });
+      });
+  }
+
 
 module.exports = {
     create,
     login,
     getAll,
+    update,
+    borrar,
     auth
 }

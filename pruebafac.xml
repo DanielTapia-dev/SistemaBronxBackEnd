@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap=”http://www.w3.org/2001/12/soap-envelope”
+Soap:encodingStyle=”http://www.w3.org/2001/12/soap-encoding”>
+<soap:Body>
+<factura id="comprobante" version="2.1.0">
+  <infoTributaria>
+    <ambiente>01</ambiente>
+    <tipoEmision>1</tipoEmision>
+    <razonSocial>Sempértegui Regalado Margarita Soledad</razonSocial>
+    <nombreComercial>REDLAB</nombreComercial>
+    <ruc>1706610738001</ruc>
+    <claveAcceso>3003202101170661073200110010010000000017438123916</claveAcceso>
+    <codDoc>1</codDoc>
+    <estab>1</estab>
+    <ptoEmi>001</ptoEmi>
+    <secuencial>000000001</secuencial>
+    <dirMatriz>SANCHEZ DE ORELLANA Y EMILIO SANDOVAL</dirMatriz>
+  </infoTributaria>
+  <infoFactura>
+    <fechaEmision>01/01/2000</fechaEmision>
+    <dirEstablecimiento>dirEstablecimiento0</dirEstablecimiento>
+    <contribuyenteEspecial>000</contribuyenteEspecial>
+    <obligadoContabilidad>NO</obligadoContabilidad>
+    <tipoIdentificacionComprador>1</tipoIdentificacionComprador>
+    <razonSocialComprador>razonSocialComprador0</razonSocialComprador>
+    <identificacionComprador>identificacionCompra</identificacionComprador>
+    <totalSinImpuestos>50.00</totalSinImpuestos>
+    <totalDescuento>0.00</totalDescuento>
+    <codDocReembolso>00</codDocReembolso>
+    <totalConImpuestos>
+      <totalImpuesto>
+        <codigo>001</codigo>
+        <codigoPorcentaje>001</codigoPorcentaje>
+        <descuentoAdicional>0.00</descuentoAdicional>
+        <baseImponible>001</baseImponible>
+        <valor>00.00</valor>
+      </totalImpuesto>
+    </totalConImpuestos>
+    <propina>0.00</propina>
+    <importeTotal>50.00</importeTotal>
+    <moneda>DOLAR</moneda>
+  </infoFactura>
+  <detalles>
+    <detalle>
+      <codigoPrincipal>001</codigoPrincipal>
+      <codigoAuxiliar>001</codigoAuxiliar>
+      <descripcion>descripcion del producto</descripcion>
+      <cantidad>2</cantidad>
+      <precioUnitario>20</precioUnitario>
+      <descuento>0.00</descuento>
+      <precioTotalSinImpuesto>40.00</precioTotalSinImpuesto>
+      <impuestos>
+        <impuesto>
+          <codigo>001</codigo>
+          <codigoPorcentaje>001</codigoPorcentaje>
+          <tarifa>00.00</tarifa>
+          <baseImponible>00.00</baseImponible>
+          <valor>00.00</valor>
+        </impuesto>
+      </impuestos>
+    </detalle>
+    <detalle>
+      <codigoPrincipal>002</codigoPrincipal>
+      <codigoAuxiliar>002</codigoAuxiliar>
+      <descripcion>descripcion del producto</descripcion>
+      <cantidad>2</cantidad>
+      <precioUnitario>50.000000</precioUnitario>
+      <descuento>50.00</descuento>
+      <precioTotalSinImpuesto>100.00</precioTotalSinImpuesto>
+      <impuestos>
+        <impuesto>
+          <codigo>001</codigo>
+          <codigoPorcentaje>001</codigoPorcentaje>
+          <tarifa>00.00</tarifa>
+          <baseImponible>50.00</baseImponible>
+          <valor>00.00</valor>
+        </impuesto>
+      </impuestos>
+    </detalle>
+  </detalles>
+<ds:Signature Id="id-f80092954a83" xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><ds:SignedInfo><ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/><ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/><ds:Reference><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/><ds:DigestValue>YSkJlo90H23SZXtUMQHZyYpzq5CAOi1kdrszarllf90=</ds:DigestValue></ds:Reference><ds:Reference URI="#xades-id-f80092954a83" Type="http://uri.etsi.org/01903#SignedProperties"><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><ds:DigestValue>MHhs7MAzw1fy7/tOa82JJ8IOA6A=</ds:DigestValue></ds:Reference></ds:SignedInfo><ds:SignatureValue>SvpRNg8zCtxYJ5GvHgQSlnN7vcHc16Difvjz2JrlMMj4PZP8hHWfbsR10gqWSwgj41VjO0JP/Y9Edh3kUrDY9SDU9yCOP+861GAnYzJGFbgVviQJWmhpcL0CEjELhTRo8PLhJfgxu2L7uCQcqFtx7PrjnSkcnSLzuFIn2EKF2Fw=</ds:SignatureValue><ds:KeyInfo><ds:KeyValue><ds:RSAKeyValue><ds:Modulus>yLgpFtM6yZnhkYHecftUTpYCKvqyOqa/UzshfvgCDTl3kibuTRnPp7HH9KpPoT42L/iDYAilOK/cPvkS3T7oEHQko1gFhNw5nxqCt5A1MubOxXfzlNjwmqnb9okiVDml5mKgxGicJz88tV+821Bsrr3UlJMSbvH8PoaZAPsuV9M=</ds:Modulus><ds:Exponent>AQAB</ds:Exponent></ds:RSAKeyValue></ds:KeyValue></ds:KeyInfo><ds:Object><xades:QualifyingProperties Target="#id-f80092954a83" xmlns:xades="http://uri.etsi.org/01903/v1.3.2#"><xades:SignedProperties Id="xades-id-f80092954a83"><xades:SignedSignatureProperties><xades:SigningTime>2021-04-02T17:00:33.805Z</xades:SigningTime><xades:SigningCertificate><xades:Cert><xades:CertDigest><ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/><ds:DigestValue>VbaIL0pTF5zvlECvYs2zQudhk2eWiPzQ+3MA2W5rJTg=</ds:DigestValue></xades:CertDigest><xades:IssuerSerial><ds:X509IssuerName>C=EC, O=BANCO CENTRAL DEL ECUADOR, OU=ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE, L=QUITO, CN=AC BANCO CENTRAL DEL ECUADOR</ds:X509IssuerName><ds:X509SerialNumber>1533537314</ds:X509SerialNumber></xades:IssuerSerial></xades:Cert></xades:SigningCertificate><xades:SignatureProductionPlace><xades:City>Latacunga</xades:City><xades:StateOrProvince>Cotopaxi</xades:StateOrProvince><xades:PostalCode>050107</xades:PostalCode><xades:CountryName>Ecuador</xades:CountryName></xades:SignatureProductionPlace></xades:SignedSignatureProperties></xades:SignedProperties></xades:QualifyingProperties></ds:Object></ds:Signature></factura>
+<soap:Fault>
+</soap:Fault>
+</soap:Body>
+</soap:Envelope>

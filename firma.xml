@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<factura id="comprobante" version="2.1.0">
+  <infoTributaria>
+    <ambiente>1</ambiente>
+    <tipoEmision>1</tipoEmision>
+    <razonSocial>Sempértegui Regalado Margarita Soledad</razonSocial>
+    <nombreComercial>REDLAB</nombreComercial>
+    <ruc>1706610738001</ruc>
+    <claveAcceso>0604202101170661073800110010010000000027438123917</claveAcceso>
+    <codDoc>01</codDoc>
+    <estab>003</estab>
+    <ptoEmi>001</ptoEmi>
+    <secuencial>000000002</secuencial>
+    <dirMatriz>SANCHEZ DE ORELLANA Y EMILIO SANDOVAL</dirMatriz>
+  </infoTributaria>
+  <infoFactura>
+    <fechaEmision>06/04/2021</fechaEmision>
+    <dirEstablecimiento>dirEstablecimiento0</dirEstablecimiento>
+    <contribuyenteEspecial>000</contribuyenteEspecial>
+    <obligadoContabilidad>NO</obligadoContabilidad>
+    <tipoIdentificacionComprador>05</tipoIdentificacionComprador>
+    <razonSocialComprador>razonSocialComprador0</razonSocialComprador>
+    <identificacionComprador>identificacionCompra</identificacionComprador>
+    <totalSinImpuestos>150.00</totalSinImpuestos>
+    <totalDescuento>0.00</totalDescuento>
+    <codDocReembolso>00</codDocReembolso>
+    <totalConImpuestos>
+      <totalImpuesto>
+        <codigo>2</codigo>
+        <codigoPorcentaje>0</codigoPorcentaje>
+        <descuentoAdicional>0.00</descuentoAdicional>
+        <baseImponible>150.00</baseImponible>
+        <valor>00.00</valor>
+      </totalImpuesto>
+    </totalConImpuestos>
+    <propina>0.00</propina>
+    <importeTotal>00.00</importeTotal>
+    <moneda>DOLAR</moneda>
+  </infoFactura>
+  <detalles>
+    <detalle>
+      <codigoPrincipal>001</codigoPrincipal>
+      <codigoAuxiliar>001</codigoAuxiliar>
+      <descripcion>descripcion del producto</descripcion>
+      <cantidad>2</cantidad>
+      <precioUnitario>20</precioUnitario>
+      <descuento>0.00</descuento>
+      <precioTotalSinImpuesto>40.00</precioTotalSinImpuesto>
+      <impuestos>
+        <impuesto>
+          <codigo>2</codigo>
+          <codigoPorcentaje>0</codigoPorcentaje>
+          <tarifa>00.00</tarifa>
+          <baseImponible>40.00</baseImponible>
+          <valor>00.00</valor>
+        </impuesto>
+      </impuestos>
+    </detalle>
+    <detalle>
+      <codigoPrincipal>002</codigoPrincipal>
+      <codigoAuxiliar>002</codigoAuxiliar>
+      <descripcion>descripcion del producto</descripcion>
+      <cantidad>2</cantidad>
+      <precioUnitario>50.000000</precioUnitario>
+      <descuento>50.00</descuento>
+      <precioTotalSinImpuesto>100.00</precioTotalSinImpuesto>
+      <impuestos>
+        <impuesto>
+          <codigo>2</codigo>
+          <codigoPorcentaje>0</codigoPorcentaje>
+          <tarifa>00.00</tarifa>
+          <baseImponible>100.00</baseImponible>
+          <valor>00.00</valor>
+        </impuesto>
+      </impuestos>
+    </detalle>
+  </detalles>
+</factura>

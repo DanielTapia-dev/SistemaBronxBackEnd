@@ -14,22 +14,41 @@ const getMenuFrontEnd = (role) => {
                 { titulo: 'Proformar', url: 'proformar' },
                 { titulo: 'Lista de proformas', url: 'listaproformas' },
             ]
+        },        
+        {
+            titulo: 'Contabilidad',
+            icono: 'icon-speedometer',
+            submenu: [
+            ]
         },
         {
-            titulo: 'Mantenimientos',
+            titulo: 'Clientes',
             icono: 'icon-speedometer',
             submenu: [
                 { titulo: 'Clientes', url: 'clientes' },
             ]
+        },
+        {
+            titulo: 'Inventario',
+            icono: 'icon-speedometer',
+            submenu: [
+                { titulo: 'Productos', url: 'productos' },
+            ]
+        },
+        {
+            titulo: 'Seguridades',
+            icono: 'icon-speedometer',
+            submenu: [
+            ]
         }
+
     ];
 
     if (role === '1') {
-        menu[2].submenu.push({ titulo: 'Usuarios', url: 'usuarios' }, { titulo: 'Formas de pago', url: 'formasPago' }, 
-        { titulo: 'Unidades', url: 'unidades' }, { titulo: 'Productos', url: 'productos' }, 
-        { titulo: 'Impuesto', url: 'impuesto' }, { titulo: 'Sucursales', url: 'sucursales' }, 
-        { titulo: 'Familia', url: 'familia' }, { titulo: 'Serie de Comprobantes', url: 'serie' },
-        { titulo: 'Cajas', url: 'caja' },{ titulo: 'Usuarios Asignados a Caja', url: 'usuariocajas'});
+        // Contabilidad
+        menu[2].submenu.push(    
+        { titulo: 'Sucursales', url: 'sucursales' }, 
+        );
         menu.push({
             titulo: 'Reporteria',
             icono: 'icon-speedometer',
@@ -37,6 +56,19 @@ const getMenuFrontEnd = (role) => {
                 { titulo: 'Reportes facturas', url: 'reporteFactura' },
             ]
         });
+
+        // CLientes
+        menu[3].submenu.push({ titulo: 'Formas de pago', url: 'formasPago' }, 
+        { titulo: 'Serie de Comprobantes', url: 'serie' },
+        { titulo: 'Cajas', url: 'caja' },{ titulo: 'Usuarios Asignados a Caja', url: 'usuariocajas'});
+
+        // Inventario
+        menu[4].submenu.push({ titulo: 'Unidades', url: 'unidades' }, { titulo: 'Impuesto', url: 'impuesto' },
+        { titulo: 'Familia', url: 'familia' });
+
+        // Seguridades
+        menu[5].submenu.push({ titulo: 'Usuarios', url: 'usuarios' });
+
     }
 
     return menu;

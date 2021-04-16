@@ -36,6 +36,12 @@ const getMenuFrontEnd = (role) => {
             ]
         },
         {
+            titulo: 'Punto de Venta',
+            icono: 'icon-speedometer',
+            submenu: [
+            ]
+        },
+        {
             titulo: 'Seguridades',
             icono: 'icon-speedometer',
             submenu: [
@@ -47,7 +53,10 @@ const getMenuFrontEnd = (role) => {
     if (role === '1') {
         // Contabilidad
         menu[2].submenu.push(    
-        { titulo: 'Sucursales', url: 'sucursales' }, 
+            { titulo: 'Empresa', url: 'empresa' },
+            { titulo: 'Sucursales', url: 'sucursales' },
+            { titulo: 'Estructura Plan de Cuentas', url: 'estrucuentas' },
+            { titulo: 'Plan de Cuentas', url: 'plancuentas' },
         );
         menu.push({
             titulo: 'Reporteria',
@@ -60,14 +69,18 @@ const getMenuFrontEnd = (role) => {
         // CLientes
         menu[3].submenu.push({ titulo: 'Formas de pago', url: 'formasPago' }, 
         { titulo: 'Serie de Comprobantes', url: 'serie' },
-        { titulo: 'Cajas', url: 'caja' },{ titulo: 'Usuarios Asignados a Caja', url: 'usuariocajas'});
+        { titulo: 'Cajas', url: 'caja' });
 
         // Inventario
         menu[4].submenu.push({ titulo: 'Unidades', url: 'unidades' }, { titulo: 'Impuesto', url: 'impuesto' },
-        { titulo: 'Familia', url: 'familia' });
+        { titulo: 'Familia', url: 'familia' },{ titulo: 'Lista de Precios', url: 'tabprecio' },
+        { titulo: 'Precios x Producto', url: 'lisprecios' },{ titulo: 'Precios x Cliente', url: 'precioscliente' });
+
+        // Punto de Venta
+        menu[5].submenu.push({ titulo: 'Usuarios Asignados a Caja', url: 'usucajaserie'});
 
         // Seguridades
-        menu[5].submenu.push({ titulo: 'Usuarios', url: 'usuarios' });
+        menu[6].submenu.push({ titulo: 'Usuarios', url: 'usuarios' });
 
     }
 

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<factura id="comprobante" version="1.0.0">
+  <infoTributaria>
+    <ambiente>1</ambiente>
+    <tipoEmision>1</tipoEmision>
+    <razonSocial>Sempértegui Regalado Margarita Soledad</razonSocial>
+    <nombreComercial>REDLAB</nombreComercial>
+    <ruc>1706610738001</ruc>
+    <claveAcceso>1004202101170661073800110030010000000101234567819</claveAcceso>
+    <codDoc>01</codDoc>
+    <estab>003</estab>
+    <ptoEmi>001</ptoEmi>
+    <secuencial>000000010</secuencial>
+    <dirMatriz>SANCHEZ DE ORELLANA Y EMILIO SANDOVAL</dirMatriz>
+    <regimenMicroempresas>CONTRIBUYENTE RÉGIMEN MICROEMPRESAS</regimenMicroempresas>
+  </infoTributaria>
+  <infoFactura>
+    <fechaEmision>10/04/2021</fechaEmision>
+    <dirEstablecimiento>LATACUNGA</dirEstablecimiento>
+    <obligadoContabilidad>NO</obligadoContabilidad>
+    <tipoIdentificacionComprador>05</tipoIdentificacionComprador>
+    <razonSocialComprador>FERNANDA LOPEZ</razonSocialComprador>
+    <identificacionComprador>0502213432</identificacionComprador>
+    <direccionComprador>LATACUNGA</direccionComprador>
+    <totalSinImpuestos>50.00</totalSinImpuestos>
+    <totalDescuento>0.00</totalDescuento>
+    <codDocReembolso>00</codDocReembolso>
+    <totalConImpuestos>
+      <totalImpuesto>
+        <codigo>2</codigo>
+        <codigoPorcentaje>0</codigoPorcentaje>
+        <descuentoAdicional>0.00</descuentoAdicional>
+        <baseImponible>50.00</baseImponible>
+        <valor>00.00</valor>
+      </totalImpuesto>
+    </totalConImpuestos>
+    <propina>0.00</propina>
+    <importeTotal>50.00</importeTotal>
+    <moneda>DOLAR</moneda>
+  </infoFactura>
+  <detalles>
+    <detalle>
+      <codigoPrincipal>001</codigoPrincipal>
+      <descripcion>SOPORTE TECNICO</descripcion>
+      <cantidad>1</cantidad>
+      <precioUnitario>20</precioUnitario>
+      <descuento>0</descuento>
+      <precioTotalSinImpuesto>20.00</precioTotalSinImpuesto>
+      <impuestos>
+        <impuesto>
+          <codigo>2</codigo>
+          <codigoPorcentaje>0</codigoPorcentaje>
+          <tarifa>00.00</tarifa>
+          <baseImponible>20.00</baseImponible>
+          <valor>00.00</valor>
+        </impuesto>
+      </impuestos>
+    </detalle>
+    <detalle>
+      <codigoPrincipal>002</codigoPrincipal>
+      <descripcion>SOPORTE TECNICO 2</descripcion>
+      <cantidad>1</cantidad>
+      <precioUnitario>30</precioUnitario>
+      <descuento>0</descuento>
+      <precioTotalSinImpuesto>30.00</precioTotalSinImpuesto>
+      <impuestos>
+        <impuesto>
+          <codigo>2</codigo>
+          <codigoPorcentaje>0</codigoPorcentaje>
+          <tarifa>00.00</tarifa>
+          <baseImponible>30.00</baseImponible>
+          <valor>00.00</valor>
+        </impuesto>
+      </impuestos>
+    </detalle>
+  </detalles>
+</factura>

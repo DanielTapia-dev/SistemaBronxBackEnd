@@ -41,8 +41,26 @@ function getAll(req, res) {
         })
 }
 
+function getOne(req, res) {
+    var id = req.params.id;
+    empresa.findOne({
+            where: {
+                idempresa: id,
+            },
+        })
+        .then((emp) => {
+            res.status(200).send(emp);
+        })
+        .catch((err) => {
+            res
+                .status(500)
+                .send({ message: "Ocurrió un error al buscar la empresa." + err });
+        });
+}
+
 module.exports = {
     create,
     update,
-    getAll
+    getAll,
+    getOne
 }

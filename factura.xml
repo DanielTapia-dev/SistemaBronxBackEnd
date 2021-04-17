@@ -74,19 +74,19 @@
       </impuestos>
     </detalle>
   </detalles>
-<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#" Id="Signature303671">
-<ds:SignedInfo Id="Signature-SignedInfo266886">
+<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#" Id="Signature83952">
+<ds:SignedInfo Id="Signature-SignedInfo992544">
 <ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></ds:CanonicalizationMethod>
 <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"></ds:SignatureMethod>
-<ds:Reference Id="SignedPropertiesID846868" Type="http://uri.etsi.org/01903#SignedProperties" URI="#Signature303671-SignedProperties827382">
+<ds:Reference Id="SignedPropertiesID11130" Type="http://uri.etsi.org/01903#SignedProperties" URI="#Signature83952-SignedProperties576950">
 <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
-<ds:DigestValue>546UuO6qm9tG/RjPO9xQjmWip2M=</ds:DigestValue>
+<ds:DigestValue>tZPm985GAK/Hn2QCHkWrGmyWUn0=</ds:DigestValue>
 </ds:Reference>
-<ds:Reference URI="#Certificate545365">
+<ds:Reference URI="#Certificate463501">
 <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
-<ds:DigestValue>+3kvfRoQph7zHHl8EAbhJVHAEGU=</ds:DigestValue>
+<ds:DigestValue>gRE9DKeazc7qbOI/03MrqP3OOho=</ds:DigestValue>
 </ds:Reference>
-<ds:Reference Id="Reference-ID-820255" URI="#comprobante">
+<ds:Reference Id="Reference-ID-617100" URI="#comprobante">
 <ds:Transforms>
 <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"></ds:Transform>
 </ds:Transforms>
@@ -94,14 +94,14 @@
 <ds:DigestValue>j+jZkpB2pUO0udIZP+6DM+ja8Bo=</ds:DigestValue>
 </ds:Reference>
 </ds:SignedInfo>
-<ds:SignatureValue Id="SignatureValue744862">
-ZHp+T5lzEY5/m9ba4LvRCtWUvzUxiXFH9grxGjTyqI2ChrdcRRnHaIYcQ4SRBD3vLyEt+kZBzu6v
-3UzuHv/hRxm1K/X02iTYIKQh6poBwIEzo8UEip/qBGrp/+MDMnW1t9y+gnHswsgUExRoO9sQn4Fy
-5Ii53sXSsEVaKulm/AbeU6yDnZg0e9gIU8/xF3FJt+PqQfG3tXRd5MPfpCRLFIrKRsGeQ2a2SLYL
-2LxnM/kr1W8NaVeDn1wgKAOeFs82DSIi8g5nKiKqbPx/xHmQ3Tj9Yn51FGURHZddQc8JYDEwZQS3
-derjPmuIAU78hWuV/Nr2nbbB7DNGA4yuCgFtBw==
+<ds:SignatureValue Id="SignatureValue145694">
+lUlaW4ECloHHTGqBefrrwufEKWsxJvEw7bq4ELRUF5pikoSAV5gI+M2MC+MVAjtuyNecTX8bu23q
+sQZsVTWb1jxWMl9XBvYBBrqRBY+UgqgvzmjTiNikVbVYggnMFq67x0Ww5m7cgRIkiJQs+686fBYB
+q5TBIU2xCOQc366eGQZUUfOUvSK5u5kTyY5a+Ji2rlxOCDZBPiPSzqTfkHsphTiczWQyTlNTwHms
+YPWdsh63fzbVQv0E/0Zqr8bDiBs4h+BjEbHjVpM30funB7+U/7dM7qO9oK18CshVblqvIUQDYMBl
+f7w7MGDmmnzBzutLDxbxB3JobybtB/P7HpIiFg==
 </ds:SignatureValue>
-<ds:KeyInfo Id="Certificate545365">
+<ds:KeyInfo Id="Certificate463501">
 <ds:X509Data>
 <ds:X509Certificate>
 MIIJwjCCB6qgAwIBAgIEW2fsIzANBgkqhkiG9w0BAQsFADCBoTELMAkGA1UEBhMCRUMxIjAgBgNV
@@ -163,4 +163,4 @@ dEYX8vIo9AYg9mlBgwTKUJXXTrrc8aWYXsPv+w==
 </ds:RSAKeyValue>
 </ds:KeyValue>
 </ds:KeyInfo>
-<ds:Object Id="Signature303671-Object56508"><etsi:QualifyingProperties Target="#Signature303671"><etsi:SignedProperties Id="Signature303671-SignedProperties827382"><etsi:SignedSignatureProperties><etsi:SigningTime>2021-04-10T17:13:14-05:00</etsi:SigningTime><etsi:SigningCertificate><etsi:Cert><etsi:CertDigest><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod><ds:DigestValue>WR8nwDtRUXtzbCanisFQSfjana4=</ds:DigestValue></etsi:CertDigest><etsi:IssuerSerial><ds:X509IssuerName>CN=AC BANCO CENTRAL DEL ECUADOR,L=QUITO,OU=ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE,O=BANCO CENTRAL DEL ECUADOR,C=EC</ds:X509IssuerName><ds:X509SerialNumber>1533537315</ds:X509SerialNumber></etsi:IssuerSerial></etsi:Cert></etsi:SigningCertificate></etsi:SignedSignatureProperties><etsi:SignedDataObjectProperties><etsi:DataObjectFormat ObjectReference="#Reference-ID-820255"><etsi:Description>contenido comprobante</etsi:Description><etsi:MimeType>text/xml</etsi:MimeType></etsi:DataObjectFormat></etsi:SignedDataObjectProperties></etsi:SignedProperties></etsi:QualifyingProperties></ds:Object></ds:Signature></factura>
+<ds:Object Id="Signature83952-Object861300"><etsi:QualifyingProperties Target="#Signature83952"><etsi:SignedProperties Id="Signature83952-SignedProperties576950"><etsi:SignedSignatureProperties><etsi:SigningTime>2021-04-15T08:48:01-05:00</etsi:SigningTime><etsi:SigningCertificate><etsi:Cert><etsi:CertDigest><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod><ds:DigestValue>WR8nwDtRUXtzbCanisFQSfjana4=</ds:DigestValue></etsi:CertDigest><etsi:IssuerSerial><ds:X509IssuerName>CN=AC BANCO CENTRAL DEL ECUADOR,L=QUITO,OU=ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE,O=BANCO CENTRAL DEL ECUADOR,C=EC</ds:X509IssuerName><ds:X509SerialNumber>1533537315</ds:X509SerialNumber></etsi:IssuerSerial></etsi:Cert></etsi:SigningCertificate></etsi:SignedSignatureProperties><etsi:SignedDataObjectProperties><etsi:DataObjectFormat ObjectReference="#Reference-ID-617100"><etsi:Description>contenido comprobante</etsi:Description><etsi:MimeType>text/xml</etsi:MimeType></etsi:DataObjectFormat></etsi:SignedDataObjectProperties></etsi:SignedProperties></etsi:QualifyingProperties></ds:Object></ds:Signature></factura>

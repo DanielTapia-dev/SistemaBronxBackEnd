@@ -1,122 +1,193 @@
 const cabmovfac = require("../models").cabmovfac;
+const empresa = require('../models').empresa;
 const xml2js = require('xml2js');
 var SignedXml = require('xml-crypto').SignedXml,
     fs = require('fs');
 var forge = require('node-forge');
+const clientes = require("../models").clientes;
 
 function facturaElectronica(req, res) {
     var id = req.params.id;
+    var idempresa = req.body.idempresa
 
-    const xmlObject = {
-        factura: {
-            $: {
-                id: "comprobante",
-                version: "1.0.0"
+    cabmovfac
+        .findOne({
+            where: {
+                secmovcab: id,
             },
-            infoTributaria: {
-                ambiente: "1",
-                tipoEmision: "1",
-                razonSocial: "Sempértegui Regalado Margarita Soledad",
-                nombreComercial: "REDLAB",
-                ruc: "1706610738001",
-                claveAcceso: "1004202101170661073800110030010000000101234567819",
-                codDoc: "01",
-                estab: "003",
-                ptoEmi: "001",
-                secuencial: "000000010",
-                dirMatriz: "SANCHEZ DE ORELLANA Y EMILIO SANDOVAL",
-                regimenMicroempresas: "CONTRIBUYENTE RÉGIMEN MICROEMPRESAS"
-            },
-            infoFactura: {
-                fechaEmision: "10/04/2021",
-                dirEstablecimiento: "LATACUNGA",
-                obligadoContabilidad: "NO",
-                tipoIdentificacionComprador: "05",
-                razonSocialComprador: "FERNANDA LOPEZ",
-                identificacionComprador: "0502213432",
-                direccionComprador: "LATACUNGA",
-                totalSinImpuestos: "50.00",
-                totalDescuento: "0.00",
-                codDocReembolso: "00",
-                totalConImpuestos: {
-                    totalImpuesto: [{
-                        codigo: "2",
-                        codigoPorcentaje: "0",
-                        descuentoAdicional: "0.00",
-                        baseImponible: "50.00",
-                        valor: "00.00",
-                    }]
-                },
-                propina: "0.00",
-                importeTotal: "50.00",
-                moneda: "DOLAR"
-            },
-            detalles: {
-                detalle: [{
-                        codigoPrincipal: "001",
-                        descripcion: "SOPORTE TECNICO",
-                        cantidad: "1",
-                        precioUnitario: "20",
-                        descuento: "0",
-                        precioTotalSinImpuesto: "20.00",
-                        impuestos: {
-                            impuesto: [{
-                                codigo: "2",
-                                codigoPorcentaje: "0",
-                                tarifa: "00.00",
-                                baseImponible: "20.00",
-                                valor: "00.00"
-                            }]
-                        },
+        })
+        .then((movfactura) => {
+            empresa.findOne({
+                    where: {
+                        idempresa: idempresa,
                     },
-                    {
-                        codigoPrincipal: "002",
-                        descripcion: "SOPORTE TECNICO 2",
-                        cantidad: "1",
-                        precioUnitario: "30",
-                        descuento: "0",
-                        precioTotalSinImpuesto: "30.00",
-                        impuestos: {
-                            impuesto: [{
-                                codigo: "2",
-                                codigoPorcentaje: "0",
-                                tarifa: "00.00",
-                                baseImponible: "30.00",
-                                valor: "00.00"
-                            }]
-                        },
-                    },
-                ]
-            }
-        }
-    }
+                })
+                .then((emp) => {
+                    if (movfactura != null) {
+                        //CONSULTA DE CLIENTE
+
+                        BuscarCliente(mov);
+
+                        console.log(cliente);
+                        //FIN DE CONSULTA DE DATOS DEL CLIENTE   
+                        //PROCESO PARA FACTURACION ELECTRONICA
+                        var fechaNumeroAutorizacion = moment().format('DDMMYYYY');
+                        var fechaCabeceraFactura = moment().format('DD/MM/YYYY');
+                        var puntoEmision = movfactura.numfactura[0] + movfactura.numfactura[1] + movfactura.numfactura[2];
+                        var puntoFacturacion = movfactura.numfactura[3] + movfactura.numfactura[4] + movfactura.numfactura[5];
+                        var secuencial = movfactura.numfactura[6] + movfactura.numfactura[7] + movfactura.numfactura[8] + movfactura.numfactura[9] + movfactura.numfactura[10] + movfactura.numfactura[11] + movfactura.numfactura[12] + movfactura.numfactura[13];
+                        if (contabilidad == true) {
+                            var contabilidad = 'SI';
+                        } else {
+                            var contabilidad = 'NO';
+                        }
+
+                        //ARMADO DE XML
+                        const xmlObject = {
+                            factura: {
+                                $: {
+                                    id: "comprobante",
+                                    version: "1.0.0"
+                                },
+                                infoTributaria: {
+                                    ambiente: "1",
+                                    tipoEmision: "1",
+                                    razonSocial: emp.razonsocial,
+                                    nombreComercial: emp.nomcomercial,
+                                    ruc: emp.rucciempresa,
+                                    claveAcceso: "1004202101170661073800110030010000000101234567819",
+                                    codDoc: "01",
+                                    estab: puntoEmision,
+                                    ptoEmi: puntoFacturacion,
+                                    secuencial: secuencial,
+                                    dirMatriz: emp.dirEstablecimiento,
+                                    regimenMicroempresas: "CONTRIBUYENTE RÉGIMEN MICROEMPRESAS"
+                                },
+                                infoFactura: {
+                                    fechaEmision: fechaCabeceraFactura,
+                                    dirEstablecimiento: "LATACUNGA",
+                                    obligadoContabilidad: empresa.contabilidad,
+                                    tipoIdentificacionComprador: "05",
+                                    razonSocialComprador: "FERNANDA LOPEZ",
+                                    identificacionComprador: "0502213432",
+                                    direccionComprador: "LATACUNGA",
+                                    totalSinImpuestos: "50.00",
+                                    totalDescuento: "0.00",
+                                    codDocReembolso: "00",
+                                    totalConImpuestos: {
+                                        totalImpuesto: [{
+                                            codigo: "2",
+                                            codigoPorcentaje: "0",
+                                            descuentoAdicional: "0.00",
+                                            baseImponible: "50.00",
+                                            valor: "00.00",
+                                        }]
+                                    },
+                                    propina: "0.00",
+                                    importeTotal: "50.00",
+                                    moneda: "DOLAR"
+                                },
+                                detalles: {
+                                    detalle: [{
+                                            codigoPrincipal: "001",
+                                            descripcion: "SOPORTE TECNICO",
+                                            cantidad: "1",
+                                            precioUnitario: "20",
+                                            descuento: "0",
+                                            precioTotalSinImpuesto: "20.00",
+                                            impuestos: {
+                                                impuesto: [{
+                                                    codigo: "2",
+                                                    codigoPorcentaje: "0",
+                                                    tarifa: "00.00",
+                                                    baseImponible: "20.00",
+                                                    valor: "00.00"
+                                                }]
+                                            },
+                                        },
+                                        {
+                                            codigoPrincipal: "002",
+                                            descripcion: "SOPORTE TECNICO 2",
+                                            cantidad: "1",
+                                            precioUnitario: "30",
+                                            descuento: "0",
+                                            precioTotalSinImpuesto: "30.00",
+                                            impuestos: {
+                                                impuesto: [{
+                                                    codigo: "2",
+                                                    codigoPorcentaje: "0",
+                                                    tarifa: "00.00",
+                                                    baseImponible: "30.00",
+                                                    valor: "00.00"
+                                                }]
+                                            },
+                                        },
+                                    ]
+                                }
+                            }
+                        }
 
 
 
-    const builder = new xml2js.Builder({ xmldec: { 'version': '1.0', 'encoding': 'UTF-8' } });
-    const xml = builder.buildObject(xmlObject);
-    console.log(xml);
+                        const builder = new xml2js.Builder({ xmldec: { 'version': '1.0', 'encoding': 'UTF-8' } });
+                        const xml = builder.buildObject(xmlObject);
+                        console.log(xml);
 
-    fs.appendFile('facturas/factura' + id + '.xml', '', (err) => {
-        if (err) throw err;
-        console.log('Archivo creado correctamente');
-    })
-    var archivo = "factura.xml";
+                        fs.appendFile('facturas/factura' + id + '.xml', '', (err) => {
+                            if (err) throw err;
+                            console.log('Archivo creado correctamente');
+                        })
 
-    fs.writeFileSync(archivo, xml);
-    console.log('Se ha escrito en el archivo');
+                        fs.writeFileSync('facturas/factura' + id + '.xml', xml);
+                        console.log('Se ha escrito en el archivo');
 
-    fs.readFile('C:/DesarrolladorJunior/Proyectos EN CURSO/Facturacion REDLAB/Firma Electronica/FirmaCorrecta.pfx', (err, data) => {
-        if (err) throw err;
-        var archivop12 = data;
-        firmarComprobante(archivop12, 'Solsito2204', xml);
-    });
+                        fs.readFile('FirmaCorrecta.pfx', (err, data) => {
+                            if (err) throw err;
+                            var archivop12 = data;
+                            firmarComprobante(archivop12, 'Solsito2204', xml, id);
+                        });
 
-    res.status(200).send({ message: "Factura electronica generada." });
+                        //FIN DEL PROCESO FACTURACION ELECTRONICA        
+                        //res.status(200).send({ message: 'Factura ' + movfactura.secmovcab + ' a sido firmada y enviada correctamente' });
+                        res.status(200).send({ message: "Facturado correctamente" });
+                    } else {
+                        res.status(200).send({ message: 'No se encontro la factura enviada' });
+                        //0103326336S
+                    }
+                })
+                .catch((err) => {
+                    console.log("Facturado correctamente");;
+                });
+        })
+        .catch((err) => {
+            res
+                .status(500)
+                .send({ message: "Ocurrió un error al buscar la factura." + err });
+        });
 }
 
-function firmarComprobante(mi_contenido_p12, mi_pwd_p12, comprobante) {
-    var archivo = "factura.xml";
+function BuscarCliente(idcliente) {
+    //CONSULTA DE DATOS DEL CLIENTE
+    clientes
+        .findOne({
+            where: {
+                idcliente: idcliente,
+            },
+        })
+        .then((cliente) => {
+            return cliente;
+        })
+        .catch((err) => {
+            return null;
+        });
+}
+
+function armadoXml() {
+
+}
+
+function firmarComprobante(mi_contenido_p12, mi_pwd_p12, comprobante, id) {
+    var archivo = 'facturas/factura' + id + '.xml';
     var arrayUint8 = new Uint8Array(mi_contenido_p12);
     var p12B64 = forge.util.binary.base64.encode(arrayUint8);
     var p12Der = forge.util.decode64(p12B64);

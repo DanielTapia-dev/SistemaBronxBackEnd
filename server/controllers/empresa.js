@@ -32,14 +32,23 @@ function update(req, res) {
 }
 
 function getAll(req, res) {
-    empresa.findAll()
-        .then(empresa => {
-            res.status(200).send({ empresa });
-        })
-        .catch(err => {
-            res.status(500).send({ message: "Ocurrio un error al buscar las empresa" });
-        })
-}
+    var idEmpresa = req.params.id;
+    empresa
+      .findAll({
+        where: {
+          idempresa: idEmpresa,
+        },
+      })
+      .then((empresa) => {
+        res.status(200).send({ empresa });
+      })
+      .catch((err) => {
+        res
+          .status(500)
+          .send({ message: "Ocurrio un error al buscar la empresa" });
+      });
+  }
+
 
 function getOne(req, res) {
     var id = req.params.id;

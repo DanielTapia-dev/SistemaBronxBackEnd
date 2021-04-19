@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         nomsucursal: DataTypes.STRING,
         activo: DataTypes.BOOLEAN,
+        direccion: DataTypes.STRING,
         createdAt: DataTypes.DATE,
         updatedAt: DataTypes.DATE,
         crepor: DataTypes.INTEGER,

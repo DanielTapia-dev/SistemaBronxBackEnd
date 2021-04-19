@@ -42,6 +42,12 @@ const getMenuFrontEnd = (role) => {
             ]
         },
         {
+            titulo: 'Cobros',
+            icono: 'icon-speedometer',
+            submenu: [
+            ]
+        },
+        {
             titulo: 'Seguridades',
             icono: 'icon-speedometer',
             submenu: [
@@ -56,7 +62,8 @@ const getMenuFrontEnd = (role) => {
             { titulo: 'Empresa', url: 'empresa' },
             { titulo: 'Sucursales', url: 'sucursales' },
             { titulo: 'Estructura Plan de Cuentas', url: 'estrucuentas' },
-            { titulo: 'Plan de Cuentas', url: 'plancuentas' },
+            { titulo: 'Plan de Cuentas', url: 'plancuentas'},
+            { titulo: 'Asientos Contables', url: 'asientos'},
         );
         menu.push({
             titulo: 'Reporteria',
@@ -80,8 +87,10 @@ const getMenuFrontEnd = (role) => {
         menu[5].submenu.push({ titulo: 'Usuarios Asignados a Caja', url: 'usucajaserie'});
 
         // Seguridades
-        menu[6].submenu.push({ titulo: 'Usuarios', url: 'usuarios' });
+        menu[6].submenu.push({ titulo: 'Cobros', url: 'cobros' });
 
+        // Seguridades
+        menu[7].submenu.push({ titulo: 'Usuarios', url: 'usuarios' });
     }
 
     return menu;

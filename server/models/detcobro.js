@@ -1,6 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
     const detcobro = sequelize.define('detcobro', {
         secdetcob: {
+            autoIncrement: true,
             primaryKey: true,
             type: DataTypes.INTEGER,
         },

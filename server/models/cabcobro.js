@@ -1,6 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
     const cabcobro = sequelize.define('cabcobro', {
         seccabcob: {
+            autoIncrement: true,
             primaryKey: true,
             type: DataTypes.INTEGER,
         },

@@ -15,7 +15,9 @@ module.exports = (sequelize, DataTypes) => {
         crepor: DataTypes.INTEGER,
         modpor: DataTypes.INTEGER,
         createdAt: DataTypes.DATE,
-        updatedAt: DataTypes.DATE
+        updatedAt: DataTypes.DATE,
+        codigoSRI: DataTypes.STRING,
+        codporcentajeSRI: DataTypes.STRING
     }, {
         freezeTableName: true
     });

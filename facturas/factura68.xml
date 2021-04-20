@@ -8,7 +8,7 @@
     <ruc>1706610738001</ruc>
     <claveAcceso>1004202101170661073800110030010000000101234567819</claveAcceso>
     <codDoc>01</codDoc>
-    <estab>001</estab>
+    <estab>003</estab>
     <ptoEmi>001</ptoEmi>
     <secuencial>000000006</secuencial>
     <dirMatriz>Latacunga</dirMatriz>
@@ -31,14 +31,14 @@
         <codigoPorcentaje>0</codigoPorcentaje>
         <descuentoAdicional>0.00</descuentoAdicional>
         <baseImponible>21.20</baseImponible>
-        <valor>00.00</valor>
+        <valor>0.00</valor>
       </totalImpuesto>
       <totalImpuesto>
         <codigo>2</codigo>
-        <codigoPorcentaje>0</codigoPorcentaje>
+        <codigoPorcentaje>2</codigoPorcentaje>
         <descuentoAdicional>0.00</descuentoAdicional>
-        <baseImponible>21.20</baseImponible>
-        <valor>00.00</valor>
+        <baseImponible>0.00</baseImponible>
+        <valor>0.00</valor>
       </totalImpuesto>
     </totalConImpuestos>
     <propina>0.00</propina>
@@ -81,34 +81,34 @@
       </impuestos>
     </detalle>
   </detalles>
-<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#" Id="Signature72466">
-<ds:SignedInfo Id="Signature-SignedInfo62783">
+<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#" Id="Signature849639">
+<ds:SignedInfo Id="Signature-SignedInfo264959">
 <ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></ds:CanonicalizationMethod>
 <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"></ds:SignatureMethod>
-<ds:Reference Id="SignedPropertiesID195104" Type="http://uri.etsi.org/01903#SignedProperties" URI="#Signature72466-SignedProperties750974">
+<ds:Reference Id="SignedPropertiesID704541" Type="http://uri.etsi.org/01903#SignedProperties" URI="#Signature849639-SignedProperties145029">
 <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
-<ds:DigestValue>bApmrtP/hHwjiChio3LhQ36ZrmI=</ds:DigestValue>
+<ds:DigestValue>BBiBJuTe3jGUEOXnKdWgvRjzS+I=</ds:DigestValue>
 </ds:Reference>
-<ds:Reference URI="#Certificate270802">
+<ds:Reference URI="#Certificate377879">
 <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
-<ds:DigestValue>0iv0No0Drznuq5AO2MOXWiMulTQ=</ds:DigestValue>
+<ds:DigestValue>u/BuXZOLIKHTW9H3muxBw5RFHHs=</ds:DigestValue>
 </ds:Reference>
-<ds:Reference Id="Reference-ID-305555" URI="#comprobante">
+<ds:Reference Id="Reference-ID-777928" URI="#comprobante">
 <ds:Transforms>
 <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"></ds:Transform>
 </ds:Transforms>
 <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
-<ds:DigestValue>4mfxluXxVwczt3qz939FSyE2DOA=</ds:DigestValue>
+<ds:DigestValue>YfNeu1AmyGcx8JQAtsXjLe7l2XM=</ds:DigestValue>
 </ds:Reference>
 </ds:SignedInfo>
-<ds:SignatureValue Id="SignatureValue274880">
-LKMngEI9SNawr4Iec5lWm0qBkXDl9RDwHu/l2ZLMYbnc1KnMCD43Q4FZjwlk4uo5xRzqNrwg237h
-oqPfdWL5MsVOYuV7kM1eBYJM8pbLxsMcy2j72CFkQ9qtcygFsprwKeHFN7UpdN/UvClIYXFJDVf/
-gCQJaFeS0IRR1sL7SEW8vtJO35YNnWLB7hOTtsVjURhK6rDmLP6wvcIUMR2kCAb/ZGd7jdZl1Z1D
-gGJet+Z9Q+N7rjo1bhCgosl0MH0Eao3gYL7hf2CD24FQOWDd0CUs79umpwpSSgvs9Vc1jYRabXty
-xKU205INyqbpgR8HCgTQ2Y9L01gkBgssfQK42Q==
+<ds:SignatureValue Id="SignatureValue879387">
+fc/UBRYEyjYe8k3dsKMkQF6dj8Ay8CueWMkNwcKFN9Qq0va/lf19MpLmc5mvJd8fRrBc6o0WH4ty
+GhhYyPcS6o3YyCLBGAVJhwH77QPJXkxdezxuECzfH/vOHN1AEf1UWdkVFo0QzeYbl3Mm0z9RKvne
+hks3hlT6efh+iZB7EBfLdyAO5jAZlMKZjbiUh/S5zDFvVqduGkRr5Iaxmth1zCR/LbvwKMZzX6ii
+3Pla93XPhXneaTMy7kbilyhi6qDzcch+fya8Qz7xVYboVFkBKtoElQAyc3MM8qU/rF4km0jw4d6Y
+TS+M/wfXJikg+6yt3roYEGPxeQILgDuHtjWH1Q==
 </ds:SignatureValue>
-<ds:KeyInfo Id="Certificate270802">
+<ds:KeyInfo Id="Certificate377879">
 <ds:X509Data>
 <ds:X509Certificate>
 MIIJwjCCB6qgAwIBAgIEW2fsIzANBgkqhkiG9w0BAQsFADCBoTELMAkGA1UEBhMCRUMxIjAgBgNV
@@ -170,4 +170,4 @@ dEYX8vIo9AYg9mlBgwTKUJXXTrrc8aWYXsPv+w==
 </ds:RSAKeyValue>
 </ds:KeyValue>
 </ds:KeyInfo>
-<ds:Object Id="Signature72466-Object931760"><etsi:QualifyingProperties Target="#Signature72466"><etsi:SignedProperties Id="Signature72466-SignedProperties750974"><etsi:SignedSignatureProperties><etsi:SigningTime>2021-04-20T01:08:30-05:00</etsi:SigningTime><etsi:SigningCertificate><etsi:Cert><etsi:CertDigest><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod><ds:DigestValue>WR8nwDtRUXtzbCanisFQSfjana4=</ds:DigestValue></etsi:CertDigest><etsi:IssuerSerial><ds:X509IssuerName>CN=AC BANCO CENTRAL DEL ECUADOR,L=QUITO,OU=ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE,O=BANCO CENTRAL DEL ECUADOR,C=EC</ds:X509IssuerName><ds:X509SerialNumber>1533537315</ds:X509SerialNumber></etsi:IssuerSerial></etsi:Cert></etsi:SigningCertificate></etsi:SignedSignatureProperties><etsi:SignedDataObjectProperties><etsi:DataObjectFormat ObjectReference="#Reference-ID-305555"><etsi:Description>contenido comprobante</etsi:Description><etsi:MimeType>text/xml</etsi:MimeType></etsi:DataObjectFormat></etsi:SignedDataObjectProperties></etsi:SignedProperties></etsi:QualifyingProperties></ds:Object></ds:Signature></factura>
+<ds:Object Id="Signature849639-Object262491"><etsi:QualifyingProperties Target="#Signature849639"><etsi:SignedProperties Id="Signature849639-SignedProperties145029"><etsi:SignedSignatureProperties><etsi:SigningTime>2021-04-20T02:00:43-05:00</etsi:SigningTime><etsi:SigningCertificate><etsi:Cert><etsi:CertDigest><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod><ds:DigestValue>WR8nwDtRUXtzbCanisFQSfjana4=</ds:DigestValue></etsi:CertDigest><etsi:IssuerSerial><ds:X509IssuerName>CN=AC BANCO CENTRAL DEL ECUADOR,L=QUITO,OU=ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE,O=BANCO CENTRAL DEL ECUADOR,C=EC</ds:X509IssuerName><ds:X509SerialNumber>1533537315</ds:X509SerialNumber></etsi:IssuerSerial></etsi:Cert></etsi:SigningCertificate></etsi:SignedSignatureProperties><etsi:SignedDataObjectProperties><etsi:DataObjectFormat ObjectReference="#Reference-ID-777928"><etsi:Description>contenido comprobante</etsi:Description><etsi:MimeType>text/xml</etsi:MimeType></etsi:DataObjectFormat></etsi:SignedDataObjectProperties></etsi:SignedProperties></etsi:QualifyingProperties></ds:Object></ds:Signature></factura>

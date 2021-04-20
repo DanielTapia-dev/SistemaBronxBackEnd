@@ -21,7 +21,7 @@ function facturaElectronica(req, res) {
         .then((movfactura) => {
             empresa.findOne({
                     where: {
-                        idempresa: idempresa,
+                        idempresa: movfactura.idempresa,
                     },
                 })
                 .then((emp) => {
@@ -41,19 +41,18 @@ function facturaElectronica(req, res) {
                                 .then((detmovimientos) => {
                                     parimpuesto.findAll({
                                             where: {
-                                                idempresa: idEmpresa,
+                                                idempresa: movfactura.idempresa,
                                             },
                                         })
-                                        .then(parimpuesto => {
+                                        .then((parimpuesto) => {
                                             var totalSinImpuestos;
                                             detmovimientos.forEach(element => {
                                                 console.log(element.idproducto);
-
                                             });
                                             parimpuesto.forEach(element => {
-                                                //console.log(elemen);
-
+                                                console.log(element.nomimpuesto);
                                             });
+                                            console.log("Este es..................... " + parimpuesto[0].codporcentajeSRI);
                                             //Proceso para encontrar los productos y realizar proceso de sumas
                                             if (movfactura != null) {
                                                 //CONSULTA DE CLIENTE
@@ -110,24 +109,24 @@ function facturaElectronica(req, res) {
                                                             codDocReembolso: "00",
                                                             totalConImpuestos: {
                                                                 totalImpuesto: [{
-                                                                        codigo: "2",
-                                                                        codigoPorcentaje: "0",
+                                                                        codigo: parimpuesto[0].codigoSRI,
+                                                                        codigoPorcentaje: parimpuesto[0].codporcentajeSRI,
                                                                         descuentoAdicional: "0.00",
-                                                                        baseImponible: movfactura.subtotal,
-                                                                        valor: "00.00",
+                                                                        baseImponible: movfactura.subtotaliva0,
+                                                                        valor: movfactura.iva0,
                                                                     },
                                                                     {
-                                                                        codigo: "2",
-                                                                        codigoPorcentaje: "0",
+                                                                        codigo: parimpuesto[1].codigoSRI,
+                                                                        codigoPorcentaje: parimpuesto[1].codporcentajeSRI,
                                                                         descuentoAdicional: "0.00",
-                                                                        baseImponible: movfactura.subtotal,
-                                                                        valor: "00.00",
+                                                                        baseImponible: movfactura.subtotaliva12,
+                                                                        valor: movfactura.iva12,
                                                                     }
                                                                 ]
                                                             },
                                                             propina: "0.00",
                                                             importeTotal: "50.00",
-                                                            moneda: "DOLAR"
+                                                            moneda: emp.monempresa
                                                         },
                                                         detalles: {
                                                             detalle: [{

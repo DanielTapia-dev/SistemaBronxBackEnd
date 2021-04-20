@@ -65,7 +65,7 @@
       <precioTotalSinImpuesto>30.00</precioTotalSinImpuesto>
       <impuestos>
         <impuesto>
-          <codigo>2</codigo>
+          <codigo>3</codigo>
           <codigoPorcentaje>0</codigoPorcentaje>
           <tarifa>00.00</tarifa>
           <baseImponible>30.00</baseImponible>

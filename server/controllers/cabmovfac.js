@@ -7,6 +7,21 @@ var forge = require('node-forge');
 const clientes = require("../models").clientes;
 const detmovimientos = require("../models").detmovimientos;
 const parimpuesto = require('../models').parimpuesto;
+const { sequelize } = require('sequelize');
+const producto = require("../models").producto;
+module.exports = (sequelize, DataTypes) => {
+    const Post = sequelize.define('post', {
+        content: DataTypes.STRING
+    }, { timestamps: false });
+
+    const Reaction = sequelize.define('reaction', {
+        type: DataTypes.STRING
+    }, { timestamps: false });
+
+    Post.hasMany(Reaction);
+    Reaction.belongsTo(Post);
+}
+
 
 function facturaElectronica(req, res) {
     var id = req.params.id;
@@ -45,12 +60,63 @@ function facturaElectronica(req, res) {
                                             },
                                         })
                                         .then((parimpuesto) => {
+                                            producto.findAll({
+                                                attributes: {
+                                                    include: [
+                                                        [
+                                                            sequelize.literal(`(SELECT * FROM PRODUCTO)`),
+                                                            'productos'
+                                                        ]
+                                                    ]
+                                                },
+                                                order: [
+                                                    [sequelize.literal('productos'), 'DESC']
+                                                ]
+                                            }).catch((err) => {
+                                                console.log(err);
+                                            });
+                                            //console.log(productos);
                                             var totalSinImpuestos;
+                                            let detalleParametrado = [];
                                             detmovimientos.forEach(element => {
                                                 console.log(element.idproducto);
+                                                /*  Object.defineProperties(detalleParametrado, {
+                                                     codigoPrincipal: {
+                                                         value: element.idproducto,
+                                                         writable: false
+                                                     },
+                                                     descripcion: {
+                                                         value: element.nomproducto,
+                                                         writable: false
+                                                     },
+                                                     cantidad: {
+                                                         value: element.nomproducto,
+                                                         writable: false
+                                                     },
+                                                     precioUnitario: {
+                                                         value: element.idproducto,
+                                                         writable: false
+                                                     },
+                                                     descuento: {
+                                                         value: element.idproducto,
+                                                         writable: false
+                                                     },
+                                                     precioTotalSinImpuesto: {
+                                                         value: element.idproducto,
+                                                         writable: false
+                                                     },
+                                                     impuestos: {
+                                                         value: element.idproducto,
+                                                         writable: false
+                                                     }
+                                                 }); */
                                             });
+                                            //console.log(detalle);
+                                            /* for (let d in detalle) {
+                                                console.log(d.codigoPrincipal);
+                                            } */
                                             parimpuesto.forEach(element => {
-                                                console.log(element.nomimpuesto);
+                                                //console.log(element.nomimpuesto);
                                             });
                                             console.log("Este es..................... " + parimpuesto[0].codporcentajeSRI);
                                             //Proceso para encontrar los productos y realizar proceso de sumas

@@ -80,8 +80,7 @@ const getMenuFrontEnd = (role) => {
 
         // Inventario
         menu[4].submenu.push({ titulo: 'Unidades', url: 'unidades' }, { titulo: 'Impuesto', url: 'impuesto' },
-        { titulo: 'Familia', url: 'familia' },{ titulo: 'Lista de Precios', url: 'tabprecio' },
-        { titulo: 'Precios x Producto', url: 'lisprecios' },{ titulo: 'Precios x Cliente', url: 'precioscliente' });
+        { titulo: 'Familia', url: 'familia' },{ titulo: 'Precios x Cliente', url: 'precioscliente' });
 
         // Punto de Venta
         menu[5].submenu.push({ titulo: 'Usuarios Asignados a Caja', url: 'usucajaserie'});

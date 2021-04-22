@@ -62,7 +62,7 @@ const getMenuFrontEnd = (role) => {
             { titulo: 'Empresa', url: 'empresa' },
             { titulo: 'Sucursales', url: 'sucursales' },
             { titulo: 'Estructura Plan de Cuentas', url: 'estrucuentas' },
-            { titulo: 'Plan de Cuentas', url: 'plancuentas'},
+            { titulo: 'Plan de Cuentas', url: 'contplancuentas'},
             { titulo: 'Asientos Contables', url: 'asientos'},
         );
         menu.push({

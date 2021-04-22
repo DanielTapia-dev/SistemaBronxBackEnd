@@ -32,14 +32,22 @@ function update(req, res) {
 }
 
 function getAll(req, res) {
-    planestructura.findAll()
-        .then(planestructura => {
-            res.status(200).send({ planestructura });
-        })
-        .catch(err => {
-            res.status(500).send({ message: "Ocurrio un error al buscar las estructura del plan" });
-        })
-}
+    var idEmpresa = req.params.id;
+    planestructura
+      .findAll({
+        where: {
+          idempresa: idEmpresa,
+        },
+      })
+      .then((planestructura) => {
+        res.status(200).send({ planestructura });
+      })
+      .catch((err) => {
+        res
+          .status(500)
+          .send({ message: "Ocurrio un error al buscar la estructura de cuentas" });
+      });
+  }
 
 module.exports = {
     create,

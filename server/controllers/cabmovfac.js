@@ -1,3 +1,4 @@
+const { Pool, Client } = require('pg');
 const cabmovfac = require("../models").cabmovfac;
 const empresa = require('../models').empresa;
 const xml2js = require('xml2js');
@@ -7,21 +8,26 @@ var forge = require('node-forge');
 const clientes = require("../models").clientes;
 const detmovimientos = require("../models").detmovimientos;
 const parimpuesto = require('../models').parimpuesto;
-const { sequelize } = require('sequelize');
-const producto = require("../models").producto;
-module.exports = (sequelize, DataTypes) => {
-    const Post = sequelize.define('post', {
-        content: DataTypes.STRING
-    }, { timestamps: false });
+/* const { sequelize } = require('sequelize');
+const producto = require("../models").producto; */
 
-    const Reaction = sequelize.define('reaction', {
-        type: DataTypes.STRING
-    }, { timestamps: false });
+const config = {
+    user: 'postgres',
+    host: 'localhost',
+    password: 'dannyalejo7123tapia',
+    database: 'contable'
+};
 
-    Post.hasMany(Reaction);
-    Reaction.belongsTo(Post);
+const pool = new Pool(config);
+//const client = new Client(config);
+
+const getProductos = async() => {
+    const res = await pool.query(`SELECT D.idempresa, D.idsucursal, D.secmovcab, D.idproducto, P.nomproducto, D.cantidad, D.precio, D.subsindesc, D.porcdescuento, D.descuento, D.subtotal, D.iva0, D.iva12, D.total
+	FROM detmovimientos D, producto P
+	WHERE D.secmovcab=77 AND D.idproducto = P.idproducto;`);
+    console.log('Prueba de funcionamiento');
+    console.log(res.rows);
 }
-
 
 function facturaElectronica(req, res) {
     var id = req.params.id;
@@ -47,228 +53,207 @@ function facturaElectronica(req, res) {
                             },
                         })
                         .then((cliente) => {
-                            detmovimientos
-                                .findAll({
-                                    where: {
-                                        secmovcab: movfactura.secmovcab,
-                                    },
-                                })
-                                .then((detmovimientos) => {
-                                    parimpuesto.findAll({
-                                            where: {
-                                                idempresa: movfactura.idempresa,
-                                            },
-                                        })
-                                        .then((parimpuesto) => {
-                                            producto.findAll({
-                                                attributes: {
-                                                    include: [
-                                                        [
-                                                            sequelize.literal(`(SELECT * FROM PRODUCTO)`),
-                                                            'productos'
-                                                        ]
-                                                    ]
-                                                },
-                                                order: [
-                                                    [sequelize.literal('productos'), 'DESC']
-                                                ]
-                                            }).catch((err) => {
-                                                console.log(err);
-                                            });
-                                            //console.log(productos);
-                                            var totalSinImpuestos;
-                                            let detalleParametrado = [];
-                                            detmovimientos.forEach(element => {
-                                                console.log(element.idproducto);
-                                                /*  Object.defineProperties(detalleParametrado, {
-                                                     codigoPrincipal: {
-                                                         value: element.idproducto,
-                                                         writable: false
-                                                     },
-                                                     descripcion: {
-                                                         value: element.nomproducto,
-                                                         writable: false
-                                                     },
-                                                     cantidad: {
-                                                         value: element.nomproducto,
-                                                         writable: false
-                                                     },
-                                                     precioUnitario: {
-                                                         value: element.idproducto,
-                                                         writable: false
-                                                     },
-                                                     descuento: {
-                                                         value: element.idproducto,
-                                                         writable: false
-                                                     },
-                                                     precioTotalSinImpuesto: {
-                                                         value: element.idproducto,
-                                                         writable: false
-                                                     },
-                                                     impuestos: {
-                                                         value: element.idproducto,
-                                                         writable: false
-                                                     }
-                                                 }); */
-                                            });
-                                            //console.log(detalle);
-                                            /* for (let d in detalle) {
-                                                console.log(d.codigoPrincipal);
-                                            } */
-                                            parimpuesto.forEach(element => {
-                                                //console.log(element.nomimpuesto);
-                                            });
-                                            console.log("Este es..................... " + parimpuesto[0].codporcentajeSRI);
-                                            //Proceso para encontrar los productos y realizar proceso de sumas
-                                            if (movfactura != null) {
-                                                //CONSULTA DE CLIENTE
-                                                //FIN DE CONSULTA DE DATOS DEL CLIENTE   
-                                                //PROCESO PARA FACTURACION ELECTRONICA
-                                                var fechaNumeroAutorizacion = moment().format('DDMMYYYY');
-                                                var fechaCabeceraFactura = moment().format('DD/MM/YYYY');
-                                                var puntoEmision = movfactura.numfactura[0] + movfactura.numfactura[1] + movfactura.numfactura[2];
-                                                var puntoFacturacion = movfactura.numfactura[3] + movfactura.numfactura[4] + movfactura.numfactura[5];
-                                                var secuencial = movfactura.numfactura[6] + movfactura.numfactura[7] + movfactura.numfactura[8] + movfactura.numfactura[9] + movfactura.numfactura[10] + movfactura.numfactura[11] + movfactura.numfactura[12] + movfactura.numfactura[13] + movfactura.numfactura[14];
-                                                var ambiente = emp.ambiente;
-                                                //console.log(detmovimientos);
-                                                if (emp.contabilidad == true) {
-                                                    var contabilidad = 'SI';
-                                                } else {
-                                                    var contabilidad = 'NO';
+                            const consulta = pool.query(`SELECT D.idempresa, D.idsucursal, I.idimpuesto, I."codigoSRI", I."codporcentajeSRI", D.secmovcab, D.idproducto, P.nomproducto, D.cantidad, D.precio, D.subsindesc, D.porcdescuento, D.descuento, D.subtotal, D.iva0, D.iva12, D.total
+                            FROM detmovimientos D, producto P, parimpuesto I
+                            WHERE D.secmovcab=77 AND D.idproducto = P.idproducto
+                            AND P.idimpuesto = I.idimpuesto;`).then((detallesFinal) => {
+                                //console.log(detallesFinal.rows);
+                                parimpuesto.findAll({
+                                        where: {
+                                            idempresa: movfactura.idempresa,
+                                        },
+                                    })
+                                    .then((parimpuesto) => {
+
+                                        //console.log(productos);
+                                        var totalSinImpuestos;
+                                        var detalleParametrado = [];
+                                        var obj = {};
+                                        var i = 0;
+
+                                        detallesFinal.rows.forEach(element => {
+                                            //CONSULTAR AQUI EL PRECIO DE CADA PRODUCTO
+                                            console.log(i + element.idproducto);
+                                            i++;
+                                            obj = {
+                                                codigoPrincipal: element.idproducto,
+                                                descripcion: "SOPORTE TECNICO",
+                                                cantidad: "1",
+                                                precioUnitario: "20",
+                                                descuento: "0",
+                                                precioTotalSinImpuesto: "20.00",
+                                                impuestos: {
+                                                    impuesto: [{
+                                                        codigo: "2",
+                                                        codigoPorcentaje: "0",
+                                                        tarifa: "00.00",
+                                                        baseImponible: "20.00",
+                                                        valor: "00.00"
+                                                    }]
                                                 }
-                                                if (emp.ambiente == 'pruebas') {
-                                                    ambiente = 1;
-                                                } else {
-                                                    ambiente = 2;
-                                                }
-                                                //ARMADO DE XML
-                                                const xmlObject = {
-                                                    factura: {
-                                                        $: {
-                                                            id: "comprobante",
-                                                            version: "1.0.0"
-                                                        },
-                                                        infoTributaria: {
-                                                            ambiente: ambiente,
-                                                            tipoEmision: "1",
-                                                            razonSocial: emp.razonsocial,
-                                                            nombreComercial: emp.nomcomercial,
-                                                            ruc: emp.rucciempresa,
-                                                            claveAcceso: "1004202101170661073800110030010000000101234567819",
-                                                            codDoc: "01",
-                                                            estab: puntoEmision,
-                                                            ptoEmi: puntoFacturacion,
-                                                            secuencial: secuencial,
-                                                            dirMatriz: emp.dirempresa,
-                                                            regimenMicroempresas: "CONTRIBUYENTE RÉGIMEN MICROEMPRESAS"
-                                                        },
-                                                        infoFactura: {
-                                                            fechaEmision: fechaCabeceraFactura,
-                                                            dirEstablecimiento: emp.dirempresa,
-                                                            obligadoContabilidad: contabilidad,
-                                                            tipoIdentificacionComprador: "05",
-                                                            razonSocialComprador: cliente.nomcliente,
-                                                            identificacionComprador: cliente.ruccicliente,
-                                                            direccionComprador: cliente.dircliente,
-                                                            totalSinImpuestos: movfactura.subtotal,
-                                                            totalDescuento: "0.00",
-                                                            codDocReembolso: "00",
-                                                            totalConImpuestos: {
-                                                                totalImpuesto: [{
-                                                                        codigo: parimpuesto[0].codigoSRI,
-                                                                        codigoPorcentaje: parimpuesto[0].codporcentajeSRI,
-                                                                        descuentoAdicional: "0.00",
-                                                                        baseImponible: movfactura.subtotaliva0,
-                                                                        valor: movfactura.iva0,
-                                                                    },
-                                                                    {
-                                                                        codigo: parimpuesto[1].codigoSRI,
-                                                                        codigoPorcentaje: parimpuesto[1].codporcentajeSRI,
-                                                                        descuentoAdicional: "0.00",
-                                                                        baseImponible: movfactura.subtotaliva12,
-                                                                        valor: movfactura.iva12,
-                                                                    }
-                                                                ]
-                                                            },
-                                                            propina: "0.00",
-                                                            importeTotal: "50.00",
-                                                            moneda: emp.monempresa
-                                                        },
-                                                        detalles: {
-                                                            detalle: [{
-                                                                    codigoPrincipal: "001",
-                                                                    descripcion: "SOPORTE TECNICO",
-                                                                    cantidad: "1",
-                                                                    precioUnitario: "20",
-                                                                    descuento: "0",
-                                                                    precioTotalSinImpuesto: "20.00",
-                                                                    impuestos: {
-                                                                        impuesto: [{
-                                                                            codigo: "2",
-                                                                            codigoPorcentaje: "0",
-                                                                            tarifa: "00.00",
-                                                                            baseImponible: "20.00",
-                                                                            valor: "00.00"
-                                                                        }]
-                                                                    },
+                                            }
+                                            detalleParametrado.push(obj);
+                                        });
+                                        for (let index = 0; index < detalleParametrado.length; index++) {
+                                            console.log(detalleParametrado[index]);
+                                        }
+
+                                        /* for (let d in detalle) {
+                                            console.log(d.codigoPrincipal);
+                                        } */
+                                        parimpuesto.forEach(element => {
+                                            //console.log(element.nomimpuesto);
+                                        });
+                                        console.log("Este es..................... " + parimpuesto[0].codporcentajeSRI);
+                                        //Proceso para encontrar los productos y realizar proceso de sumas
+                                        if (movfactura != null) {
+                                            //CONSULTA DE CLIENTE
+
+
+                                            //FIN DE CONSULTA DE DATOS DEL CLIENTE   
+                                            //PROCESO PARA FACTURACION ELECTRONICA
+                                            var fechaNumeroAutorizacion = moment().format('DDMMYYYY');
+                                            var fechaCabeceraFactura = moment().format('DD/MM/YYYY');
+                                            var puntoEmision = movfactura.numfactura[0] + movfactura.numfactura[1] + movfactura.numfactura[2];
+                                            var puntoFacturacion = movfactura.numfactura[3] + movfactura.numfactura[4] + movfactura.numfactura[5];
+                                            var secuencial = movfactura.numfactura[6] + movfactura.numfactura[7] + movfactura.numfactura[8] + movfactura.numfactura[9] + movfactura.numfactura[10] + movfactura.numfactura[11] + movfactura.numfactura[12] + movfactura.numfactura[13] + movfactura.numfactura[14];
+                                            var ambiente = emp.ambiente;
+                                            //console.log(detmovimientos);
+                                            if (emp.contabilidad == true) {
+                                                var contabilidad = 'SI';
+                                            } else {
+                                                var contabilidad = 'NO';
+                                            }
+                                            if (emp.ambiente == 'pruebas') {
+                                                ambiente = 1;
+                                            } else {
+                                                ambiente = 2;
+                                            }
+                                            //ARMADO DE XML
+                                            const xmlObject = {
+                                                factura: {
+                                                    $: {
+                                                        id: "comprobante",
+                                                        version: "1.0.0"
+                                                    },
+                                                    infoTributaria: {
+                                                        ambiente: ambiente,
+                                                        tipoEmision: "1",
+                                                        razonSocial: emp.razonsocial,
+                                                        nombreComercial: emp.nomcomercial,
+                                                        ruc: emp.rucciempresa,
+                                                        claveAcceso: "1004202101170661073800110030010000000101234567819",
+                                                        codDoc: "01",
+                                                        estab: puntoEmision,
+                                                        ptoEmi: puntoFacturacion,
+                                                        secuencial: secuencial,
+                                                        dirMatriz: emp.dirempresa,
+                                                        regimenMicroempresas: "CONTRIBUYENTE RÉGIMEN MICROEMPRESAS"
+                                                    },
+                                                    infoFactura: {
+                                                        fechaEmision: fechaCabeceraFactura,
+                                                        dirEstablecimiento: emp.dirempresa,
+                                                        obligadoContabilidad: contabilidad,
+                                                        tipoIdentificacionComprador: "05",
+                                                        razonSocialComprador: cliente.nomcliente,
+                                                        identificacionComprador: cliente.ruccicliente,
+                                                        direccionComprador: cliente.dircliente,
+                                                        totalSinImpuestos: movfactura.subtotal,
+                                                        totalDescuento: "0.00",
+                                                        codDocReembolso: "00",
+                                                        totalConImpuestos: {
+                                                            totalImpuesto: [{
+                                                                    codigo: parimpuesto[0].codigoSRI,
+                                                                    codigoPorcentaje: parimpuesto[0].codporcentajeSRI,
+                                                                    descuentoAdicional: "0.00",
+                                                                    baseImponible: movfactura.subtotaliva0,
+                                                                    valor: movfactura.iva0,
                                                                 },
                                                                 {
-                                                                    codigoPrincipal: "002",
-                                                                    descripcion: "SOPORTE TECNICO 2",
-                                                                    cantidad: "1",
-                                                                    precioUnitario: "30",
-                                                                    descuento: "0",
-                                                                    precioTotalSinImpuesto: "30.00",
-                                                                    impuestos: {
-                                                                        impuesto: [{
-                                                                            codigo: "2",
-                                                                            codigoPorcentaje: "0",
-                                                                            tarifa: "00.00",
-                                                                            baseImponible: "30.00",
-                                                                            valor: "00.00"
-                                                                        }]
-                                                                    },
-                                                                },
+                                                                    codigo: parimpuesto[1].codigoSRI,
+                                                                    codigoPorcentaje: parimpuesto[1].codporcentajeSRI,
+                                                                    descuentoAdicional: "0.00",
+                                                                    baseImponible: movfactura.subtotaliva12,
+                                                                    valor: movfactura.iva12,
+                                                                }
                                                             ]
-                                                        }
+                                                        },
+                                                        propina: "0.00",
+                                                        importeTotal: "50.00",
+                                                        moneda: emp.monempresa
+                                                    },
+                                                    detalles: {
+                                                        detalle: [{
+                                                                codigoPrincipal: "001",
+                                                                descripcion: "SOPORTE TECNICO",
+                                                                cantidad: "1",
+                                                                precioUnitario: "20",
+                                                                descuento: "0",
+                                                                precioTotalSinImpuesto: "20.00",
+                                                                impuestos: {
+                                                                    impuesto: [{
+                                                                        codigo: "2",
+                                                                        codigoPorcentaje: "0",
+                                                                        tarifa: "00.00",
+                                                                        baseImponible: "20.00",
+                                                                        valor: "00.00"
+                                                                    }]
+                                                                },
+                                                            },
+                                                            {
+                                                                codigoPrincipal: "002",
+                                                                descripcion: "SOPORTE TECNICO 2",
+                                                                cantidad: "1",
+                                                                precioUnitario: "30",
+                                                                descuento: "0",
+                                                                precioTotalSinImpuesto: "30.00",
+                                                                impuestos: {
+                                                                    impuesto: [{
+                                                                        codigo: "2",
+                                                                        codigoPorcentaje: "0",
+                                                                        tarifa: "00.00",
+                                                                        baseImponible: "30.00",
+                                                                        valor: "00.00"
+                                                                    }]
+                                                                },
+                                                            },
+                                                        ]
                                                     }
                                                 }
-                                                const builder = new xml2js.Builder({ xmldec: { 'version': '1.0', 'encoding': 'UTF-8' } });
-                                                const xml = builder.buildObject(xmlObject);
-                                                console.log(xml);
-
-                                                fs.appendFile('facturas/factura' + id + '.xml', '', (err) => {
-                                                    if (err) throw err;
-                                                    console.log('Archivo creado correctamente');
-                                                })
-
-                                                fs.writeFileSync('facturas/factura' + id + '.xml', xml);
-                                                console.log('Se ha escrito en el archivo');
-
-                                                fs.readFile('FirmaCorrecta.pfx', (err, data) => {
-                                                    if (err) throw err;
-                                                    var archivop12 = data;
-                                                    firmarComprobante(archivop12, 'Solsito2204', xml, id);
-                                                });
-
-                                                //FIN DEL PROCESO FACTURACION ELECTRONICA        
-                                                //res.status(200).send({ message: 'Factura ' + movfactura.secmovcab + ' a sido firmada y enviada correctamente' });
-                                                //res.status(200).send({ message: "Facturado correctamente factura" });
-                                            } else {
-                                                //res.status(200).send({ message: 'No se encontro los detalles de las enviada' });
-                                                //0103326336S
                                             }
-                                            res.status(200).send("detmovimientos");
-                                        })
-                                        .catch(err => {
-                                            res.status(500).send({ message: "Ocurrio un error al buscar los impuestos" });
-                                        })
-                                })
-                                .catch((err) => {
-                                    res
-                                        .status(500)
-                                        .send({ message: "Ocurrio un error al buscar las líneas de la factura" });
-                                });
+                                            const builder = new xml2js.Builder({ xmldec: { 'version': '1.0', 'encoding': 'UTF-8' } });
+                                            const xml = builder.buildObject(xmlObject);
+                                            console.log(xml);
+
+                                            fs.appendFile('facturas/factura' + id + '.xml', '', (err) => {
+                                                if (err) throw err;
+                                                console.log('Archivo creado correctamente');
+                                            })
+
+                                            fs.writeFileSync('facturas/factura' + id + '.xml', xml);
+                                            console.log('Se ha escrito en el archivo');
+
+                                            fs.readFile('FirmaCorrecta.pfx', (err, data) => {
+                                                if (err) throw err;
+                                                var archivop12 = data;
+                                                firmarComprobante(archivop12, 'Solsito2204', xml, id);
+                                            });
+
+                                            //FIN DEL PROCESO FACTURACION ELECTRONICA        
+                                            //res.status(200).send({ message: 'Factura ' + movfactura.secmovcab + ' a sido firmada y enviada correctamente' });
+                                            //res.status(200).send({ message: "Facturado correctamente factura" });
+                                        } else {
+                                            //res.status(200).send({ message: 'No se encontro los detalles de las enviada' });
+                                            //0103326336S
+                                        }
+                                        res.status(200).send("detmovimientos");
+                                    })
+                                    .catch(err => {
+                                        res.status(500).send({ message: "Ocurrio un error al buscar los impuestos" });
+                                    })
+                            }).catch((err) => {
+                                console.log('Error al buscar los detalles: ' + err);
+                            });;
                         })
                         .catch((err) => {
                             res

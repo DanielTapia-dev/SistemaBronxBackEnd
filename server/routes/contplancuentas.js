@@ -6,4 +6,5 @@ module.exports = (app) => {
     app.put('/api/contplancuentas/:id', md_auth.auth, contplancuentasController.update);
     app.get('/api/contplancuentas/:id', md_auth.auth, contplancuentasController.getAll);
     app.get('/api/contplancuentasmov', md_auth.auth, contplancuentasController.getAllMov);
+    app.delete('/api/contplancuentas/delete/:id', md_auth.auth, contplancuentasController.borrar);
 }

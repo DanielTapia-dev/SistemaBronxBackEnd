@@ -60,10 +60,39 @@ function getAllMov(req, res) {
         })
 }
 
+function borrar(req, res) {
+    var id = req.params.id;
+    var body = req.body;
+    contplancuentas
+      .findOne({
+        where: {
+          idcuenta: id,
+        },
+      })
+      .then((cuentas) => {
+        cuentas
+          .destroy(body)
+          .then(() => {
+            res.status(200).send({ message: "Cuenta eliminada" });
+          })
+          .catch((erro) => {
+            res
+              .status(500)
+              .send({ message: "Ocurrio un error al borrar la cuenta" });
+          });
+      })
+      .catch((err) => {
+        res
+          .status(500)
+          .send({ message: "Ocurrio un error al borrar la cuenta" });
+      });
+  }
+
 
 module.exports = {
     create,
     update,
     getAll,
-    getAllMov
+    getAllMov,
+    borrar
 }

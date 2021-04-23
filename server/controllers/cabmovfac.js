@@ -53,9 +53,9 @@ function facturaElectronica(req, res) {
                             },
                         })
                         .then((cliente) => {
-                            const consulta = pool.query(`SELECT D.idempresa, D.idsucursal, I.idimpuesto, I."codigoSRI", I."codporcentajeSRI", D.secmovcab, D.idproducto, P.nomproducto, D.cantidad, D.precio, D.subsindesc, D.porcdescuento, D.descuento, D.subtotal, D.iva0, D.iva12, D.total
+                            const consulta = pool.query(`SELECT D.idempresa, D.idsucursal, I.idimpuesto, I.tarifa, I."codigoSRI", I."codporcentajeSRI", D.secmovcab, D.idproducto, P.nomproducto, D.cantidad, D.precio, D.subsindesc, D.porcdescuento, D.descuento, D.subtotal, D.iva0, D.iva12, D.total
                             FROM detmovimientos D, producto P, parimpuesto I
-                            WHERE D.secmovcab=77 AND D.idproducto = P.idproducto
+                            WHERE D.secmovcab=` + movfactura.secmovcab + `AND D.idproducto = P.idproducto
                             AND P.idimpuesto = I.idimpuesto;`).then((detallesFinal) => {
                                 //console.log(detallesFinal.rows);
                                 parimpuesto.findAll({
@@ -67,35 +67,42 @@ function facturaElectronica(req, res) {
 
                                         //console.log(productos);
                                         var totalSinImpuestos;
-                                        var detalleParametrado = [];
+                                        var detalle = [];
                                         var obj = {};
                                         var i = 0;
 
+
                                         detallesFinal.rows.forEach(element => {
                                             //CONSULTAR AQUI EL PRECIO DE CADA PRODUCTO
+                                            if (element.iva12 != 0) {
+                                                var ivaFinal = element.iva12;
+                                            } else {
+                                                var ivaFinal = '0.00';
+                                            }
                                             console.log(i + element.idproducto);
                                             i++;
                                             obj = {
                                                 codigoPrincipal: element.idproducto,
-                                                descripcion: element.nomproducto,
+                                                descripcion: element.nomproducto.toUpperCase(),
                                                 cantidad: element.cantidad,
                                                 precioUnitario: element.precio,
                                                 descuento: "0",
-                                                precioTotalSinImpuesto: "20.00",
+                                                precioTotalSinImpuesto: element.subtotal,
                                                 impuestos: {
                                                     impuesto: [{
-                                                        codigo: "2",
-                                                        codigoPorcentaje: "0",
-                                                        tarifa: "00.00",
-                                                        baseImponible: "20.00",
-                                                        valor: "00.00"
+                                                        codigo: element.codigoSRI,
+                                                        codigoPorcentaje: element.codporcentajeSRI,
+                                                        tarifa: element.tarifa,
+                                                        baseImponible: element.subtotal,
+                                                        valor: ivaFinal
                                                     }]
                                                 }
+
                                             }
-                                            detalleParametrado.push(obj);
+                                            detalle.push(obj);
                                         });
-                                        for (let index = 0; index < detalleParametrado.length; index++) {
-                                            console.log(detalleParametrado[index]);
+                                        for (let index = 0; index < detalle.length; index++) {
+                                            console.log(detalle[index]);
                                         }
 
                                         /* for (let d in detalle) {
@@ -119,6 +126,40 @@ function facturaElectronica(req, res) {
                                             var secuencial = movfactura.numfactura[6] + movfactura.numfactura[7] + movfactura.numfactura[8] + movfactura.numfactura[9] + movfactura.numfactura[10] + movfactura.numfactura[11] + movfactura.numfactura[12] + movfactura.numfactura[13] + movfactura.numfactura[14];
                                             var ambiente = emp.ambiente;
                                             //console.log(detmovimientos);
+
+
+                                            //Inicio de algoritmo para crear la clave de acceso
+                                            var claveAcceso = fechaNumeroAutorizacion + '01' + '1706610738001' + '1' + puntoEmision + puntoFacturacion + secuencial + '12345678' + '1';
+                                            var multiplicador = '765432765432765432765432765432765432765432765432';
+                                            var resultadoClavePorMultiplicador = 0;
+                                            for (let i = 0; i < claveAcceso.length; i++) {
+                                                resultadoClavePorMultiplicador = resultadoClavePorMultiplicador + (claveAcceso[i] * multiplicador[i]);
+                                            }
+                                            var residuoClave = resultadoClavePorMultiplicador % 11;
+                                            var DigitoVerificador = 11 - residuoClave;
+                                            if (DigitoVerificador == 11) {
+                                                DigitoVerificador = 0;
+                                            } else if (DigitoVerificador == 10) {
+                                                DigitoVerificador = 1;
+                                            }
+
+                                            claveAcceso += DigitoVerificador;
+
+                                            //Fin de algoritmo para crear la clave de acceso
+
+                                            var impuesto0;
+                                            var impuesto12;
+
+                                            parimpuesto.forEach(element => {
+                                                if (element.idimpuesto == 'IM1') {
+                                                    impuesto0 = element.dataValues;
+                                                } else if (element.idimpuesto == 'IM2') {
+                                                    impuesto12 = element.dataValues;
+                                                }
+                                            });
+
+                                            console.log('ESTE ES EL RESULTADO DE LA CLAVE DE ACCESO ' + claveAcceso);
+
                                             if (emp.contabilidad == true) {
                                                 var contabilidad = 'SI';
                                             } else {
@@ -139,85 +180,50 @@ function facturaElectronica(req, res) {
                                                     infoTributaria: {
                                                         ambiente: ambiente,
                                                         tipoEmision: "1",
-                                                        razonSocial: emp.razonsocial,
-                                                        nombreComercial: emp.nomcomercial,
+                                                        razonSocial: emp.razonsocial.toUpperCase(),
+                                                        nombreComercial: emp.razonsocial.toUpperCase(),
                                                         ruc: emp.rucciempresa,
-                                                        claveAcceso: "1004202101170661073800110030010000000101234567819",
+                                                        claveAcceso: claveAcceso,
                                                         codDoc: "01",
                                                         estab: puntoEmision,
                                                         ptoEmi: puntoFacturacion,
                                                         secuencial: secuencial,
-                                                        dirMatriz: emp.dirempresa,
+                                                        dirMatriz: emp.dirempresa.toUpperCase(),
                                                         regimenMicroempresas: "CONTRIBUYENTE RÉGIMEN MICROEMPRESAS"
                                                     },
                                                     infoFactura: {
                                                         fechaEmision: fechaCabeceraFactura,
-                                                        dirEstablecimiento: emp.dirempresa,
-                                                        obligadoContabilidad: contabilidad,
+                                                        dirEstablecimiento: emp.dirempresa.toUpperCase(),
+                                                        obligadoContabilidad: contabilidad.toUpperCase(),
                                                         tipoIdentificacionComprador: "05",
-                                                        razonSocialComprador: cliente.nomcliente,
+                                                        razonSocialComprador: cliente.nomcliente.toUpperCase(),
                                                         identificacionComprador: cliente.ruccicliente,
-                                                        direccionComprador: cliente.dircliente,
+                                                        direccionComprador: cliente.dircliente.toUpperCase(),
                                                         totalSinImpuestos: movfactura.subtotal,
                                                         totalDescuento: "0.00",
-                                                        codDocReembolso: "00",
                                                         totalConImpuestos: {
                                                             totalImpuesto: [{
-                                                                    codigo: parimpuesto[0].codigoSRI,
-                                                                    codigoPorcentaje: parimpuesto[0].codporcentajeSRI,
-                                                                    descuentoAdicional: "0.00",
+                                                                    codigo: impuesto0.codigoSRI,
+                                                                    codigoPorcentaje: impuesto0.codporcentajeSRI,
                                                                     baseImponible: movfactura.subtotaliva0,
+                                                                    tarifa: impuesto0.tarifa,
                                                                     valor: movfactura.iva0,
                                                                 },
                                                                 {
-                                                                    codigo: parimpuesto[1].codigoSRI,
-                                                                    codigoPorcentaje: parimpuesto[1].codporcentajeSRI,
-                                                                    descuentoAdicional: "0.00",
+                                                                    codigo: impuesto12.codigoSRI,
+                                                                    codigoPorcentaje: impuesto12.codporcentajeSRI,
                                                                     baseImponible: movfactura.subtotaliva12,
+                                                                    tarifa: impuesto12.tarifa,
                                                                     valor: movfactura.iva12,
                                                                 }
                                                             ]
                                                         },
                                                         propina: "0.00",
-                                                        importeTotal: "50.00",
-                                                        moneda: emp.monempresa
+                                                        importeTotal: movfactura.total,
+                                                        moneda: emp.monempresa.toUpperCase()
                                                     },
                                                     detalles: {
-                                                        detalle: [{
-                                                                codigoPrincipal: "001",
-                                                                descripcion: "SOPORTE TECNICO",
-                                                                cantidad: "1",
-                                                                precioUnitario: "20",
-                                                                descuento: "0",
-                                                                precioTotalSinImpuesto: "20.00",
-                                                                impuestos: {
-                                                                    impuesto: [{
-                                                                        codigo: "2",
-                                                                        codigoPorcentaje: "0",
-                                                                        tarifa: "00.00",
-                                                                        baseImponible: "20.00",
-                                                                        valor: "00.00"
-                                                                    }]
-                                                                },
-                                                            },
-                                                            {
-                                                                codigoPrincipal: "002",
-                                                                descripcion: "SOPORTE TECNICO 2",
-                                                                cantidad: "1",
-                                                                precioUnitario: "30",
-                                                                descuento: "0",
-                                                                precioTotalSinImpuesto: "30.00",
-                                                                impuestos: {
-                                                                    impuesto: [{
-                                                                        codigo: "2",
-                                                                        codigoPorcentaje: "0",
-                                                                        tarifa: "00.00",
-                                                                        baseImponible: "30.00",
-                                                                        valor: "00.00"
-                                                                    }]
-                                                                },
-                                                            },
-                                                        ]
+                                                        detalle
                                                     }
                                                 }
                                             }

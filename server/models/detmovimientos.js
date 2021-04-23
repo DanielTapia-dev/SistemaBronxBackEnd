@@ -13,6 +13,8 @@ module.exports = (sequelize, DataTypes) => {
         porcdescuento: DataTypes.INTEGER,
         descuento: DataTypes.FLOAT,
         subtotal: DataTypes.FLOAT,
+        subtotaliva0: DataTypes.FLOAT,
+        subtotaliva12: DataTypes.FLOAT,
         iva0: DataTypes.FLOAT,
         iva12: DataTypes.FLOAT,
         total: DataTypes.FLOAT,

@@ -77,9 +77,9 @@ function facturaElectronica(req, res) {
                                             i++;
                                             obj = {
                                                 codigoPrincipal: element.idproducto,
-                                                descripcion: "SOPORTE TECNICO",
-                                                cantidad: "1",
-                                                precioUnitario: "20",
+                                                descripcion: element.nomproducto,
+                                                cantidad: element.cantidad,
+                                                precioUnitario: element.precio,
                                                 descuento: "0",
                                                 precioTotalSinImpuesto: "20.00",
                                                 impuestos: {

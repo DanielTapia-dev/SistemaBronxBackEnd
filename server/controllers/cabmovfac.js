@@ -8,7 +8,7 @@ var forge = require('node-forge');
 const clientes = require("../models").clientes;
 const detmovimientos = require("../models").detmovimientos;
 const parimpuesto = require('../models').parimpuesto;
-var DomParser = require('dom-parser');
+const fetch = require("node-fetch");
 /* const { sequelize } = require('sequelize');
 const producto = require("../models").producto; */
 
@@ -22,17 +22,16 @@ const config = {
 const pool = new Pool(config);
 //const client = new Client(config);
 
-const getProductos = async() => {
+/* const getProductos = async() => {
     const res = await pool.query(`SELECT D.idempresa, D.idsucursal, D.secmovcab, D.idproducto, P.nomproducto, D.cantidad, D.precio, D.subsindesc, D.porcdescuento, D.descuento, D.subtotal, D.iva0, D.iva12, D.total
 	FROM detmovimientos D, producto P
 	WHERE D.secmovcab=77 AND D.idproducto = P.idproducto;`);
-    console.log('Prueba de funcionamiento');
-    console.log(res.rows);
-}
+    //console.log('Prueba de funcionamiento');
+    //console.log(res.rows);
+} */
 
 function facturaElectronica(req, res) {
     var id = req.params.id;
-    var idempresa = req.body.idempresa
 
     cabmovfac
         .findOne({
@@ -80,7 +79,7 @@ function facturaElectronica(req, res) {
                                             } else {
                                                 var ivaFinal = '0.00';
                                             }
-                                            console.log(i + element.idproducto);
+                                            //console.log(i + element.idproducto);
                                             i++;
                                             obj = {
                                                 codigoPrincipal: element.idproducto,
@@ -103,7 +102,7 @@ function facturaElectronica(req, res) {
                                             detalle.push(obj);
                                         });
                                         for (let index = 0; index < detalle.length; index++) {
-                                            console.log(detalle[index]);
+                                            //console.log(detalle[index]);
                                         }
 
                                         /* for (let d in detalle) {
@@ -112,7 +111,7 @@ function facturaElectronica(req, res) {
                                         parimpuesto.forEach(element => {
                                             //console.log(element.nomimpuesto);
                                         });
-                                        console.log("Este es..................... " + parimpuesto[0].codporcentajeSRI);
+                                        //console.log("Este es..................... " + parimpuesto[0].codporcentajeSRI);
                                         //Proceso para encontrar los productos y realizar proceso de sumas
                                         if (movfactura != null) {
                                             //CONSULTA DE CLIENTE
@@ -159,7 +158,7 @@ function facturaElectronica(req, res) {
                                                 }
                                             });
 
-                                            console.log('ESTE ES EL RESULTADO DE LA CLAVE DE ACCESO ' + claveAcceso);
+                                            //console.log('ESTE ES EL RESULTADO DE LA CLAVE DE ACCESO ' + claveAcceso);
 
                                             if (emp.contabilidad == true) {
                                                 var contabilidad = 'SI';
@@ -230,30 +229,96 @@ function facturaElectronica(req, res) {
                                             }
                                             const builder = new xml2js.Builder({ xmldec: { 'version': '1.0', 'encoding': 'UTF-8' } });
                                             const xml = builder.buildObject(xmlObject);
-                                            console.log(xml);
+                                            //console.log(xml);
 
                                             fs.appendFile('facturas/factura' + id + '.xml', '', (err) => {
                                                 if (err) throw err;
-                                                console.log('Archivo creado correctamente');
+                                                //console.log('Archivo creado correctamente');
                                             })
 
                                             fs.writeFileSync('facturas/factura' + id + '.xml', xml);
-                                            console.log('Se ha escrito en el archivo');
+                                            //console.log('Se ha escrito en el archivo');
 
                                             fs.readFile('FirmaCorrecta.pfx', (err, data) => {
                                                 if (err) throw err;
                                                 var archivop12 = data;
-                                                firmarComprobante(archivop12, 'Solsito2204', xml, id);
-                                            });
+                                                var xmlbase64 = firmarComprobante(archivop12, 'Solsito2204', xml, id);
 
+                                                // Inicio de consumo de servicio post con EndPoint del SRI
+                                                var EmpaquetadoXML = `<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
+                                                <Body>
+                                                    <validarComprobante xmlns="http://ec.gob.sri.ws.recepcion">
+                                                        <xml xmlns="">
+                                                            ` + xmlbase64 + `
+                                                        </xml>
+                                                    </validarComprobante>
+                                                </Body>
+                                                </Envelope>`
+                                                var ConsultaDeAutorizacionEmpaquetado = `<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
+                                                <Body>
+                                                    <autorizacionComprobante xmlns="http://ec.gob.sri.ws.autorizacion">
+                                                        <claveAccesoComprobante xmlns="">` + claveAcceso + `</claveAccesoComprobante>
+                                                    </autorizacionComprobante>
+                                                </Body>
+                                            </Envelope>`;
+                                                const url1 = emp.wsdl1;
+                                                const url2 = emp.wsdl2;
+                                                fetch(url1, {
+                                                    method: "POST",
+                                                    body: EmpaquetadoXML,
+                                                    // -- or --
+                                                    // body : JSON.stringify({
+                                                    // user : document.getElementById('user').value,
+                                                    // ...
+                                                    // })
+                                                }).then(
+                                                    response => response.text() // .json(), etc.
+                                                    // same as function(response) {return response.text();}
+                                                ).then(
+                                                    (xml) => {
+                                                        var DomParser = require('dom-parser');
+                                                        parser = new DomParser();
+                                                        xmlDoc = parser.parseFromString(xml, "text/xml");
+                                                        console.log(xmlDoc.getElementsByTagName("estado")[0].childNodes[0].text);
+                                                        if (xmlDoc.getElementsByTagName("estado")[0].childNodes[0].text === 'RECIBIDA') {
+                                                            fetch(url2, {
+                                                                method: "POST",
+                                                                body: ConsultaDeAutorizacionEmpaquetado,
+                                                                // -- or --
+                                                                // body : JSON.stringify({
+                                                                // user : document.getElementById('user').value,
+                                                                // ...
+                                                                // })
+                                                            }).then(
+                                                                response => response.text() // .json(), etc.
+                                                                // same as function(response) {return response.text();}
+                                                            ).then(
+                                                                (xml) => {
+                                                                    var DomParser = require('dom-parser');
+                                                                    parser = new DomParser();
+                                                                    xmlDoc = parser.parseFromString(xml, "text/xml");
+                                                                    console.log(xmlDoc.getElementsByTagName("estado")[0].childNodes[0].text);
+                                                                    if (xmlDoc.getElementsByTagName("estado")[0].childNodes[0].text === 'AUTORIZADO') {
+                                                                        const actualizarNumeroDeAutorizacion = pool.query(`UPDATE public.cabmovfac
+                                                                        SET numautosri=` + claveAcceso + `
+                                                                        WHERE secmovcab=` + movfactura.secmovcab + `;`).then((detallesFinal) => {
+                                                                            console.log(detallesFinal + ' Facturada correctamente');
+                                                                        })
+                                                                    }
+                                                                }
+                                                            );
+                                                        }
+                                                    }
+                                                );
+
+                                                //Fin del consumo de servicio post al SRI
+                                            });
                                             //FIN DEL PROCESO FACTURACION ELECTRONICA        
-                                            //res.status(200).send({ message: 'Factura ' + movfactura.secmovcab + ' a sido firmada y enviada correctamente' });
-                                            //res.status(200).send({ message: "Facturado correctamente factura" });
                                         } else {
-                                            //res.status(200).send({ message: 'No se encontro los detalles de las enviada' });
+                                            res.status(200).send({ message: 'No se encontro los detalles de las enviada' });
                                             //0103326336S
                                         }
-                                        res.status(200).send("detmovimientos");
+                                        res.status(200).send("Envío de factura electronica correctamente");
                                     })
                                     .catch(err => {
                                         res.status(500).send({ message: "Ocurrio un error al buscar los impuestos" });
@@ -281,6 +346,13 @@ function facturaElectronica(req, res) {
         });
 }
 
+const sendHttpRequest = (method, url, data) => {
+    const promise = new Promise((resolve, reject) => {
+
+    });
+    return promise;
+};
+
 function firmarComprobante(mi_contenido_p12, mi_pwd_p12, comprobante, id) {
     var archivo = 'facturas/factura' + id + '.xml';
     var arrayUint8 = new Uint8Array(mi_contenido_p12);
@@ -296,7 +368,7 @@ function firmarComprobante(mi_contenido_p12, mi_pwd_p12, comprobante, id) {
     var pkcs8 = pkcs8bags[forge.oids.pkcs8ShroudedKeyBag][0];
     var key = pkcs8.key;
 
-    console.log(btoa(pkcs8));
+    //console.log(btoa(pkcs8));
     if (key == null) {
         key = pkcs8.asn1;
     }
@@ -486,7 +558,7 @@ function firmarComprobante(mi_contenido_p12, mi_pwd_p12, comprobante, id) {
 
     SignedInfo += sha1_comprobante;
 
-    console.log(sha1_comprobante);
+    //console.log(sha1_comprobante);
 
     SignedInfo += '</ds:DigestValue>';
     SignedInfo += '\n</ds:Reference>';
@@ -529,20 +601,17 @@ function firmarComprobante(mi_contenido_p12, mi_pwd_p12, comprobante, id) {
 
     //FIN DE LA FIRMA DIGITAL 
 
-    var archivoString = comprobante.replace(/(<[^<]+)$/, xades_bes + '$1');
-
-    //console.log(archivoString);
-
     fs.writeFileSync(archivo, comprobante.replace(/(<[^<]+)$/, xades_bes + '$1'));
 
-    var b = new Buffer.from(archivoString);
-    var s = b.toString('base64');
+    //Inicio de conversión del archivo en base64
 
-    var parser = new DomParser();
-    var xmlz = parser.parseFromString(archivoString, "application/xml");
-    // var xmlEnbase64 = btoa(xmlz);
-    console.log(s);
-    return comprobante.replace(/(<[^<]+)$/, xades_bes + '$1');
+    var archivoString = comprobante.replace(/(<[^<]+)$/, xades_bes + '$1');
+    var base = new Buffer.from(archivoString);
+    var archivoBase64 = base.toString('base64');
+
+    //Fin de conversión del archivo en base64
+
+    return archivoBase64;
 }
 
 

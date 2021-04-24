@@ -6,7 +6,7 @@
     <razonSocial>SEMPÉRTEGUI REGALADO MARGARITA SOLEDAD</razonSocial>
     <nombreComercial>SEMPÉRTEGUI REGALADO MARGARITA SOLEDAD</nombreComercial>
     <ruc>1706610738001</ruc>
-    <claveAcceso>2304202101170661073800110030010000000311234567810</claveAcceso>
+    <claveAcceso>2404202101170661073800110030010000000311234567815</claveAcceso>
     <codDoc>01</codDoc>
     <estab>003</estab>
     <ptoEmi>001</ptoEmi>
@@ -15,7 +15,7 @@
     <regimenMicroempresas>CONTRIBUYENTE RÉGIMEN MICROEMPRESAS</regimenMicroempresas>
   </infoTributaria>
   <infoFactura>
-    <fechaEmision>23/04/2021</fechaEmision>
+    <fechaEmision>24/04/2021</fechaEmision>
     <dirEstablecimiento>LATACUNGA</dirEstablecimiento>
     <obligadoContabilidad>NO</obligadoContabilidad>
     <tipoIdentificacionComprador>05</tipoIdentificacionComprador>
@@ -97,34 +97,34 @@
       </impuestos>
     </detalle>
   </detalles>
-<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#" Id="Signature998717">
-<ds:SignedInfo Id="Signature-SignedInfo249474">
+<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#" Id="Signature156915">
+<ds:SignedInfo Id="Signature-SignedInfo961104">
 <ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></ds:CanonicalizationMethod>
 <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"></ds:SignatureMethod>
-<ds:Reference Id="SignedPropertiesID313642" Type="http://uri.etsi.org/01903#SignedProperties" URI="#Signature998717-SignedProperties992622">
+<ds:Reference Id="SignedPropertiesID238084" Type="http://uri.etsi.org/01903#SignedProperties" URI="#Signature156915-SignedProperties179760">
 <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
-<ds:DigestValue>N4N/YZOCDTlH4MhHxUJRy0rKtdc=</ds:DigestValue>
+<ds:DigestValue>EoeMd5VVikdxmIKaD5G9hRnJ13o=</ds:DigestValue>
 </ds:Reference>
-<ds:Reference URI="#Certificate567068">
+<ds:Reference URI="#Certificate485002">
 <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
-<ds:DigestValue>Bl7mqwuvngAz/UnvGLBacITZlTo=</ds:DigestValue>
+<ds:DigestValue>xsPk/0Uf9itJCIeFn7zKTyM0iIw=</ds:DigestValue>
 </ds:Reference>
-<ds:Reference Id="Reference-ID-219121" URI="#comprobante">
+<ds:Reference Id="Reference-ID-475956" URI="#comprobante">
 <ds:Transforms>
 <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"></ds:Transform>
 </ds:Transforms>
 <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
-<ds:DigestValue>B3fhc4uw2fUV5kR6aHDTDp+kGNo=</ds:DigestValue>
+<ds:DigestValue>mJPxt3xqRY5a2NOTXTbqh5oF5Y8=</ds:DigestValue>
 </ds:Reference>
 </ds:SignedInfo>
-<ds:SignatureValue Id="SignatureValue507544">
-fgJsP3Dw5E5bIETNAFj4IsZzG4xJt5PTz4y7QFrL7TDeL+XOhadrg744LQMVDt18eRxtfVCTuaS4
-+EO1Ioj2PtfG7hqPV+2XksrLlG1gdtYRyN6K+TqbvgaP2CPdUTfWSLffEu6ixnYSUSBF1GHomZTT
-aD0pbjpksn2DyzQiiZ1AU4S3RksO+3Qq2k4ox5J4D88hqv3hAAM87rwY42XGuKeO0yVHeHmA297X
-2Ly4xmRIgoGQ3/pskewe2XBPncoFNmsdiIpRpipGbWHQKW188poWlVsDqxk8aNJY31avsCiWXEDb
-HSZNmuhEZozt0uBjR89gmWO36bW2+7Z/tC89+g==
+<ds:SignatureValue Id="SignatureValue307081">
+qaK1R3aHxKdzYXvBc87bJjeeSZyyVtXWwkPqIbNVXFZho+EmJF+Ctg+ucdhju6mnsRHMeW+i6oK5
+A8m/2PMfSxrBBJTcinFVpcCH29OK1ckxnFOhTdlEdohkxoyJ2RwujPOzat+1BiBCNMf5SdJ5gWN1
+cnYSSubkB1pj40E/kv3kuxbXpVdZffxhAztpZACio3I5hqeRdCuGBGGjqHrnA6OU9Sx3iXU37o4r
+UpsSTHk+ESdrw+/p+opazCviH5EXML9oVyQGLGSGjl31pfDo1Ub2n8esNhrws0pLhHMifdVtCz7n
+BafmHkdX9ICQ/+qF0WbtTxxFXQw0D1tJAzQ/LQ==
 </ds:SignatureValue>
-<ds:KeyInfo Id="Certificate567068">
+<ds:KeyInfo Id="Certificate485002">
 <ds:X509Data>
 <ds:X509Certificate>
 MIIJwjCCB6qgAwIBAgIEW2fsIzANBgkqhkiG9w0BAQsFADCBoTELMAkGA1UEBhMCRUMxIjAgBgNV
@@ -186,4 +186,4 @@ dEYX8vIo9AYg9mlBgwTKUJXXTrrc8aWYXsPv+w==
 </ds:RSAKeyValue>
 </ds:KeyValue>
 </ds:KeyInfo>
-<ds:Object Id="Signature998717-Object670316"><etsi:QualifyingProperties Target="#Signature998717"><etsi:SignedProperties Id="Signature998717-SignedProperties992622"><etsi:SignedSignatureProperties><etsi:SigningTime>2021-04-23T19:22:32-05:00</etsi:SigningTime><etsi:SigningCertificate><etsi:Cert><etsi:CertDigest><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod><ds:DigestValue>WR8nwDtRUXtzbCanisFQSfjana4=</ds:DigestValue></etsi:CertDigest><etsi:IssuerSerial><ds:X509IssuerName>CN=AC BANCO CENTRAL DEL ECUADOR,L=QUITO,OU=ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE,O=BANCO CENTRAL DEL ECUADOR,C=EC</ds:X509IssuerName><ds:X509SerialNumber>1533537315</ds:X509SerialNumber></etsi:IssuerSerial></etsi:Cert></etsi:SigningCertificate></etsi:SignedSignatureProperties><etsi:SignedDataObjectProperties><etsi:DataObjectFormat ObjectReference="#Reference-ID-219121"><etsi:Description>contenido comprobante</etsi:Description><etsi:MimeType>text/xml</etsi:MimeType></etsi:DataObjectFormat></etsi:SignedDataObjectProperties></etsi:SignedProperties></etsi:QualifyingProperties></ds:Object></ds:Signature></factura>
+<ds:Object Id="Signature156915-Object758606"><etsi:QualifyingProperties Target="#Signature156915"><etsi:SignedProperties Id="Signature156915-SignedProperties179760"><etsi:SignedSignatureProperties><etsi:SigningTime>2021-04-24T00:53:33-05:00</etsi:SigningTime><etsi:SigningCertificate><etsi:Cert><etsi:CertDigest><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod><ds:DigestValue>WR8nwDtRUXtzbCanisFQSfjana4=</ds:DigestValue></etsi:CertDigest><etsi:IssuerSerial><ds:X509IssuerName>CN=AC BANCO CENTRAL DEL ECUADOR,L=QUITO,OU=ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE,O=BANCO CENTRAL DEL ECUADOR,C=EC</ds:X509IssuerName><ds:X509SerialNumber>1533537315</ds:X509SerialNumber></etsi:IssuerSerial></etsi:Cert></etsi:SigningCertificate></etsi:SignedSignatureProperties><etsi:SignedDataObjectProperties><etsi:DataObjectFormat ObjectReference="#Reference-ID-475956"><etsi:Description>contenido comprobante</etsi:Description><etsi:MimeType>text/xml</etsi:MimeType></etsi:DataObjectFormat></etsi:SignedDataObjectProperties></etsi:SignedProperties></etsi:QualifyingProperties></ds:Object></ds:Signature></factura>

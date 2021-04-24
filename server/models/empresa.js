@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         crepor: DataTypes.INTEGER,
         modpor: DataTypes.INTEGER,
         nomcomercial: DataTypes.STRING,
+        modeloFE: DataTypes.STRING,
         activo: DataTypes.BOOLEAN,
         createdAt: DataTypes.DATE,
         updatedAt: DataTypes.DATE

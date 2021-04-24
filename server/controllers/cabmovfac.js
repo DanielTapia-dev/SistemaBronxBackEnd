@@ -8,6 +8,7 @@ var forge = require('node-forge');
 const clientes = require("../models").clientes;
 const detmovimientos = require("../models").detmovimientos;
 const parimpuesto = require('../models').parimpuesto;
+var DomParser = require('dom-parser');
 /* const { sequelize } = require('sequelize');
 const producto = require("../models").producto; */
 
@@ -53,7 +54,7 @@ function facturaElectronica(req, res) {
                             },
                         })
                         .then((cliente) => {
-                            const consulta = pool.query(`SELECT D.idempresa, D.idsucursal, I.idimpuesto, I.tarifa, I."codigoSRI", I."codporcentajeSRI", D.secmovcab, D.idproducto, P.nomproducto, D.cantidad, D.precio, D.subsindesc, D.porcdescuento, D.descuento, D.subtotal, D.iva0, D.iva12, D.total
+                            const consulta = pool.query(`SELECT D.idempresa, D.idsucursal, I.idimpuesto, I.porcimpuesto, I."codigoSRI", I."codporcentajeSRI", D.secmovcab, D.idproducto, P.nomproducto, D.cantidad, D.precio, D.subsindesc, D.porcdescuento, D.descuento, D.subtotal, D.iva0, D.iva12, D.total
                             FROM detmovimientos D, producto P, parimpuesto I
                             WHERE D.secmovcab=` + movfactura.secmovcab + `AND D.idproducto = P.idproducto
                             AND P.idimpuesto = I.idimpuesto;`).then((detallesFinal) => {
@@ -92,7 +93,7 @@ function facturaElectronica(req, res) {
                                                     impuesto: [{
                                                         codigo: element.codigoSRI,
                                                         codigoPorcentaje: element.codporcentajeSRI,
-                                                        tarifa: element.tarifa,
+                                                        tarifa: element.porcimpuesto,
                                                         baseImponible: element.subtotal,
                                                         valor: ivaFinal
                                                     }]
@@ -206,14 +207,14 @@ function facturaElectronica(req, res) {
                                                                     codigo: impuesto0.codigoSRI,
                                                                     codigoPorcentaje: impuesto0.codporcentajeSRI,
                                                                     baseImponible: movfactura.subtotaliva0,
-                                                                    tarifa: impuesto0.tarifa,
+                                                                    tarifa: impuesto0.porcimpuesto,
                                                                     valor: movfactura.iva0,
                                                                 },
                                                                 {
                                                                     codigo: impuesto12.codigoSRI,
                                                                     codigoPorcentaje: impuesto12.codporcentajeSRI,
                                                                     baseImponible: movfactura.subtotaliva12,
-                                                                    tarifa: impuesto12.tarifa,
+                                                                    tarifa: impuesto12.porcimpuesto,
                                                                     valor: movfactura.iva12,
                                                                 }
                                                             ]
@@ -528,12 +529,22 @@ function firmarComprobante(mi_contenido_p12, mi_pwd_p12, comprobante, id) {
 
     //FIN DE LA FIRMA DIGITAL 
 
+    var archivoString = comprobante.replace(/(<[^<]+)$/, xades_bes + '$1');
+
+    //console.log(archivoString);
+
     fs.writeFileSync(archivo, comprobante.replace(/(<[^<]+)$/, xades_bes + '$1'));
 
+    var b = new Buffer.from(archivoString);
+    var s = b.toString('base64');
+
+    var parser = new DomParser();
+    var xmlz = parser.parseFromString(archivoString, "application/xml");
+    // var xmlEnbase64 = btoa(xmlz);
+    console.log(s);
     return comprobante.replace(/(<[^<]+)$/, xades_bes + '$1');
 }
 
-//FUNCION ERRONEA CORREGIR -- NO ESTA GENERANDO BIEN EL HASH
 
 function sha1_base64(txt) {
     var md = forge.md.sha1.create();

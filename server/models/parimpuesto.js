@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
         porcimpuesto: DataTypes.FLOAT,
         idcuenta: DataTypes.STRING,
         idsucursal: DataTypes.STRING,
-        tarifa: DataTypes.FLOAT,
         activo: DataTypes.BOOLEAN,
         crepor: DataTypes.INTEGER,
         modpor: DataTypes.INTEGER,

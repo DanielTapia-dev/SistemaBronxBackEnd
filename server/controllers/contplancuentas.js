@@ -47,8 +47,10 @@ function getAll(req, res) {
 }
 
 function getAllMov(req, res) {
+    var idempresa = req.params.id;
     contplancuentas.findAll({
             where: {
+                idempresa: idempresa,
                 tipocuenta: true
             }
         })

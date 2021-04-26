@@ -15,7 +15,7 @@ const producto = require("../models").producto; */
 const config = {
     user: 'postgres',
     host: 'localhost',
-    password: 'postgres',
+    password: 'dannyalejo7123tapia',
     database: 'contable'
 };
 
@@ -279,6 +279,7 @@ function facturaElectronica(req, res) {
                                                         var DomParser = require('dom-parser');
                                                         parser = new DomParser();
                                                         xmlDoc = parser.parseFromString(xml, "text/xml");
+                                                        var respuestaRecepcion = xmlDoc.getElementsByTagName("estado")[0].childNodes[0].text;
                                                         console.log(xmlDoc.getElementsByTagName("estado")[0].childNodes[0].text);
                                                         if (xmlDoc.getElementsByTagName("estado")[0].childNodes[0].text === 'RECIBIDA') {
                                                             fetch(url2, {
@@ -297,14 +298,21 @@ function facturaElectronica(req, res) {
                                                                     var DomParser = require('dom-parser');
                                                                     parser = new DomParser();
                                                                     xmlDoc = parser.parseFromString(xml, "text/xml");
+                                                                    var respuestaAutorizacion = xmlDoc.getElementsByTagName("estado")[0].childNodes[0].text;
                                                                     console.log(xmlDoc.getElementsByTagName("estado")[0].childNodes[0].text);
                                                                     if (xmlDoc.getElementsByTagName("estado")[0].childNodes[0].text === 'AUTORIZADO') {
-                                                                        const actualizarNumeroDeAutorizacion = pool.query(`UPDATE public.cabmovfac
-                                                                        SET numautosri=` + claveAcceso + `
-                                                                        WHERE secmovcab=` + movfactura.secmovcab + `;`).then((detallesFinal) => {
-                                                                            console.log(detallesFinal + ' Facturada correctamente');
-                                                                        })
+                                                                        var claveAutorizacion = xmlDoc.getElementsByTagName("numeroAutorizacion")[0].childNodes[0].text;
+                                                                    } else {
+                                                                        var claveAutorizacion = 0;
                                                                     }
+                                                                    console.log(movfactura.secmovcab);
+                                                                    console.log(claveAutorizacion);
+                                                                    const actualizarNumeroDeAutorizacion = pool.query(`UPDATE public.cabmovfac
+                                                                        SET numautosri='` + claveAutorizacion + `', "EstadoRecepcionSRI" = '` + respuestaRecepcion + `', "EstadoAutorizacionSRI" = '` + respuestaAutorizacion + `' 
+                                                                         WHERE secmovcab=` + movfactura.secmovcab + `;`).then((detallesFinal) => {
+                                                                        console.log(detallesFinal + ' Facturada correctamente');
+                                                                    })
+
                                                                 }
                                                             );
                                                         }

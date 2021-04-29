@@ -3,6 +3,7 @@ module.exports = (sequelize, DataTypes) => {
         idempresa: DataTypes.STRING,
         idsucursal: DataTypes.STRING,
         sectabla: {
+            autoIncrement: true,
             primaryKey: true,
             type: DataTypes.INTEGER,
         },

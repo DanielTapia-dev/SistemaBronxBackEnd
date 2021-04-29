@@ -9,6 +9,38 @@ const clientes = require("../models").clientes;
 const detmovimientos = require("../models").detmovimientos;
 const parimpuesto = require('../models').parimpuesto;
 const fetch = require("node-fetch");
+var cron = require('node-cron');
+
+//cron.schedule('0 0 * * *')
+
+//*************************************** PROCESO DE 12PM INCOMPLETO TERMINAR************************************ */
+/* cron.schedule('* * * * * *', () => {
+    const actualizarNumeroDeAutorizacion = pool.query(`SELECT secmovcab,"EstadoRecepcionSRI", "EstadoAutorizacionSRI"
+    FROM public.cabmovfac
+    WHERE "EstadoRecepcionSRI"='RECIBIDA'
+    AND "EstadoAutorizacionSRI" = 'EN PROCESO';`).then((res) => {
+        var url2 = 'https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl';
+        fetch(url2, {
+            method: "POST",
+            body: ConsultaDeAutorizacionEmpaquetado,
+            // -- or --
+            // body : JSON.stringify({
+            // user : document.getElementById('user').value,
+            // ...
+            // })
+        }).then(
+            response => response.text() // .json(), etc.
+            // same as function(response) {return response.text();}
+        ).then(
+            (xml) => {
+
+
+            }
+        );
+
+        console.log(res.rows);
+    })
+}); */
 /* const { sequelize } = require('sequelize');
 const producto = require("../models").producto; */
 
@@ -22,10 +54,7 @@ const config = {
 const pool = new Pool(config);
 //const client = new Client(config);
 
-/* const getProductos = async() => {
-    const res = await pool.query(`SELECT D.idempresa, D.idsucursal, D.secmovcab, D.idproducto, P.nomproducto, D.cantidad, D.precio, D.subsindesc, D.porcdescuento, D.descuento, D.subtotal, D.iva0, D.iva12, D.total
-	FROM detmovimientos D, producto P
-	WHERE D.secmovcab=77 AND D.idproducto = P.idproducto;`);
+/* 
     //console.log('Prueba de funcionamiento');
     //console.log(res.rows);
 } */

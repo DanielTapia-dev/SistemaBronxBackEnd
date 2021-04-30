@@ -28,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
         createdAt: DataTypes.DATE,
         updatedAt: DataTypes.DATE,
         estado: DataTypes.STRING,
+        claveacceso: DataTypes.STRING,
         EstadoRecepcionSRI: DataTypes.STRING,
         EstadoAutorizacionSRI: DataTypes.STRING,
         secproforma: DataTypes.INTEGER,

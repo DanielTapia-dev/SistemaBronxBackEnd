@@ -14,33 +14,54 @@ var cron = require('node-cron');
 //cron.schedule('0 0 * * *')
 
 //*************************************** PROCESO DE 12PM INCOMPLETO TERMINAR************************************ */
-/* cron.schedule('* * * * * *', () => {
-    const actualizarNumeroDeAutorizacion = pool.query(`SELECT secmovcab,"EstadoRecepcionSRI", "EstadoAutorizacionSRI"
+cron.schedule('0 0 * * * *', () => {
+    const actualizarNumeroDeAutorizacion = pool.query(`SELECT secmovcab,"EstadoRecepcionSRI", "EstadoAutorizacionSRI", claveacceso
     FROM public.cabmovfac
     WHERE "EstadoRecepcionSRI"='RECIBIDA'
     AND "EstadoAutorizacionSRI" = 'EN PROCESO';`).then((res) => {
         var url2 = 'https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl';
-        fetch(url2, {
-            method: "POST",
-            body: ConsultaDeAutorizacionEmpaquetado,
-            // -- or --
-            // body : JSON.stringify({
-            // user : document.getElementById('user').value,
-            // ...
-            // })
-        }).then(
-            response => response.text() // .json(), etc.
-            // same as function(response) {return response.text();}
-        ).then(
-            (xml) => {
-
-
-            }
-        );
-
-        console.log(res.rows);
+        for (let index = 0; index < res.rows.length; index++) {
+            console.log(res.rows[index].claveacceso);
+            var ConsultaDeAutorizacionEmpaquetado = `<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
+                                                <Body>
+                                                    <autorizacionComprobante xmlns="http://ec.gob.sri.ws.autorizacion">
+                                                        <claveAccesoComprobante xmlns="">` + res.rows[index].claveacceso + `</claveAccesoComprobante>
+                                                    </autorizacionComprobante>
+                                                </Body>
+                                            </Envelope>`;
+            fetch(url2, {
+                method: "POST",
+                body: ConsultaDeAutorizacionEmpaquetado,
+                // -- or --
+                // body : JSON.stringify({
+                // user : document.getElementById('user').value,
+                // ...
+                // })
+            }).then(
+                response => response.text() // .json(), etc.
+                // same as function(response) {return response.text();}
+            ).then(
+                (xml) => {
+                    var DomParser = require('dom-parser');
+                    parser = new DomParser();
+                    xmlDoc = parser.parseFromString(xml, "text/xml");
+                    var respuestaAutorizacion = xmlDoc.getElementsByTagName("estado")[0].childNodes[0].text;
+                    console.log(res.rows[index].secmovcab + "POR QUE NO VALE");
+                    console.log(xmlDoc.getElementsByTagName("estado")[0].childNodes[0].text);
+                    if (xmlDoc.getElementsByTagName("estado")[0].childNodes[0].text === 'AUTORIZADO') {
+                        var claveAutorizacion = xmlDoc.getElementsByTagName("numeroAutorizacion")[0].childNodes[0].text;
+                    } else {
+                        var claveAutorizacion = 1;
+                    }
+                    const actualizarNumeroDeAutorizacion = pool.query(`UPDATE public.cabmovfac
+                                                                        SET numautosri='` + claveAutorizacion + `', "EstadoAutorizacionSRI" = AUTORIZADO WHERE secmovcab=` + res.rows[index].secmovcab + `;`).then((detallesFinal) => {
+                        console.log(detallesFinal + ' Facturada correctamente');
+                    })
+                }
+            );
+        }
     })
-}); */
+});
 /* const { sequelize } = require('sequelize');
 const producto = require("../models").producto; */
 
@@ -335,9 +356,9 @@ function facturaElectronica(req, res) {
                                                                         var claveAutorizacion = 0;
                                                                     }
                                                                     console.log(movfactura.secmovcab);
-                                                                    console.log(claveAutorizacion);
+                                                                    console.log(claveAcceso);
                                                                     const actualizarNumeroDeAutorizacion = pool.query(`UPDATE public.cabmovfac
-                                                                        SET numautosri='` + claveAutorizacion + `', "EstadoRecepcionSRI" = '` + respuestaRecepcion + `', "EstadoAutorizacionSRI" = '` + respuestaAutorizacion + `' 
+                                                                        SET claveacceso = ` + claveAcceso + ` ,numautosri='` + claveAutorizacion + `', "EstadoRecepcionSRI" = '` + respuestaRecepcion + `', "EstadoAutorizacionSRI" = '` + respuestaAutorizacion + `' 
                                                                          WHERE secmovcab=` + movfactura.secmovcab + `;`).then((detallesFinal) => {
                                                                         console.log(detallesFinal + ' Facturada correctamente');
                                                                     })

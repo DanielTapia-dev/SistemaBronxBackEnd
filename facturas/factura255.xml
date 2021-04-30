@@ -6,7 +6,7 @@
     <razonSocial>SEMPÉRTEGUI REGALADO MARGARITA SOLEDAD</razonSocial>
     <nombreComercial>SEMPÉRTEGUI REGALADO MARGARITA SOLEDAD</nombreComercial>
     <ruc>1706610738001</ruc>
-    <claveAcceso>2904202101170661073800110030010000001521234567816</claveAcceso>
+    <claveAcceso>3004202101170661073800110030010000001521234567819</claveAcceso>
     <codDoc>01</codDoc>
     <estab>003</estab>
     <ptoEmi>001</ptoEmi>
@@ -15,33 +15,33 @@
     <regimenMicroempresas>CONTRIBUYENTE RÉGIMEN MICROEMPRESAS</regimenMicroempresas>
   </infoTributaria>
   <infoFactura>
-    <fechaEmision>29/04/2021</fechaEmision>
+    <fechaEmision>30/04/2021</fechaEmision>
     <dirEstablecimiento>LATACUNGA</dirEstablecimiento>
     <obligadoContabilidad>NO</obligadoContabilidad>
     <tipoIdentificacionComprador>05</tipoIdentificacionComprador>
-    <razonSocialComprador>ALEX ALDANA</razonSocialComprador>
-    <identificacionComprador>0501721096</identificacionComprador>
-    <direccionComprador>AMBATO</direccionComprador>
-    <totalSinImpuestos>48.53</totalSinImpuestos>
+    <razonSocialComprador>DANIEL TAPIA</razonSocialComprador>
+    <identificacionComprador>0502644206</identificacionComprador>
+    <direccionComprador>LA MERCED</direccionComprador>
+    <totalSinImpuestos>105.49</totalSinImpuestos>
     <totalDescuento>0.00</totalDescuento>
     <totalConImpuestos>
       <totalImpuesto>
         <codigo>2</codigo>
         <codigoPorcentaje>0</codigoPorcentaje>
-        <baseImponible>48.53</baseImponible>
+        <baseImponible>53.53</baseImponible>
         <tarifa>0</tarifa>
         <valor>0.00</valor>
       </totalImpuesto>
       <totalImpuesto>
         <codigo>2</codigo>
         <codigoPorcentaje>2</codigoPorcentaje>
-        <baseImponible>0.00</baseImponible>
+        <baseImponible>51.96</baseImponible>
         <tarifa>12</tarifa>
-        <valor>0.00</valor>
+        <valor>6.24</valor>
       </totalImpuesto>
     </totalConImpuestos>
     <propina>0.00</propina>
-    <importeTotal>48.53</importeTotal>
+    <importeTotal>111.73</importeTotal>
     <moneda>DOLAR</moneda>
   </infoFactura>
   <detalles>
@@ -63,36 +63,19 @@
       </impuestos>
     </detalle>
     <detalle>
-      <codigoPrincipal>PR0001</codigoPrincipal>
-      <descripcion>COPROPARACITARIO</descripcion>
+      <codigoPrincipal>PR0005</codigoPrincipal>
+      <descripcion>HECES</descripcion>
       <cantidad>1</cantidad>
-      <precioUnitario>1.00</precioUnitario>
+      <precioUnitario>12.99</precioUnitario>
       <descuento>0</descuento>
-      <precioTotalSinImpuesto>1.00</precioTotalSinImpuesto>
+      <precioTotalSinImpuesto>12.99</precioTotalSinImpuesto>
       <impuestos>
         <impuesto>
           <codigo>2</codigo>
-          <codigoPorcentaje>0</codigoPorcentaje>
-          <tarifa>0</tarifa>
-          <baseImponible>1.00</baseImponible>
-          <valor>0.00</valor>
-        </impuesto>
-      </impuestos>
-    </detalle>
-    <detalle>
-      <codigoPrincipal>PR0001</codigoPrincipal>
-      <descripcion>COPROPARACITARIO</descripcion>
-      <cantidad>1</cantidad>
-      <precioUnitario>1.00</precioUnitario>
-      <descuento>0</descuento>
-      <precioTotalSinImpuesto>1.00</precioTotalSinImpuesto>
-      <impuestos>
-        <impuesto>
-          <codigo>2</codigo>
-          <codigoPorcentaje>0</codigoPorcentaje>
-          <tarifa>0</tarifa>
-          <baseImponible>1.00</baseImponible>
-          <valor>0.00</valor>
+          <codigoPorcentaje>2</codigoPorcentaje>
+          <tarifa>12</tarifa>
+          <baseImponible>12.99</baseImponible>
+          <valor>1.56</valor>
         </impuesto>
       </impuestos>
     </detalle>
@@ -114,18 +97,69 @@
       </impuestos>
     </detalle>
     <detalle>
-      <codigoPrincipal>PR0004</codigoPrincipal>
-      <descripcion>ORINA</descripcion>
+      <codigoPrincipal>PR0005</codigoPrincipal>
+      <descripcion>HECES</descripcion>
       <cantidad>1</cantidad>
-      <precioUnitario>16.99</precioUnitario>
+      <precioUnitario>12.99</precioUnitario>
       <descuento>0</descuento>
-      <precioTotalSinImpuesto>16.99</precioTotalSinImpuesto>
+      <precioTotalSinImpuesto>12.99</precioTotalSinImpuesto>
+      <impuestos>
+        <impuesto>
+          <codigo>2</codigo>
+          <codigoPorcentaje>2</codigoPorcentaje>
+          <tarifa>12</tarifa>
+          <baseImponible>12.99</baseImponible>
+          <valor>1.56</valor>
+        </impuesto>
+      </impuestos>
+    </detalle>
+    <detalle>
+      <codigoPrincipal>PR0005</codigoPrincipal>
+      <descripcion>HECES</descripcion>
+      <cantidad>1</cantidad>
+      <precioUnitario>12.99</precioUnitario>
+      <descuento>0</descuento>
+      <precioTotalSinImpuesto>12.99</precioTotalSinImpuesto>
+      <impuestos>
+        <impuesto>
+          <codigo>2</codigo>
+          <codigoPorcentaje>2</codigoPorcentaje>
+          <tarifa>12</tarifa>
+          <baseImponible>12.99</baseImponible>
+          <valor>1.56</valor>
+        </impuesto>
+      </impuestos>
+    </detalle>
+    <detalle>
+      <codigoPrincipal>PR0005</codigoPrincipal>
+      <descripcion>HECES</descripcion>
+      <cantidad>1</cantidad>
+      <precioUnitario>12.99</precioUnitario>
+      <descuento>0</descuento>
+      <precioTotalSinImpuesto>12.99</precioTotalSinImpuesto>
+      <impuestos>
+        <impuesto>
+          <codigo>2</codigo>
+          <codigoPorcentaje>2</codigoPorcentaje>
+          <tarifa>12</tarifa>
+          <baseImponible>12.99</baseImponible>
+          <valor>1.56</valor>
+        </impuesto>
+      </impuestos>
+    </detalle>
+    <detalle>
+      <codigoPrincipal>PR0002</codigoPrincipal>
+      <descripcion>COVID</descripcion>
+      <cantidad>1</cantidad>
+      <precioUnitario>7.00</precioUnitario>
+      <descuento>0</descuento>
+      <precioTotalSinImpuesto>7.00</precioTotalSinImpuesto>
       <impuestos>
         <impuesto>
           <codigo>2</codigo>
           <codigoPorcentaje>0</codigoPorcentaje>
           <tarifa>0</tarifa>
-          <baseImponible>16.99</baseImponible>
+          <baseImponible>7.00</baseImponible>
           <valor>0.00</valor>
         </impuesto>
       </impuestos>
@@ -147,35 +181,52 @@
         </impuesto>
       </impuestos>
     </detalle>
+    <detalle>
+      <codigoPrincipal>PR0004</codigoPrincipal>
+      <descripcion>ORINA</descripcion>
+      <cantidad>1</cantidad>
+      <precioUnitario>16.99</precioUnitario>
+      <descuento>0</descuento>
+      <precioTotalSinImpuesto>16.99</precioTotalSinImpuesto>
+      <impuestos>
+        <impuesto>
+          <codigo>2</codigo>
+          <codigoPorcentaje>0</codigoPorcentaje>
+          <tarifa>0</tarifa>
+          <baseImponible>16.99</baseImponible>
+          <valor>0.00</valor>
+        </impuesto>
+      </impuestos>
+    </detalle>
   </detalles>
-<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#" Id="Signature405204">
-<ds:SignedInfo Id="Signature-SignedInfo754830">
+<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#" Id="Signature591575">
+<ds:SignedInfo Id="Signature-SignedInfo5809">
 <ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></ds:CanonicalizationMethod>
 <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"></ds:SignatureMethod>
-<ds:Reference Id="SignedPropertiesID780380" Type="http://uri.etsi.org/01903#SignedProperties" URI="#Signature405204-SignedProperties329439">
+<ds:Reference Id="SignedPropertiesID1432" Type="http://uri.etsi.org/01903#SignedProperties" URI="#Signature591575-SignedProperties117364">
 <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
-<ds:DigestValue>xRxhThf1vuc06m13qXz7AIH7KfM=</ds:DigestValue>
+<ds:DigestValue>lAYWQvFnNvMPS0E2B7V9wEWB8GU=</ds:DigestValue>
 </ds:Reference>
-<ds:Reference URI="#Certificate325479">
+<ds:Reference URI="#Certificate821278">
 <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
-<ds:DigestValue>s44cBsm2Na4Wyso1wSx5VbCjUy4=</ds:DigestValue>
+<ds:DigestValue>XwjI7Ok/1R9mqsyYJ8DpiVxIrnw=</ds:DigestValue>
 </ds:Reference>
-<ds:Reference Id="Reference-ID-391414" URI="#comprobante">
+<ds:Reference Id="Reference-ID-510439" URI="#comprobante">
 <ds:Transforms>
 <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"></ds:Transform>
 </ds:Transforms>
 <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
-<ds:DigestValue>4aWUTFdY3EMzIZztah2R4HhQyfA=</ds:DigestValue>
+<ds:DigestValue>ldy5b92mnj1geCQ+OXeu1U+0zpE=</ds:DigestValue>
 </ds:Reference>
 </ds:SignedInfo>
-<ds:SignatureValue Id="SignatureValue905338">
-jqxyvIqP3Zo1Lh5uZDjHMngwRKN1zsurI7Y/h+YipYVXEWT8UVkHp1WPz567Ee0SBEB1UgVOEHkz
-Lc1S9d/cRadIt2SVpOn6mLpGrfF/eAxZMB7IWUBFgyeq3mB5RdRG+mFlYUvXHlqbEy8O2vDGeSWJ
-QXAuyy/D+Ap5DylqfGcdFNk1h1bjT8kv781yQqZeckoGSRuCmqfsLtPVsxl6C1hjTj5e7IqoGQbS
-hPkKlusNsPKzEeam9wNwAbtECp/q7X8/DtXxt28HSnAzH7ZIGGfjyVx0QYVg+K8RGmE/tAeouKrW
-kZBAWO5oqnBSfrs/zFbLCZ/Pvs+hDilx+/tObw==
+<ds:SignatureValue Id="SignatureValue925896">
+2kNaTmW6rNQv82g4EhjJhPtRM2OFMv+LL+C2YSoED6LjgCfwh4uNtc/lfsnQWwz7FSfZgXCtX5HV
+Fj5c3Pn6JMbSODeQDytyZFoWLK0UMvDITcPPSb1DRRe3/qet7R0SxIUjqJYCcjqZvMnxktRoQUkK
+WktcUd8sb3YWmZcpyNpHYVbgUjYwtNWdm35gILyLN5pzrk7wUjibwmvOEI6GdCZdStqvIa3YCldf
+bl59/U/pUwFrsEeeDL9uD7sI2PzEGlr/KazVY8HPvEdWifuDiryOw5jrvBstfpP7eEppwvbN0gEW
+QhaPiUHlzWq+wLMvBrdLMi64lRWk/hha95ve8A==
 </ds:SignatureValue>
-<ds:KeyInfo Id="Certificate325479">
+<ds:KeyInfo Id="Certificate821278">
 <ds:X509Data>
 <ds:X509Certificate>
 MIIJwjCCB6qgAwIBAgIEW2fsIzANBgkqhkiG9w0BAQsFADCBoTELMAkGA1UEBhMCRUMxIjAgBgNV
@@ -237,4 +288,4 @@ dEYX8vIo9AYg9mlBgwTKUJXXTrrc8aWYXsPv+w==
 </ds:RSAKeyValue>
 </ds:KeyValue>
 </ds:KeyInfo>
-<ds:Object Id="Signature405204-Object25493"><etsi:QualifyingProperties Target="#Signature405204"><etsi:SignedProperties Id="Signature405204-SignedProperties329439"><etsi:SignedSignatureProperties><etsi:SigningTime>2021-04-29T02:37:01-05:00</etsi:SigningTime><etsi:SigningCertificate><etsi:Cert><etsi:CertDigest><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod><ds:DigestValue>WR8nwDtRUXtzbCanisFQSfjana4=</ds:DigestValue></etsi:CertDigest><etsi:IssuerSerial><ds:X509IssuerName>CN=AC BANCO CENTRAL DEL ECUADOR,L=QUITO,OU=ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE,O=BANCO CENTRAL DEL ECUADOR,C=EC</ds:X509IssuerName><ds:X509SerialNumber>1533537315</ds:X509SerialNumber></etsi:IssuerSerial></etsi:Cert></etsi:SigningCertificate></etsi:SignedSignatureProperties><etsi:SignedDataObjectProperties><etsi:DataObjectFormat ObjectReference="#Reference-ID-391414"><etsi:Description>contenido comprobante</etsi:Description><etsi:MimeType>text/xml</etsi:MimeType></etsi:DataObjectFormat></etsi:SignedDataObjectProperties></etsi:SignedProperties></etsi:QualifyingProperties></ds:Object></ds:Signature></factura>
+<ds:Object Id="Signature591575-Object573384"><etsi:QualifyingProperties Target="#Signature591575"><etsi:SignedProperties Id="Signature591575-SignedProperties117364"><etsi:SignedSignatureProperties><etsi:SigningTime>2021-04-30T02:51:56-05:00</etsi:SigningTime><etsi:SigningCertificate><etsi:Cert><etsi:CertDigest><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod><ds:DigestValue>WR8nwDtRUXtzbCanisFQSfjana4=</ds:DigestValue></etsi:CertDigest><etsi:IssuerSerial><ds:X509IssuerName>CN=AC BANCO CENTRAL DEL ECUADOR,L=QUITO,OU=ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE,O=BANCO CENTRAL DEL ECUADOR,C=EC</ds:X509IssuerName><ds:X509SerialNumber>1533537315</ds:X509SerialNumber></etsi:IssuerSerial></etsi:Cert></etsi:SigningCertificate></etsi:SignedSignatureProperties><etsi:SignedDataObjectProperties><etsi:DataObjectFormat ObjectReference="#Reference-ID-510439"><etsi:Description>contenido comprobante</etsi:Description><etsi:MimeType>text/xml</etsi:MimeType></etsi:DataObjectFormat></etsi:SignedDataObjectProperties></etsi:SignedProperties></etsi:QualifyingProperties></ds:Object></ds:Signature></factura>

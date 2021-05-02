@@ -62,6 +62,26 @@ function getAllMov(req, res) {
         })
 }
 
+function getOne(req, res) {
+    var id = req.params.id;
+    contplancuentas
+      .findOne({
+        where: {
+          idcuenta: id,
+        },
+      })
+      .then((contplancuentas) => {
+        res.status(200).send(contplancuentas);
+      })
+      .catch((err) => {
+        res
+          .status(500)
+          .send({ message: "Ocurrió un error al buscar la cuentas contable" + err });
+      });
+}
+
+
+
 function borrar(req, res) {
     var id = req.params.id;
     var body = req.body;
@@ -96,5 +116,6 @@ module.exports = {
     update,
     getAll,
     getAllMov,
-    borrar
+    borrar,
+    getOne
 }

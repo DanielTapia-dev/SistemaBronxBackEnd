@@ -15,7 +15,7 @@ const producto = require("../models").producto; */
 const config = {
     user: 'postgres',
     host: 'localhost',
-    password: 'postgres',
+    password: 'danny123alejo7',
     database: 'contable'
 };
 

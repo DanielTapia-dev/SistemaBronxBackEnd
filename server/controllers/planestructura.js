@@ -49,8 +49,27 @@ function getAll(req, res) {
       });
   }
 
+  function getOne(req, res) {
+    var idempresa1 = req.params.id;
+    planestructura
+      .findOne({
+        where: {
+          idempresa: idempresa1,
+        },
+      })
+      .then((planestructura) => {
+        res.status(200).send(planestructura);
+      })
+      .catch((err) => {
+        res
+          .status(500)
+          .send({ message: "Ocurrió un error al buscar las estructuras de cuentas " + err });
+      });
+}
+
 module.exports = {
     create,
     update,
-    getAll
+    getAll,
+    getOne
 }

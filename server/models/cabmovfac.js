@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
         fechaautsri: DataTypes.DATE,
         subsindesc: DataTypes.FLOAT,
         descuento: DataTypes.FLOAT,
-        subtotal: DataTypes.FLOAT,    
+        subtotal: DataTypes.FLOAT,
         subtotaliva0: DataTypes.FLOAT,
         subtotaliva12: DataTypes.FLOAT,
         iva0: DataTypes.FLOAT,
@@ -28,6 +28,10 @@ module.exports = (sequelize, DataTypes) => {
         createdAt: DataTypes.DATE,
         updatedAt: DataTypes.DATE,
         estado: DataTypes.STRING,
+        claveacceso: DataTypes.STRING,
+        EstadoRecepcionSRI: DataTypes.STRING,
+        EstadoAutorizacionSRI: DataTypes.STRING,
+        secproforma: DataTypes.INTEGER,
         porcdescuento: DataTypes.INTEGER
     }, {
         freezeTableName: true

@@ -73,7 +73,7 @@ function borrar(req, res) {
     parfamilia
       .findOne({
         where: {
-          idsucursal: id,
+          idfamilia: id,
         },
       })
       .then((familia) => {

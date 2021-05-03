@@ -5,6 +5,24 @@ var nJwt = require('njwt');
 var config = require('../config/config');
 var secret = config.token_secret;
 
+function secuencial(req, res) {
+    usuarios.findOne({
+            where: {
+                usuario: req.body.usuario
+            }
+        })
+        .then(usuario => {
+            if (usuario) {
+                res.status(200).send({ usuario });
+            } else {
+                res.status(401).send({ message: "Acceso no autorizado" })
+            }
+        })
+        .catch(err => {
+            res.status(500).send({ message: "Ocurrió un error al buscar el Usuario." } + err);
+        })
+}
+
 function create(req, res) {
 
     const usuarioIngresado = req.body.usuario;
@@ -60,26 +78,25 @@ function login(req, res) {
 
 }
 
-
 function getAll(req, res) {
     var idEmpresa = req.params.id;
     usuarios
-      .findAll({
-        where: {
-          idempresa: idEmpresa,
-        },
-      })
-      .then((usuarios) => {
-        res.status(200).send({ usuarios });
-      })
-      .catch((err) => {
-        res
-          .status(500)
-          .send({ message: "Ocurrio un error al buscar el usuario" });
-      });
-  }
+        .findAll({
+            where: {
+                idempresa: idEmpresa,
+            },
+        })
+        .then((usuarios) => {
+            res.status(200).send({ usuarios });
+        })
+        .catch((err) => {
+            res
+                .status(500)
+                .send({ message: "Ocurrio un error al buscar el usuario" });
+        });
+}
 
-  function update(req, res) {
+function update(req, res) {
     var id = req.params.id;
     var body = req.body;
     usuarios.findOne({
@@ -101,7 +118,7 @@ function getAll(req, res) {
         });
 }
 
-  function auth(req, res, next) {
+function auth(req, res, next) {
     if (!req.headers.authorization) {
         return res.status(403).send({ message: "La petición no tiene la cabecera de autenticación" });
     }
@@ -123,29 +140,29 @@ function borrar(req, res) {
     var id = req.params.id;
     var body = req.body;
     usuarios
-      .findOne({
-        where: {
-          idusuario: id,
-        },
-      })
-      .then((user) => {
-        user
-          .destroy(body)
-          .then(() => {
-            res.status(200).send({ message: "Usuario eliminado" });
-          })
-          .catch((erro) => {
+        .findOne({
+            where: {
+                idusuario: id,
+            },
+        })
+        .then((user) => {
+            user
+                .destroy(body)
+                .then(() => {
+                    res.status(200).send({ message: "Usuario eliminado" });
+                })
+                .catch((erro) => {
+                    res
+                        .status(500)
+                        .send({ message: "Ocurrio un error al borrar el usuario" });
+                });
+        })
+        .catch((err) => {
             res
-              .status(500)
-              .send({ message: "Ocurrio un error al borrar el usuario" });
-          });
-      })
-      .catch((err) => {
-        res
-          .status(500)
-          .send({ message: "Ocurrio un error al borrar el usuario" });
-      });
-  }
+                .status(500)
+                .send({ message: "Ocurrio un error al borrar el usuario" });
+        });
+}
 
 
 module.exports = {
@@ -154,5 +171,6 @@ module.exports = {
     getAll,
     update,
     borrar,
-    auth
+    auth,
+    secuencial
 }

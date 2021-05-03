@@ -59,6 +59,24 @@ function getOne(req, res) {
         });
 }
 
+function getOneSec(req, res) {
+    var idsectabla = req.params.id;
+    usucajaserie
+        .findOne({
+            where: {
+                sectabla: idsectabla,
+                },
+        })
+        .then((usucajaserie) => {
+            res.status(200).send(usucajaserie);
+        })
+        .catch((err) => {
+            res
+                .status(500)
+                .send({ message: "Ocurrió un error al buscar a secuencia." + err });
+        });
+}
+
 function getAll(req, res) {
     var idEmpresa = req.params.id;
     usucajaserie
@@ -110,5 +128,6 @@ module.exports = {
     update,
     getAll,
     borrar,
-    getOne
+    getOne,
+    getOneSec
 }

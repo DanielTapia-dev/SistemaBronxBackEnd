@@ -179,6 +179,24 @@ function borrar(req, res) {
         });
 }
 
+function getOne(req, res) {
+    var idusuario = req.params.id;
+    usuarios
+        .findOne({
+            where: {
+                idusuario: idusuario,
+            },
+        })
+        .then((usuarios) => {
+            res.status(200).send(usuarios.idempresa);
+        })
+        .catch((err) => {
+            res
+                .status(500)
+                .send({ message: "Ocurrió un error al buscar la empresa" + err });
+        });
+}
+
 
 module.exports = {
     create,
@@ -187,6 +205,7 @@ module.exports = {
     update,
     borrar,
     auth,
+    getOne,
     secuencial,
     auth2
 }

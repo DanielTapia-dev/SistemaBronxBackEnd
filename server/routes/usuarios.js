@@ -7,6 +7,7 @@ module.exports = (app) => {
     app.post('/api/login', usuariosController.login);
     app.post('/api/secuencial', usuariosController.secuencial);
     app.get('/api/usuarios/:id', md_auth.auth2, usuariosController.getAll);
+    app.get('/api/usuario/empresa/:id', md_auth.auth2, usuariosController.getOne);
     app.get('/api/comprobar', md_auth.auth);
     app.delete('/api/usuario/delete/:id', md_auth.auth2, usuariosController.borrar);
 }

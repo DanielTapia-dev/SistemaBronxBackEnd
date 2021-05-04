@@ -17,7 +17,8 @@ module.exports = (sequelize, DataTypes) => {
         idsucursal: DataTypes.STRING,
         activo: DataTypes.INTEGER,
         createdAt: DataTypes.DATE,
-        updatedAt: DataTypes.DATE
+        updatedAt: DataTypes.DATE,
+        idcliente_pertenece: DataTypes.STRING
     });
 
     return clientes;

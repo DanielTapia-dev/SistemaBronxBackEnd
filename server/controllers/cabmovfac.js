@@ -14,7 +14,7 @@ var cron = require('node-cron');
 //cron.schedule('0 0 * * *')
 
 //*************************************** PROCESO DE 12PM INCOMPLETO TERMINAR************************************ */
-cron.schedule('0 0 * * * *', () => {
+cron.schedule('* * * * * *', () => {
     const actualizarNumeroDeAutorizacion = pool.query(`SELECT secmovcab,"EstadoRecepcionSRI", "EstadoAutorizacionSRI", claveacceso
     FROM public.cabmovfac
     WHERE "EstadoRecepcionSRI"='RECIBIDA'
@@ -46,17 +46,22 @@ cron.schedule('0 0 * * * *', () => {
                     parser = new DomParser();
                     xmlDoc = parser.parseFromString(xml, "text/xml");
                     var respuestaAutorizacion = xmlDoc.getElementsByTagName("estado")[0].childNodes[0].text;
-                    console.log(res.rows[index].secmovcab + "POR QUE NO VALE");
-                    console.log(xmlDoc.getElementsByTagName("estado")[0].childNodes[0].text);
+                    /*  console.log(res.rows[index].secmovcab + "POR QUE NO VALE");
+                     console.log(xmlDoc.getElementsByTagName("estado")[0].childNodes[0].text); */
                     if (xmlDoc.getElementsByTagName("estado")[0].childNodes[0].text === 'AUTORIZADO') {
                         var claveAutorizacion = xmlDoc.getElementsByTagName("numeroAutorizacion")[0].childNodes[0].text;
+                        const actualizarNumeroDeAutorizacion = pool.query(`UPDATE public.cabmovfac
+                                                                        SET numautosri='${claveAutorizacion}', "EstadoAutorizacionSRI" = 'AUTORIZADO' WHERE secmovcab=${res.rows[index].secmovcab}`).then((detallesFinal) => {
+                            console.log(detallesFinal.rows + ' Facturada correctamente');
+                        })
                     } else {
-                        var claveAutorizacion = 1;
+                        console.log('Entro aca');
+                        var estado = xmlDoc.getElementsByTagName("estado")[0].childNodes[0].text;
+                        const actualizarNumeroDeAutorizacion = pool.query(`UPDATE public.cabmovfac
+                                                                        SET "EstadoAutorizacionSRI" = '${estado}' WHERE secmovcab=${res.rows[index].secmovcab}`).then((detallesFinal) => {
+                            console.log(detallesFinal.rows + ' Facturada correctamente');
+                        })
                     }
-                    const actualizarNumeroDeAutorizacion = pool.query(`UPDATE public.cabmovfac
-                                                                        SET numautosri='` + claveAutorizacion + `', "EstadoAutorizacionSRI" = AUTORIZADO WHERE secmovcab=` + res.rows[index].secmovcab + `;`).then((detallesFinal) => {
-                        console.log(detallesFinal + ' Facturada correctamente');
-                    })
                 }
             );
         }

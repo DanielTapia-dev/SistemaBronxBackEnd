@@ -14,7 +14,7 @@ var cron = require('node-cron');
 //cron.schedule('0 0 * * *')
 
 //*************************************** PROCESO DE 12PM INCOMPLETO TERMINAR************************************ */
-cron.schedule('* * * * * *', () => {
+cron.schedule('0 0 * * *', () => {
     const actualizarNumeroDeAutorizacion = pool.query(`SELECT secmovcab,"EstadoRecepcionSRI", "EstadoAutorizacionSRI", claveacceso
     FROM public.cabmovfac
     WHERE "EstadoRecepcionSRI"='RECIBIDA'
@@ -55,11 +55,10 @@ cron.schedule('* * * * * *', () => {
                             console.log(detallesFinal.rows + ' Facturada correctamente');
                         })
                     } else {
-                        console.log('Entro aca');
                         var estado = xmlDoc.getElementsByTagName("estado")[0].childNodes[0].text;
                         const actualizarNumeroDeAutorizacion = pool.query(`UPDATE public.cabmovfac
                                                                         SET "EstadoAutorizacionSRI" = '${estado}' WHERE secmovcab=${res.rows[index].secmovcab}`).then((detallesFinal) => {
-                            console.log(detallesFinal.rows + ' Facturada correctamente');
+                            console.log('Facturada correctamente ' + estado);
                         })
                     }
                 }

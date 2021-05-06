@@ -15,6 +15,7 @@ module.exports = (sequelize, DateTypes) => {
         createdAt: DateTypes.DATE,
         updatedAt: DateTypes.DATE,
         nomusuario: DateTypes.STRING,
+        emailusuario: DateTypes.STRING,
     });
 
     return usuarios;

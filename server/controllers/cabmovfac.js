@@ -66,6 +66,7 @@ cron.schedule('0 0 * * *', () => {
         }
     })
 });
+//********FIN DE PROCESO 12PM */
 /* const { sequelize } = require('sequelize');
 const producto = require("../models").producto; */
 

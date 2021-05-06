@@ -13,7 +13,8 @@ module.exports = (sequelize, DateTypes) => {
         crepor: DateTypes.INTEGER,
         modpor: DateTypes.INTEGER,
         createdAt: DateTypes.DATE,
-        updatedAt: DateTypes.DATE
+        updatedAt: DateTypes.DATE,
+        nomusuario: DateTypes.STRING,
     });
 
     return usuarios;

@@ -10,4 +10,6 @@ module.exports = (app) => {
     app.get('/api/usuario/empresa/:id', md_auth.auth2, usuariosController.getOne);
     app.get('/api/comprobar', md_auth.auth);
     app.delete('/api/usuario/delete/:id', md_auth.auth2, usuariosController.borrar);
+    app.get('/api/usuarione/:id', md_auth.auth2, usuariosController.getOneUsuario);
+   
 }

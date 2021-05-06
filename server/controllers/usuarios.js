@@ -197,6 +197,24 @@ function getOne(req, res) {
         });
 }
 
+function getOneUsuario(req, res) {
+    var idusuario = req.params.id;
+    usuarios
+        .findOne({
+            where: {
+                idusuario: idusuario,
+            },
+        })
+        .then((usuarios) => {
+            res.status(200).send(usuarios);
+        })
+        .catch((err) => {
+            res
+                .status(500)
+                .send({ message: "Ocurrió un error al buscar la empresa" + err });
+        });
+}
+
 
 module.exports = {
     create,
@@ -207,5 +225,6 @@ module.exports = {
     auth,
     getOne,
     secuencial,
-    auth2
+    auth2,
+    getOneUsuario
 }

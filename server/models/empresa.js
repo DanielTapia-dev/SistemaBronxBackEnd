@@ -28,7 +28,8 @@ module.exports = (sequelize, DataTypes) => {
         modeloFE: DataTypes.STRING,
         activo: DataTypes.BOOLEAN,
         createdAt: DataTypes.DATE,
-        updatedAt: DataTypes.DATE
+        updatedAt: DataTypes.DATE,
+        logobase64: DataTypes.STRING
     }, {
         freezeTableName: true
     });

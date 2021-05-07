@@ -29,7 +29,8 @@ module.exports = (sequelize, DataTypes) => {
         activo: DataTypes.BOOLEAN,
         createdAt: DataTypes.DATE,
         updatedAt: DataTypes.DATE,
-        logobase64: DataTypes.STRING
+        logobase64: DataTypes.STRING,
+        logonegrobase64: DataTypes.STRING
     }, {
         freezeTableName: true
     });

@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         createdAt: DataTypes.DATE,
         updatedAt: DataTypes.DATE,
         idcliente_pertenece: DataTypes.STRING,
-        tipocliente: DataTypes.DATE
+        tipocliente:  DataTypes.STRING
     });
 
     return clientes;

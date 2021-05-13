@@ -23,7 +23,8 @@ module.exports = (sequelize, DataTypes) => {
         modpor: DataTypes.INTEGER,
         createdAt: DataTypes.DATE,
         updatedAt: DataTypes.DATE,
-        estado: DataTypes.STRING
+        estado: DataTypes.STRING,
+        abono: DataTypes.FLOAT
     }, {
         freezeTableName: true
     });

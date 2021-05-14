@@ -3,8 +3,7 @@ const getMenuFrontEnd = (role) => {
             titulo: 'Facturas',
             icono: 'icon-cart2',
             submenu: [
-                { titulo: 'Facturar', url: 'facturar' },
-                { titulo: 'Lista de facturas', url: 'listafacturas' },
+                { titulo: 'Facturar', url: 'facturar' }
             ]
         },
         {
@@ -54,6 +53,8 @@ const getMenuFrontEnd = (role) => {
 
     if (role === '1') {
         // Contabilidad
+        menu[0].submenu.push({ titulo: 'Lista de facturas', url: 'listafacturas' });
+
         menu[2].submenu.push({ titulo: 'Empresa', url: 'empresa' }, { titulo: 'Sucursales', url: 'sucursales' }, { titulo: 'Estructura Plan de Cuentas', url: 'estrucuentas' }, { titulo: 'Plan de Cuentas', url: 'contplancuentas' }, { titulo: 'Asientos Contables', url: 'asientos' }, );
         menu.push({
             titulo: 'Reporteria',

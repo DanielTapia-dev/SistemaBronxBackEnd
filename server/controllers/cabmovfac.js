@@ -213,6 +213,18 @@ function facturaElectronica(req, res) {
                                                 }
                                             });
 
+                                            if (cliente.idencliente === 'CS') {
+                                                var tipoIdentificacionComprador = '07';
+                                            } else if (cliente.idencliente === 'Cedula') {
+                                                var tipoIdentificacionComprador = '05';
+                                            } else if (cliente.idencliente === 'RUC') {
+                                                var tipoIdentificacionComprador = '04';
+                                            } else if (cliente.idencliente === 'PASAPORTE') {
+                                                var tipoIdentificacionComprador = '06';
+                                            } else if (cliente.idencliente === 'IDENTIFICACION DELEXTERIOR') {
+                                                var tipoIdentificacionComprador = '08';
+                                            }
+
                                             //console.log('ESTE ES EL RESULTADO DE LA CLAVE DE ACCESO ' + claveAcceso);
 
                                             if (emp.contabilidad == true) {
@@ -250,7 +262,7 @@ function facturaElectronica(req, res) {
                                                         fechaEmision: fechaCabeceraFactura,
                                                         dirEstablecimiento: emp.dirempresa.toUpperCase(),
                                                         obligadoContabilidad: contabilidad.toUpperCase(),
-                                                        tipoIdentificacionComprador: "05",
+                                                        tipoIdentificacionComprador: tipoIdentificacionComprador,
                                                         razonSocialComprador: cliente.nomcliente.toUpperCase(),
                                                         identificacionComprador: cliente.ruccicliente,
                                                         direccionComprador: cliente.dircliente.toUpperCase(),

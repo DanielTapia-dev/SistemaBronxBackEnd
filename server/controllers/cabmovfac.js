@@ -73,7 +73,7 @@ const producto = require("../models").producto; */
 const config = {
     user: 'postgres',
     host: 'localhost',
-    password: 'dannyalejo7123tapia',
+    password: 'postgres',
     database: 'contable'
 };
 
@@ -835,11 +835,41 @@ function borrar(req, res) {
         });
 }
 
+function reportesFacturasClientesContado(req, res){
+    //:idEmpresa/:fechaIni/:fechaFin
+    var idEmpresa = req.params.idEmpresa;
+    var fechaIni = req.params.fechaIni;
+    var fechaFin = req.params.fechaFin;
+    
+    const consulta = pool.query(`SELECT fac.idempresa, fac.idsucursal, suc.nomsucursal, 
+    fac.idcaja, caj.nomcaja,
+    fac.idserie, fac.secmovcab, 
+    fac.idcliente, cli.nomcliente, 
+    fac.fechaingreso, fac.fechaaprob, fac.numfactura, fac.numautosri, 
+    fac.fechaautsri, fac.subsindesc, fac.descuento, fac.subtotal, fac.subtotaliva0, 
+    fac.subtotaliva12, fac.iva0, fac.iva12, fac.total, fac.crepor, fac.modpor, fac."createdAt", 
+    fac."updatedAt", fac.estado, fac.porcdescuento, fac."EstadoRecepcionSRI", 
+    fac."EstadoAutorizacionSRI", fac.secproforma, fac.claveacceso, fac.estadocobro, fac.valorcobro
+    FROM cabmovfac fac, parsucursal suc, parcaja caj, clientes cli
+    where fac.idsucursal = suc.idsucursal and fac.idcaja = caj.idcaja
+    and fac.idcliente = cli.idcliente and cli.tipocliente = 'CONTADO'
+    and fac.estado ='FACTURADA'
+    and fac.idempresa = '` + idEmpresa + `' 
+    and (fac."createdAt" between '` + fechaIni + `' and '` + fechaFin + `');`).then((reporteFacturas) => {
+               res.send(reporteFacturas.rows);               
+    }).catch((err) => {
+        res
+            .status(500)
+            .send({ message: "Ocurrio un error al comprobar el reporte" + err });
+    });
+}
+
 module.exports = {
     create,
     update,
     getAll,
     borrar,
     getOne,
-    facturaElectronica
+    facturaElectronica,
+    reportesFacturasClientesContado
 };

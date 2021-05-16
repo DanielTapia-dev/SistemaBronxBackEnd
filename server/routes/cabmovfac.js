@@ -7,5 +7,7 @@ module.exports = (app) => {
     app.get('/api/cabmovfac/:id', md_auth.auth, cabmovfacController.getOne);
     app.put('/api/cabmovfac/:id', md_auth.auth, cabmovfacController.update);
     app.get('/api/cabmovfacs/:id', md_auth.auth, cabmovfacController.getAll);
+    //app.get('/api/cabmovfacs/:fechaInicial/:fechaFinal', md_auth.auth, cabmovfacController.reportesFacturasClientesContado);
+    app.get('/api/cabmovfacontado/:idEmpresa/:fechaIni/:fechaFin', md_auth.auth, cabmovfacController.reportesFacturasClientesContado);
     app.delete('/api/cabmovfacs/delete/:id', md_auth.auth, cabmovfacController.borrar);
 }

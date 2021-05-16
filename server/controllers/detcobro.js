@@ -44,7 +44,7 @@ function getOne(req, res) {
   detcobro
     .findOne({
       where: {
-        detcabcob: id,
+        secdetcob: id,
       },
     })
     .then((dcobro) => {
@@ -74,6 +74,27 @@ function getAll(req, res) {
         .send({ message: "Ocurrio un error al buscar las líneas de cobro" });
     });
 }
+
+function getDetCobro(req, res) {
+  var idCobro = req.params.id;
+  var idEmpresa = req.params.idempresa;
+  detcobro
+    .findAll({
+      where: {
+        idempresa: idEmpresa,
+        seccabcob: idCobro,
+      },
+    })
+    .then((detcobro) => {
+      res.status(200).send({ detcobro });
+    })
+    .catch((err) => {
+      res
+        .status(500)
+        .send({ message: "Ocurrio un error al buscar las líneas de cobro" });
+    });
+}
+
 
 function borrar(req, res) {
   var id = req.params.id;
@@ -108,5 +129,6 @@ module.exports = {
   update,
   getAll,
   borrar,
-  getOne
+  getOne,
+  getDetCobro
 };

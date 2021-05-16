@@ -32,7 +32,9 @@ module.exports = (sequelize, DataTypes) => {
         EstadoRecepcionSRI: DataTypes.STRING,
         EstadoAutorizacionSRI: DataTypes.STRING,
         secproforma: DataTypes.INTEGER,
-        porcdescuento: DataTypes.INTEGER
+        porcdescuento: DataTypes.INTEGER,
+        estadocobro: DataTypes.STRING,
+        valorcobro: DataTypes.FLOAT,
     }, {
         freezeTableName: true
     });

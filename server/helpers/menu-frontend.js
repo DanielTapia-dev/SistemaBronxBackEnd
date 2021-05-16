@@ -60,7 +60,7 @@ const getMenuFrontEnd = (role) => {
             titulo: 'Reporteria',
             icono: 'icon-speedometer',
             submenu: [
-                { titulo: 'Reportes facturas', url: 'reporteFactura' },
+                { titulo: 'Reportes facturas', url: 'reportesFacturas' },
             ]
         });
 

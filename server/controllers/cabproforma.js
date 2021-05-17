@@ -1,4 +1,14 @@
+const { Pool, Client } = require('pg');
 const cabproforma = require("../models").cabproforma;
+
+const config = {
+  user: 'postgres',
+  host: 'localhost',
+  password: 'postgres',
+  database: 'contable'
+};
+
+const pool = new Pool(config);
 
 function create(req, res) {
   cabproforma
@@ -103,10 +113,40 @@ function borrar(req, res) {
     });
 }
 
+function reportesProformas(req, res){
+  var idEmpresa = req.params.idEmpresa;
+  var fechaIni = req.params.fechaIni;
+  var fechaFin = req.params.fechaFin;
+  var estado = req.params.estado;
+  
+  const consulta = pool.query(`SELECT pro.idempresa, pro.secmovcab, 
+  pro.idsucursal, suc.nomsucursal, 
+  pro.idcliente, cli.nomcliente,
+  pro.fechaingreso, pro.fechaaprob, pro.subsindesc, 
+  pro.porcdescuento, pro.descuento, pro.subtotal, pro.subtotaliva0, pro.subtotaliva12, 
+  pro.total, pro.crepor, pro.modpor, pro."createdAt", pro."updatedAt", 
+  pro.estado, pro.iva0, pro.iva12, pro.abono
+  FROM cabproforma pro, clientes cli, parsucursal suc
+  where pro.idcliente = cli.idcliente 
+  and pro.idsucursal = suc.idsucursal
+  and pro.idempresa = '` + idEmpresa + `'
+  and pro.estado = '` + estado + `' 
+  and (pro."createdAt" between '` + fechaIni + `' and '` + fechaFin + `');`).then((reportesProformas) => {
+             res.send(reportesProformas.rows);               
+  }).catch((err) => {
+      res
+          .status(500)
+          .send({ message: "Ocurrio un error al realizar el reporte" + err });
+  });
+}
+
+
+
 module.exports = {
   create,
   update,
   getAll,
   borrar,
-  getOne
+  getOne,
+  reportesProformas
 };

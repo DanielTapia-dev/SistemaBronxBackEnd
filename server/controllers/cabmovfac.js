@@ -840,6 +840,7 @@ function reportesFacturasClientesContado(req, res) {
     var idEmpresa = req.params.idEmpresa;
     var fechaIni = req.params.fechaIni;
     var fechaFin = req.params.fechaFin;
+    var idCaja = req.params.idcaja;
 
     const consulta = pool.query(`SELECT fac.idempresa, fac.idsucursal, suc.nomsucursal, 
     fac.idcaja, caj.nomcaja,
@@ -852,9 +853,10 @@ function reportesFacturasClientesContado(req, res) {
     fac."EstadoAutorizacionSRI", fac.secproforma, fac.claveacceso, fac.estadocobro, fac.valorcobro
     FROM cabmovfac fac, parsucursal suc, parcaja caj, clientes cli
     where fac.idsucursal = suc.idsucursal and fac.idcaja = caj.idcaja
-    and fac.idcliente = cli.idcliente and cli.tipocliente = 'CONTADO'
+    and fac.idcliente = cli.idcliente and cli.tipocliente = 'Contado'
     and fac.estado ='FACTURADA'
-    and fac.idempresa = '` + idEmpresa + `' 
+    and fac.idempresa = '` + idEmpresa + `'
+    and fac.idcaja = '` + idCaja + `' 
     and (fac."createdAt" between '` + fechaIni + `' and '` + fechaFin + `');`).then((reporteFacturas) => {
         res.send(reporteFacturas.rows);
     }).catch((err) => {

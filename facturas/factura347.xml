@@ -6,9 +6,9 @@
     <razonSocial>SEMPÉRTEGUI REGALADO MARGARITA SOLEDAD</razonSocial>
     <nombreComercial>SEMPÉRTEGUI REGALADO MARGARITA SOLEDAD</nombreComercial>
     <ruc>1706610738001</ruc>
-    <claveAcceso>1605202101170661073800110020010000000011234567818</claveAcceso>
+    <claveAcceso>1605202101170661073800110030010000000011234567813</claveAcceso>
     <codDoc>01</codDoc>
-    <estab>002</estab>
+    <estab>003</estab>
     <ptoEmi>001</ptoEmi>
     <secuencial>000000001</secuencial>
     <dirMatriz>LATACUNGA</dirMatriz>
@@ -22,13 +22,13 @@
     <razonSocialComprador>DIEGO MAURICIO REINOSO</razonSocialComprador>
     <identificacionComprador>0501654586001</identificacionComprador>
     <direccionComprador>LOCOA</direccionComprador>
-    <totalSinImpuestos>16.99</totalSinImpuestos>
+    <totalSinImpuestos>11.55</totalSinImpuestos>
     <totalDescuento>0.00</totalDescuento>
     <totalConImpuestos>
       <totalImpuesto>
         <codigo>2</codigo>
         <codigoPorcentaje>0</codigoPorcentaje>
-        <baseImponible>16.99</baseImponible>
+        <baseImponible>11.55</baseImponible>
         <tarifa>0</tarifa>
         <valor>0.00</valor>
       </totalImpuesto>
@@ -41,56 +41,56 @@
       </totalImpuesto>
     </totalConImpuestos>
     <propina>0.00</propina>
-    <importeTotal>16.99</importeTotal>
+    <importeTotal>11.55</importeTotal>
     <moneda>DOLAR</moneda>
   </infoFactura>
   <detalles>
     <detalle>
-      <codigoPrincipal>PR0004</codigoPrincipal>
-      <descripcion>ORINA</descripcion>
+      <codigoPrincipal>PRO001</codigoPrincipal>
+      <descripcion>COPRO</descripcion>
       <cantidad>1</cantidad>
-      <precioUnitario>16.99</precioUnitario>
+      <precioUnitario>11.55</precioUnitario>
       <descuento>0</descuento>
-      <precioTotalSinImpuesto>16.99</precioTotalSinImpuesto>
+      <precioTotalSinImpuesto>11.55</precioTotalSinImpuesto>
       <impuestos>
         <impuesto>
           <codigo>2</codigo>
           <codigoPorcentaje>0</codigoPorcentaje>
           <tarifa>0</tarifa>
-          <baseImponible>16.99</baseImponible>
+          <baseImponible>11.55</baseImponible>
           <valor>0.00</valor>
         </impuesto>
       </impuestos>
     </detalle>
   </detalles>
-<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#" Id="Signature921371">
-<ds:SignedInfo Id="Signature-SignedInfo559688">
+<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#" Id="Signature796935">
+<ds:SignedInfo Id="Signature-SignedInfo742451">
 <ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></ds:CanonicalizationMethod>
 <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"></ds:SignatureMethod>
-<ds:Reference Id="SignedPropertiesID393706" Type="http://uri.etsi.org/01903#SignedProperties" URI="#Signature921371-SignedProperties954070">
+<ds:Reference Id="SignedPropertiesID110746" Type="http://uri.etsi.org/01903#SignedProperties" URI="#Signature796935-SignedProperties250636">
 <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
-<ds:DigestValue>qQZEpfuYRKhZmRx/1hnYuzLaPkI=</ds:DigestValue>
+<ds:DigestValue>6O4qrFSfXFE3IeNRc9vc5I9Z5pA=</ds:DigestValue>
 </ds:Reference>
-<ds:Reference URI="#Certificate339949">
+<ds:Reference URI="#Certificate503897">
 <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
-<ds:DigestValue>Dlo3C5rm33ktoiUhPYxFjbGbPGo=</ds:DigestValue>
+<ds:DigestValue>ewmQ2sDyz+b6/NNbC4JVlj8+0qU=</ds:DigestValue>
 </ds:Reference>
-<ds:Reference Id="Reference-ID-120764" URI="#comprobante">
+<ds:Reference Id="Reference-ID-917203" URI="#comprobante">
 <ds:Transforms>
 <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"></ds:Transform>
 </ds:Transforms>
 <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
-<ds:DigestValue>3PXlSF80nDVvb4IqwNNkWJEUusw=</ds:DigestValue>
+<ds:DigestValue>Rky5KZUEPPmDs90OCERJlQx9+/o=</ds:DigestValue>
 </ds:Reference>
 </ds:SignedInfo>
-<ds:SignatureValue Id="SignatureValue882274">
-OXVm3nq2Pj7W3Q0azXw7sMS6fdh+t8QE2u7vHvOqHgvXf7kZOgS1mwhomTvp/fUdMGjmUEo9at2X
-o3EO/qMLIq9d8trlYEuWeBxeAkP1VefKm6LgIO7VArStPVyAqjsxKGtkg/CAEYaN7DsWTDnRjszq
-CyazHR3ctyQfoKSDiYlS7vxcBUauBukiaguK+ui7gLA+balYdujHQQZSCwF20WaUwaOFzx9iMVfJ
-PfY3AfNl0ouV+mK8ah586cEoerUJoaHvimen5VS906W43MO9XeLk45Um964TW4FN/DMuqEdfA85B
-eVtIx28Gkko8roYRAwDdS0ofMKwd71ayB1qNIA==
+<ds:SignatureValue Id="SignatureValue362820">
+N/h+xhRF6BBJMNzzhDxw5ymhIVpNFISWffYRcITYx6Xk+/X6+p1lTSSI2SOWBZKO5AFJGor55a8+
+yIATr6GV8/kJSoFbNRwMK3lfDiPjvTRxg2zgjoC4t3hDql1xjjPW6x/IfwZvAJLb3CAtXn5VOUsI
+qWLIc+jAysFPmb4kFbTXDtqUENZziK4o77pWWDuznTDZ8MGmhbtTowHn3A0rMil7hs+ba5aRzjFL
+JHjAo0GxAYS+d1yZpRxorcay81RI4puT85VOmGQg33WOCbPsrQ3fWBfzGFc8V6KXpONfKzzCT119
+5JCB85i8h/pxZZt231+SI/ZCqJSlc3YWmxqIqA==
 </ds:SignatureValue>
-<ds:KeyInfo Id="Certificate339949">
+<ds:KeyInfo Id="Certificate503897">
 <ds:X509Data>
 <ds:X509Certificate>
 MIIJwjCCB6qgAwIBAgIEW2fsIzANBgkqhkiG9w0BAQsFADCBoTELMAkGA1UEBhMCRUMxIjAgBgNV
@@ -152,4 +152,4 @@ dEYX8vIo9AYg9mlBgwTKUJXXTrrc8aWYXsPv+w==
 </ds:RSAKeyValue>
 </ds:KeyValue>
 </ds:KeyInfo>
-<ds:Object Id="Signature921371-Object623688"><etsi:QualifyingProperties Target="#Signature921371"><etsi:SignedProperties Id="Signature921371-SignedProperties954070"><etsi:SignedSignatureProperties><etsi:SigningTime>2021-05-16T18:43:42-05:00</etsi:SigningTime><etsi:SigningCertificate><etsi:Cert><etsi:CertDigest><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod><ds:DigestValue>WR8nwDtRUXtzbCanisFQSfjana4=</ds:DigestValue></etsi:CertDigest><etsi:IssuerSerial><ds:X509IssuerName>CN=AC BANCO CENTRAL DEL ECUADOR,L=QUITO,OU=ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE,O=BANCO CENTRAL DEL ECUADOR,C=EC</ds:X509IssuerName><ds:X509SerialNumber>1533537315</ds:X509SerialNumber></etsi:IssuerSerial></etsi:Cert></etsi:SigningCertificate></etsi:SignedSignatureProperties><etsi:SignedDataObjectProperties><etsi:DataObjectFormat ObjectReference="#Reference-ID-120764"><etsi:Description>contenido comprobante</etsi:Description><etsi:MimeType>text/xml</etsi:MimeType></etsi:DataObjectFormat></etsi:SignedDataObjectProperties></etsi:SignedProperties></etsi:QualifyingProperties></ds:Object></ds:Signature></factura>
+<ds:Object Id="Signature796935-Object561640"><etsi:QualifyingProperties Target="#Signature796935"><etsi:SignedProperties Id="Signature796935-SignedProperties250636"><etsi:SignedSignatureProperties><etsi:SigningTime>2021-05-16T18:46:18-05:00</etsi:SigningTime><etsi:SigningCertificate><etsi:Cert><etsi:CertDigest><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod><ds:DigestValue>WR8nwDtRUXtzbCanisFQSfjana4=</ds:DigestValue></etsi:CertDigest><etsi:IssuerSerial><ds:X509IssuerName>CN=AC BANCO CENTRAL DEL ECUADOR,L=QUITO,OU=ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE,O=BANCO CENTRAL DEL ECUADOR,C=EC</ds:X509IssuerName><ds:X509SerialNumber>1533537315</ds:X509SerialNumber></etsi:IssuerSerial></etsi:Cert></etsi:SigningCertificate></etsi:SignedSignatureProperties><etsi:SignedDataObjectProperties><etsi:DataObjectFormat ObjectReference="#Reference-ID-917203"><etsi:Description>contenido comprobante</etsi:Description><etsi:MimeType>text/xml</etsi:MimeType></etsi:DataObjectFormat></etsi:SignedDataObjectProperties></etsi:SignedProperties></etsi:QualifyingProperties></ds:Object></ds:Signature></factura>

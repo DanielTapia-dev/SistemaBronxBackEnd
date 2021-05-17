@@ -5,6 +5,7 @@ var nJwt = require('njwt');
 var config = require('../config/config');
 var secret = config.token_secret;
 
+
 function secuencial(req, res) {
     usuarios.findOne({
             where: {
@@ -46,6 +47,9 @@ function create(req, res) {
             }
         })
 }
+
+
+
 
 function login(req, res) {
     usuarios.findOne({

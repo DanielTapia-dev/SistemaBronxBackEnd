@@ -10,6 +10,14 @@ const detmovimientos = require("../models").detmovimientos;
 const parimpuesto = require('../models').parimpuesto;
 const fetch = require("node-fetch");
 var cron = require('node-cron');
+const nodemailer = require("nodemailer");
+const transporter = require('../config/mailer.js');
+const PdfPrinter = require('pdfmake');
+/* const Txt = require('pdfmake-wrapper');
+const Img = require('pdfmake-wrapper'); */
+const pdfFonts = require('pdfmake/build/vfs_fonts');
+const pdfMake = require('pdfmake/build/pdfmake');
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 //cron.schedule('0 0 * * *')
 
@@ -77,6 +85,295 @@ const config = {
     database: 'contable'
 };
 
+function EnviarFacturaElectronica() {
+    var body = []
+    var tamanioTicket = 305;
+    body.push([{ text: 'Can', style: 'tableHeader' }, { text: 'Descripción', style: 'tableHeader' }, { text: 'Precio', style: 'tableHeader' }, { text: 'Total', style: 'tableHeader' }]);
+    var bodySumatoria = [
+        ['', '', { text: 'Subtotal:', style: 'tableTotales' }, { text: `1` }],
+        ['', '', { text: 'Descuento:', style: 'tableTotales' }, { text: `1` }],
+        ['', '', { text: 'Subtotal 0%:', style: 'tableTotales' }, { text: `1` }],
+        ['', '', { text: 'Subtotal: 12%:', style: 'tableTotales' }, { text: `1` }],
+        ['', '', { text: 'IVA 12:', style: 'tableTotales' }, { text: `1` }],
+        ['', '', { text: 'Valor a Pagar:', style: 'tableTotales' }, { text: `1` }],
+    ]
+    var documentDefinition = {
+        pageSize: {
+            width: 200,
+            height: tamanioTicket,
+        },
+        pageMargins: [10, 10, 10, 10],
+        content: [{
+                alignment: 'center',
+                columns: [{
+                    width: 1,
+                    text: '',
+                }],
+            },
+            {
+                columns: [{
+                    text: [{
+                        text: '\n',
+                        fontSize: 4,
+                        bold: false,
+                        alignment: 'center',
+                    }, ],
+                }, ],
+            },
+            {
+                columns: [{
+                    text: [{
+                        text: `(prueba)`,
+                        fontSize: 12,
+                        bold: false,
+                        alignment: 'center',
+                    }, ],
+                }, ],
+            },
+            {
+                columns: [{
+                    text: [{
+                        text: `(prueba)`,
+                        fontSize: 8,
+                        bold: false,
+                        alignment: 'center',
+                    }, ],
+                }, ],
+            },
+            {
+                columns: [{
+                    text: [{
+                        text: `(prueba)`,
+                        fontSize: 8,
+                        bold: false,
+                        alignment: 'center',
+                    }, ],
+                }, ],
+            },
+            {
+                columns: [{
+                    text: [{
+                        text: '\n',
+                        fontSize: 4,
+                        bold: false,
+                        alignment: 'center',
+                    }, ],
+                }, ],
+            },
+            {
+                alignment: 'center',
+                columns: [{
+                    text: [
+                        { text: 'Factura # ', fontSize: 10, bold: true },
+                        { text: `001 (prueba)`, fontSize: 10, bold: false },
+                    ],
+                }, ],
+            },
+            {
+                columns: [{
+                    text: [{
+                        text: '\n',
+                        fontSize: 2,
+                        bold: false,
+                        alignment: 'center',
+                    }, ],
+                }, ],
+            },
+            {
+                columns: [{
+                    text: [
+                        { text: 'Fecha: ', fontSize: 8, bold: false },
+                        { text: `(prueba)`, fontSize: 8, bold: false },
+                    ],
+                }, ],
+            },
+            {
+                columns: [{
+                    text: [{
+                        text: '\n',
+                        fontSize: 2,
+                        bold: false,
+                        alignment: 'center',
+                    }, ],
+                }, ],
+            },
+            {
+                canvas: [
+                    { type: 'line', x1: 0, y1: 0, x2: 180, y2: 0, lineWidth: 1 },
+                ],
+            },
+            {
+                columns: [{
+                    text: [{
+                        text: '\n',
+                        fontSize: 2,
+                        bold: false,
+                        alignment: 'center',
+                    }, ],
+                }, ],
+            },
+            {
+                columns: [{
+                    text: [
+                        { text: 'Cliente: ', fontSize: 8, bold: false },
+                        { text: `(prueba)`, fontSize: 8, bold: false },
+                    ],
+                }, ],
+            },
+            {
+                columns: [{
+                        text: [
+                            { text: 'RUC/CI: ', fontSize: 7, bold: false },
+                            { text: `(prueba)`, fontSize: 8, bold: false },
+                        ],
+                    },
+                    {
+                        text: [
+                            { text: 'Telf: ', fontSize: 7, bold: false },
+                            { text: `(prueba)`, fontSize: 8, bold: false },
+                        ],
+                    },
+                ],
+            },
+            {
+                columns: [{
+                    text: [
+                        { text: 'Direc: ', fontSize: 8, bold: false },
+                        { text: `(prueba)`, fontSize: 8, bold: false },
+                    ],
+                }],
+            },
+            {
+                columns: [{
+                    text: [
+                        { text: 'E-Mail: ', fontSize: 8, bold: false },
+                        { text: `(prueba)`, fontSize: 8, bold: false },
+                    ],
+                }],
+            },
+            {
+                columns: [{
+                    text: [{
+                        text: '\n',
+                        fontSize: 2,
+                        bold: false,
+                        alignment: 'center',
+                    }, ],
+                }, ],
+            },
+            {
+                canvas: [
+                    { type: 'line', x1: 0, y1: 0, x2: 180, y2: 0, lineWidth: 1 },
+                ],
+            },
+            {
+                columns: [{
+                    text: [{
+                        text: '\n',
+                        fontSize: 2,
+                        bold: false,
+                        alignment: 'center',
+                    }, ],
+                }, ],
+            },
+            {
+                columns: [{
+                    style: 'tableExample',
+                    table: {
+                        widths: [15, 85, 35, 35],
+                        headerRows: 1,
+                        body: body
+                    },
+                    layout: 'noBorders'
+                }],
+            },
+            {
+                style: 'tableExample',
+                table: {
+                    widths: [25, 25, 85, 35],
+                    body: bodySumatoria
+                },
+                layout: 'noBorders'
+            },
+            {
+                columns: [{
+                    text: [{
+                        text: '\n',
+                        fontSize: 8,
+                        bold: false,
+                        alignment: 'center',
+                    }, ],
+                }, ],
+            },
+            {
+                alignment: 'center',
+                columns: [{
+                    text: [{
+                        text: `Estimado cliente consulte sus facturas
+                      electrónicas con la clave de acceso en el portal del SRI`,
+                        fontSize: 8,
+                        bold: false,
+                        alignment: 'center',
+                    }, ],
+                }, ],
+            },
+        ],
+        styles: {
+            inicios: {
+                fontSize: 12,
+                bold: true,
+            },
+            header: {
+                fontSize: 16,
+                bold: true,
+            },
+            bigger: {
+                fontSize: 15,
+                italics: true,
+            },
+            tableExample: {
+                margin: [0, 0, 0, 0],
+                fontSize: 8,
+            },
+            tableHeader: {
+                bold: true,
+                fontSize: 8,
+                color: 'black'
+            },
+            tableTotales: {
+                bold: true,
+                fontSize: 9,
+                color: 'black',
+                alignment: 'right',
+            }
+        },
+        defaultStyle: {
+            columnGap: 15,
+        },
+    };
+    const pdfDocGenerator = pdfMake.createPdf(documentDefinition);
+    pdfDocGenerator.getBase64((data) => {
+        enviarEmail(data);
+        //console.log(data);
+    });
+}
+
+async function enviarEmail(data) {
+    await transporter.transporter.sendMail({
+        from: '"RedLab" <alejodanny94@gmail.com>', // sender address
+        to: "gorlekk@gmail.com", // list of receivers
+        subject: "Factura Electrónica", // plain text body
+        html: `
+        <b>Esta es la factura electronica</b>
+        `, // html body
+        attachments: [{
+            filename: 'prueba.pdf',
+            content: data,
+            encoding: 'base64'
+        }]
+    });
+}
+
 const pool = new Pool(config);
 //const client = new Client(config);
 
@@ -86,6 +383,7 @@ const pool = new Pool(config);
 } */
 
 function facturaElectronica(req, res) {
+
     var id = req.params.id;
 
     cabmovfac
@@ -369,6 +667,8 @@ function facturaElectronica(req, res) {
                                                                     console.log(xmlDoc.getElementsByTagName("estado")[0].childNodes[0].text);
                                                                     if (xmlDoc.getElementsByTagName("estado")[0].childNodes[0].text === 'AUTORIZADO') {
                                                                         var claveAutorizacion = xmlDoc.getElementsByTagName("numeroAutorizacion")[0].childNodes[0].text;
+                                                                        // send mail with defined transport object
+                                                                        EnviarFacturaElectronica();
                                                                     } else {
                                                                         var claveAutorizacion = 0;
                                                                     }

@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
@@ -18,6 +19,9 @@ app.use((req, res, next) => {
     res.header('Allow', 'GET,POST,OPTIONS,PUT,DELETE');
     next();
 });
+
+//Directorio público
+app.use(express.static('public'));
 
 //Rutas\
 require('./server/routes/usuarios')(app);
@@ -47,9 +51,8 @@ require('./server/routes/tabprecio')(app);
 require('./server/routes/lisprecios')(app);
 require('./server/routes/precioclientes')(app);
 
-
 app.get('*', (req, res) => {
-    res.status(200).send({ message: "Bienvenido al servidor de Facturacion" });
+    res.sendFile(path.resolve(__dirname, 'public/index.html'));
 });
 
 

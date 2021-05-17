@@ -7,4 +7,6 @@ module.exports = (app) => {
     app.put('/api/cabproforma/:id', md_auth.auth, cabproformaController.update);
     app.get('/api/cabproformas/:id', md_auth.auth, cabproformaController.getAll);
     app.delete('/api/cabproformas/delete/:id', md_auth.auth, cabproformaController.borrar);
+    app.get('/api/reporproforma/:idEmpresa/:fechaIni/:fechaFin/:estado', cabproformaController.reportesProformas);
+   
 }

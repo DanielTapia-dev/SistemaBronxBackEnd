@@ -73,7 +73,7 @@ const producto = require("../models").producto; */
 const config = {
     user: 'postgres',
     host: 'localhost',
-    password: 'postgres',
+    password: 'dannyalejo7123tapia',
     database: 'contable'
 };
 
@@ -835,12 +835,12 @@ function borrar(req, res) {
         });
 }
 
-function reportesFacturasClientesContado(req, res){
+function reportesFacturasClientesContado(req, res) {
     //:idEmpresa/:fechaIni/:fechaFin
     var idEmpresa = req.params.idEmpresa;
     var fechaIni = req.params.fechaIni;
     var fechaFin = req.params.fechaFin;
-    
+
     const consulta = pool.query(`SELECT fac.idempresa, fac.idsucursal, suc.nomsucursal, 
     fac.idcaja, caj.nomcaja,
     fac.idserie, fac.secmovcab, 
@@ -856,7 +856,7 @@ function reportesFacturasClientesContado(req, res){
     and fac.estado ='FACTURADA'
     and fac.idempresa = '` + idEmpresa + `' 
     and (fac."createdAt" between '` + fechaIni + `' and '` + fechaFin + `');`).then((reporteFacturas) => {
-               res.send(reporteFacturas.rows);               
+        res.send(reporteFacturas.rows);
     }).catch((err) => {
         res
             .status(500)

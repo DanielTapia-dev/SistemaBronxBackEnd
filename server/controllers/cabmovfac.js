@@ -852,7 +852,7 @@ function reportesFacturasClientesContado(req, res){
     fac."EstadoAutorizacionSRI", fac.secproforma, fac.claveacceso, fac.estadocobro, fac.valorcobro
     FROM cabmovfac fac, parsucursal suc, parcaja caj, clientes cli
     where fac.idsucursal = suc.idsucursal and fac.idcaja = caj.idcaja
-    and fac.idcliente = cli.idcliente and cli.tipocliente = 'CONTADO'
+    and fac.idcliente = cli.idcliente and cli.tipocliente = 'Contado'
     and fac.estado ='FACTURADA'
     and fac.idempresa = '` + idEmpresa + `' 
     and (fac."createdAt" between '` + fechaIni + `' and '` + fechaFin + `');`).then((reporteFacturas) => {

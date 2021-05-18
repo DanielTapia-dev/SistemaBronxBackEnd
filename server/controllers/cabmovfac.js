@@ -13,6 +13,7 @@ var cron = require('node-cron');
 const nodemailer = require("nodemailer");
 const transporter = require('../config/mailer.js');
 const PdfPrinter = require('pdfmake');
+const configuracion = require('../config/configpg').config;
 /* const Txt = require('pdfmake-wrapper');
 const Img = require('pdfmake-wrapper'); */
 const pdfFonts = require('pdfmake/build/vfs_fonts');
@@ -377,7 +378,7 @@ async function enviarEmail(data) {
     });
 }
 
-const pool = new Pool(config);
+const pool = new Pool(configuracion);
 //const client = new Client(config);
 
 /* 
@@ -1137,6 +1138,8 @@ function borrar(req, res) {
                 .send({ message: "Ocurrio un error al borrar la factura" });
         });
 }
+
+
 
 function reportesFacturasClientesContado(req, res) {
     //:idEmpresa/:fechaIni/:fechaFin

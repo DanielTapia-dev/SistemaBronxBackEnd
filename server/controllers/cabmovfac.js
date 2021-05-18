@@ -82,7 +82,8 @@ const config = {
     user: 'postgres',
     host: 'localhost',
     password: 'dannyalejo7123tapia',
-    database: 'contable'
+    database: 'contable',
+    ssl: true
 };
 
 function EnviarFacturaElectronica() {

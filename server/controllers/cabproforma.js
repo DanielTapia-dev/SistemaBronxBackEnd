@@ -1,14 +1,6 @@
 const { Pool, Client } = require('pg');
 const cabproforma = require("../models").cabproforma;
 const configuracion = require('../config/configpg').config;
-
-const config = {
-    user: 'postgres',
-    host: 'localhost',
-    password: 'postgres',
-    database: 'contable'
-};
-
 const pool = new Pool(configuracion);
 
 function create(req, res) {

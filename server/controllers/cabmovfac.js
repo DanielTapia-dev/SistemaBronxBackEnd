@@ -1674,7 +1674,8 @@ function reportesFacturasClientesContado(req, res) {
     var fechaFin = req.params.fechaFin;
     var idCaja = req.params.idcaja;
 
-    const consulta = pool
+    // Consulta completa SQL para Ventas    
+    /* const consulta = pool
         .query(
             `SELECT fac.idempresa, fac.idsucursal, suc.nomsucursal, 
     fac.idcaja, caj.nomcaja,
@@ -1690,7 +1691,18 @@ function reportesFacturasClientesContado(req, res) {
     and fac.idcliente = cli.idcliente and cli.tipocliente = 'Contado'
     and fac.estado ='FACTURADA'
     and fac.idempresa = '` +
-            idEmpresa +
+ */ 
+    const consulta = pool
+        .query(
+            `SELECT caj.nomcaja, cli.ruccicliente, cli.nomcliente, 
+    fac.numfactura, fac."createdAt", fac.subtotal, fac.subtotaliva0, 
+    fac.subtotaliva12, fac.iva0, fac.iva12, fac.total
+    FROM cabmovfac fac, parsucursal suc, parcaja caj, clientes cli
+    where fac.idsucursal = suc.idsucursal and fac.idcaja = caj.idcaja
+    and fac.idcliente = cli.idcliente and cli.tipocliente = 'Contado'
+    and fac.estado ='FACTURADA'
+    and fac.idempresa = '` +        
+    idEmpresa +
             `'
     and fac.idcaja = '` +
             idCaja +

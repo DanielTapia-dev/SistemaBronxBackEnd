@@ -374,6 +374,12 @@ function EnviarFacturaElectronica(detalles, empresa, cliente, totales, claveAcce
                 enviarEmail(data);
                 //console.log(data);
             });
+            // Define font files
+            const printer = new PdfPrinter(fonts);
+
+            const pdfDoc = printer.createPdfKitDocument(documentDefinition);
+            pdfDoc.pipe(fs.createWriteStream(`facturaspdf/factura${id}.pdf`));
+            pdfDoc.end();
         });
 }
 

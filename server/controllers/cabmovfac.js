@@ -12,7 +12,6 @@ const fetch = require("node-fetch");
 var cron = require("node-cron");
 const nodemailer = require("nodemailer");
 const transporter = require("../config/mailer.js");
-const PdfPrinter = require("pdfmake");
 const configuracion = require("../config/configpg").config;
 /* const Txt = require('pdfmake-wrapper');
 const Img = require('pdfmake-wrapper'); */
@@ -22,6 +21,8 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 var JsBarcode = require('jsbarcode');
 // Canvas v2
 var { createCanvas } = require("canvas");
+const PdfPrinter = require("pdfmake");
+const fonts = require("../../fonts");
 
 //cron.schedule('0 0 * * *')
 
@@ -1175,8 +1176,13 @@ function comprobarAutorizacion(req, res) {
                                             enviarEmail(data);
                                             //console.log(data);
                                         });
+                                        // Define font files
+                                        const printer = new PdfPrinter(fonts);
 
-                                        res.status(200).send({ message: "La factura ha sido autorizada y enviada." });
+                                        const pdfDoc = printer.createPdfKitDocument(documentDefinition);
+                                        pdfDoc.pipe(fs.createWriteStream(`facturaspdf/factura${id}.pdf`));
+                                        pdfDoc.end();
+                                        res.status(200).send({ message: "Factura enviada al correo correctamente" });
                                     });
                             } else {
                                 res.status(200).send({ message: "Hay un error con la factura." });

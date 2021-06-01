@@ -1873,6 +1873,11 @@ function getAll(req, res) {
     });
 }
 
+function descargarXML(req, res) {
+  var id = req.params.id;
+  res.download("facturas/" + id);
+}
+
 function borrar(req, res) {
   var id = req.params.id;
   var body = req.body;
@@ -1966,4 +1971,5 @@ module.exports = {
   facturaElectronica,
   reportesFacturasClientesContado,
   comprobarAutorizacion,
+  descargarXML,
 };

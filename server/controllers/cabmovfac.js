@@ -592,13 +592,18 @@ function facturaElectronica(req, res) {
                           movfactura.numfactura[14];
                         var ambiente = emp.ambiente;
                         //console.log(detmovimientos);
+                        if (emp.ambiente == "pruebas") {
+                          ambiente = 1;
+                        } else {
+                          ambiente = 2;
+                        }
 
                         //Inicio de algoritmo para crear la clave de acceso
                         var claveAcceso =
                           fechaNumeroAutorizacion +
                           "01" +
                           "1706610738001" +
-                          "1" +
+                          ambiente +
                           puntoEmision +
                           puntoFacturacion +
                           secuencial +
@@ -656,11 +661,7 @@ function facturaElectronica(req, res) {
                         } else {
                           var contabilidad = "NO";
                         }
-                        if (emp.ambiente == "pruebas") {
-                          ambiente = 1;
-                        } else {
-                          ambiente = 2;
-                        }
+
                         //ARMADO DE XML
                         const xmlObject = {
                           factura: {
@@ -1400,11 +1401,9 @@ function comprobarAutorizacion(req, res) {
                       fs.createWriteStream(`facturaspdf/factura${id}.pdf`)
                     );
                     pdfDoc.end();
-                    res
-                      .status(200)
-                      .send({
-                        message: "La factura ha sido autorizada y enviada.",
-                      });
+                    res.status(200).send({
+                      message: "La factura ha sido autorizada y enviada.",
+                    });
                   });
               } else {
                 res
@@ -1413,19 +1412,15 @@ function comprobarAutorizacion(req, res) {
               }
             })
             .catch((err) => {
-              res
-                .status(500)
-                .send({
-                  message: "Ocurrió un error al autorizar la factura." + err,
-                });
+              res.status(500).send({
+                message: "Ocurrió un error al autorizar la factura." + err,
+              });
             });
         })
         .catch((err) => {
-          res
-            .status(500)
-            .send({
-              message: "Ocurrió un error al buscar los detalles." + err,
-            });
+          res.status(500).send({
+            message: "Ocurrió un error al buscar los detalles." + err,
+          });
         });
     })
     .catch((err) => {

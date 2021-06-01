@@ -1,17 +1,17 @@
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true, // true for 465, false for other ports
-    auth: {
-        user: 'alejodanny94@gmail.com', // generated ethereal user
-        pass: 'kdcohbpaenxcfvxe', // generated ethereal password
-    },
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true, // true for 465, false for other ports
+  auth: {
+    user: "redlabecuador1@gmail.com", // generated ethereal user
+    pass: "wiwymkvlkbgpoecl", // generated ethereal password
+  },
 });
 
 transporter.verify().then(() => {
-    console.log('Ready for send emails');
+  console.log("Ready for send emails");
 });
 
 /* async function enviarEmail() {
@@ -26,5 +26,5 @@ transporter.verify().then(() => {
 } */
 
 module.exports = {
-    transporter
+  transporter,
 };

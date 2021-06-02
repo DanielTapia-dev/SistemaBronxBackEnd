@@ -793,97 +793,131 @@ function facturaElectronica(req, res) {
                               // same as function(response) {return response.text();}
                             )
                             .then((xml) => {
-                              var DomParser = require("dom-parser");
-                              parser = new DomParser();
-                              xmlDoc = parser.parseFromString(xml, "text/xml");
-                              var respuestaRecepcion =
-                                xmlDoc.getElementsByTagName("estado")[0]
-                                  .childNodes[0].text;
-                              console.log(
-                                xmlDoc.getElementsByTagName("estado")[0]
-                                  .childNodes[0].text
-                              );
-                              if (
-                                xmlDoc.getElementsByTagName("estado")[0]
-                                  .childNodes[0].text === "RECIBIDA"
-                              ) {
-                                fetch(url2, {
-                                  method: "POST",
-                                  body: ConsultaDeAutorizacionEmpaquetado,
-                                  // -- or --
-                                  // body : JSON.stringify({
-                                  // user : document.getElementById('user').value,
-                                  // ...
-                                  // })
-                                })
-                                  .then(
-                                    (response) => response.text() // .json(), etc.
-                                    // same as function(response) {return response.text();}
-                                  )
-                                  .then((xml) => {
-                                    var DomParser = require("dom-parser");
-                                    parser = new DomParser();
-                                    xmlDoc = parser.parseFromString(
-                                      xml,
-                                      "text/xml"
-                                    );
-                                    var respuestaAutorizacion =
-                                      xmlDoc.getElementsByTagName("estado")[0]
-                                        .childNodes[0].text;
-                                    console.log(
-                                      xmlDoc.getElementsByTagName("estado")[0]
-                                        .childNodes[0].text
-                                    );
-                                    if (
-                                      xmlDoc.getElementsByTagName("estado")[0]
-                                        .childNodes[0].text === "AUTORIZADO"
-                                    ) {
-                                      var claveAutorizacion =
-                                        xmlDoc.getElementsByTagName(
-                                          "numeroAutorizacion"
-                                        )[0].childNodes[0].text;
-                                      var fechaHoraAutorizacion =
-                                        xmlDoc.getElementsByTagName(
-                                          "fechaAutorizacion"
-                                        )[0].childNodes[0].text;
-                                      // send mail with defined transport object
-                                      EnviarFacturaElectronica(
-                                        detallesFinal.rows,
-                                        emp,
-                                        cliente,
-                                        movfactura,
-                                        claveAcceso,
-                                        fechaHoraAutorizacion
+                              setTimeout(() => {
+                                var DomParser = require("dom-parser");
+                                parser = new DomParser();
+                                xmlDoc = parser.parseFromString(
+                                  xml,
+                                  "text/xml"
+                                );
+                                var respuestaRecepcion =
+                                  xmlDoc.getElementsByTagName("estado")[0]
+                                    .childNodes[0].text;
+                                console.log(
+                                  xmlDoc.getElementsByTagName("estado")[0]
+                                    .childNodes[0].text
+                                );
+                                if (
+                                  xmlDoc.getElementsByTagName("estado")[0]
+                                    .childNodes[0].text === "RECIBIDA"
+                                ) {
+                                  fetch(url2, {
+                                    method: "POST",
+                                    body: ConsultaDeAutorizacionEmpaquetado,
+                                    // -- or --
+                                    // body : JSON.stringify({
+                                    // user : document.getElementById('user').value,
+                                    // ...
+                                    // })
+                                  })
+                                    .then(
+                                      (response) => response.text() // .json(), etc.
+                                      // same as function(response) {return response.text();}
+                                    )
+                                    .then((xml) => {
+                                      var DomParser = require("dom-parser");
+                                      parser = new DomParser();
+                                      xmlDoc = parser.parseFromString(
+                                        xml,
+                                        "text/xml"
                                       );
-                                    } else {
-                                      var claveAutorizacion = claveAcceso;
-                                    }
-                                    console.log(movfactura.secmovcab);
-                                    console.log(claveAcceso);
-                                    const actualizarNumeroDeAutorizacion = pool
-                                      .query(
-                                        `UPDATE public.cabmovfac
-                                                                        SET claveacceso = ` +
-                                          claveAcceso +
-                                          ` ,numautosri='` +
-                                          claveAutorizacion +
-                                          `', "EstadoRecepcionSRI" = '` +
-                                          respuestaRecepcion +
-                                          `', "EstadoAutorizacionSRI" = '` +
-                                          respuestaAutorizacion +
-                                          `' 
-                                                                         WHERE secmovcab=` +
-                                          movfactura.secmovcab +
-                                          `;`
-                                      )
-                                      .then((detallesFinal) => {
-                                        console.log(
-                                          detallesFinal +
-                                            " Facturada correctamente"
+                                      var respuestaAutorizacion =
+                                        xmlDoc.getElementsByTagName("estado")[0]
+                                          .childNodes[0].text;
+                                      console.log(
+                                        xmlDoc.getElementsByTagName("estado")[0]
+                                          .childNodes[0].text
+                                      );
+                                      if (
+                                        xmlDoc.getElementsByTagName("estado")[0]
+                                          .childNodes[0].text === "AUTORIZADO"
+                                      ) {
+                                        var claveAutorizacion =
+                                          xmlDoc.getElementsByTagName(
+                                            "numeroAutorizacion"
+                                          )[0].childNodes[0].text;
+                                        var fechaHoraAutorizacion =
+                                          xmlDoc.getElementsByTagName(
+                                            "fechaAutorizacion"
+                                          )[0].childNodes[0].text;
+                                        // send mail with defined transport object
+                                        EnviarFacturaElectronica(
+                                          detallesFinal.rows,
+                                          emp,
+                                          cliente,
+                                          movfactura,
+                                          claveAcceso,
+                                          fechaHoraAutorizacion
                                         );
-                                      });
-                                  });
-                              }
+                                      } else {
+                                        var claveAutorizacion = claveAcceso;
+                                      }
+                                      console.log(movfactura.secmovcab);
+                                      console.log(claveAcceso);
+                                      const actualizarNumeroDeAutorizacion =
+                                        pool
+                                          .query(
+                                            `UPDATE public.cabmovfac
+                                                                        SET claveacceso = ` +
+                                              claveAcceso +
+                                              ` ,numautosri='` +
+                                              claveAutorizacion +
+                                              `', "EstadoRecepcionSRI" = '` +
+                                              respuestaRecepcion +
+                                              `', "EstadoAutorizacionSRI" = '` +
+                                              respuestaAutorizacion +
+                                              `' 
+                                                                         WHERE secmovcab=` +
+                                              movfactura.secmovcab +
+                                              `;`
+                                          )
+                                          .then((detallesFinal) => {
+                                            console.log(
+                                              detallesFinal +
+                                                " Facturada correctamente"
+                                            );
+                                          });
+                                    });
+                                } else {
+                                  var respuestaAutorizacion = "";
+                                  respuestaAutorizacion =
+                                    xmlDoc.getElementsByTagName("estado")[0]
+                                      .childNodes[0].text;
+                                  const actualizarNumeroDeAutorizacion = pool
+                                    .query(
+                                      `UPDATE public.cabmovfac
+                                                                        SET claveacceso = ` +
+                                        claveAcceso +
+                                        ` ,numautosri='` +
+                                        claveAutorizacion +
+                                        `', "EstadoRecepcionSRI" = '` +
+                                        respuestaRecepcion +
+                                        `', "EstadoAutorizacionSRI" = '` +
+                                        respuestaAutorizacion +
+                                        `' 
+                                                                         WHERE secmovcab=` +
+                                        movfactura.secmovcab +
+                                        `;`
+                                    )
+                                    .then((detallesFinal) => {
+                                      console.log(
+                                        detallesFinal +
+                                          "Hubo un error y fue " +
+                                          respuestaRecepcion
+                                      );
+                                    });
+                                }
+                              }, 2000);
                             });
 
                           //Fin del consumo de servicio post al SRI

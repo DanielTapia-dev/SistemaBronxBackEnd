@@ -35,6 +35,7 @@ module.exports = (sequelize, DataTypes) => {
         porcdescuento: DataTypes.INTEGER,
         estadocobro: DataTypes.STRING,
         valorcobro: DataTypes.FLOAT,
+        comentario: DataTypes.STRING
     }, {
         freezeTableName: true
     });

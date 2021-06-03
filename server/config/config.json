@@ -1,10 +1,18 @@
 {
     "development": {
-        "username": "postgres",
-        "password": "dannyalejo7123tapia",
-        "database": "contable",
-        "host": "localhost",
-        "dialect": "postgres"
+        "username": "orbnggveukawgo",
+        "password": "6e78fad641772ae6d9be773d3f5fe56e3e47119ac747fb18e6f4bc22f0db44ba",
+        "database": "d2o06sd0oim7ud",
+        "host": "ec2-107-20-153-39.compute-1.amazonaws.com",
+        "dialect": "postgres",
+        "dialectOptions": {
+            "ssl": {
+                "require": true,
+                "rejectUnauthorized": false
+            }
+        },
+        "URI": "postgres://orbnggveukawgo:6e78fad641772ae6d9be773d3f5fe56e3e47119ac747fb18e6f4bc22f0db44ba@ec2-107-20-153-39.compute-1.amazonaws.com:5432/d2o06sd0oim7ud",
+        "Port": "5432"
     },
     "test": {
         "username": "root",

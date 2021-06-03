@@ -1,8 +1,8 @@
 /* const config = {
-  user: "postgres",
-  host: "localhost",
-  password: "dannyalejo7123tapia",
-  database: "contable",
+    user: "postgres",
+    host: "localhost",
+    password: "dannyalejo7123tapia",
+    database: "contable",
 }; */
 const config = {
     user: "orbnggveukawgo",

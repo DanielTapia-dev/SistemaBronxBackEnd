@@ -141,12 +141,17 @@ function EnviarFacturaElectronica(
                 { text: "Cantidad", style: "tableHeader" },
             ]);
             detallesFormaPago.rows.forEach((element) => {
-                var aux = [
-                    element.nomformapago,
-                    { text: element.valorcobro, alignment: "right" },
-                ];
-                bodyFormasPago.push(aux);
+                /* console.log("Holaaaa esta es: ");
+                console.log(element); */
+                bodyFormasPago.push([
+                    { text: element.nomformapago, alignment: "left" },
+                    { text: element.valorcobro, alignment: "left" },
+                ]);
             });
+            /* for (let index = 0; index < bodyFormasPago.length; index++) {
+                const element = bodyFormasPago[index];
+                console.log(element);
+            } */
             var puntoEmision =
                 totales.numfactura[0] + totales.numfactura[1] + totales.numfactura[2];
             var puntoFacturacion =
@@ -215,6 +220,11 @@ function EnviarFacturaElectronica(
                     { text: `${totales.total.toString()}`, alignment: "right" },
                 ],
             ];
+            if (body.length == 1) {
+                var espaciadoDeDatosAdicionales = 410;
+            } else {
+                var espaciadoDeDatosAdicionales = (body.length * 20) + 410;
+            }
             var documentDefinition = {
                 pageMargins: [10, 10, 10, 10],
                 content: [{
@@ -365,11 +375,25 @@ function EnviarFacturaElectronica(
                         },
                     },
                     {
-                        style: "tableTotales",
-                        table: {
-                            widths: [80, 80],
-                            body: bodySumatoria,
-                        },
+                        columns: [{
+                                style: "tableInformacion",
+                                table: {
+                                    widths: [260],
+                                    headerRows: 1,
+                                    body: [
+                                        [{ text: 'Información adicional', style: 'tableHeaderAddInfo' }],
+                                        [{ text: `${detalles.comentario}`, alignment: 'left', fontSize: 9 }],
+                                    ]
+                                },
+                            },
+                            {
+                                style: "tableTotales",
+                                table: {
+                                    widths: [80, 80],
+                                    body: bodySumatoria,
+                                },
+                            },
+                        ]
                     },
                     {
                         style: "tableFormasDePago",
@@ -403,7 +427,11 @@ function EnviarFacturaElectronica(
                     },
                     tableTotales: {
                         fontSize: 9,
-                        margin: [381, 0, 10, 4],
+                        margin: [93, 0, 10, 4],
+                    },
+                    tableInformacion: {
+                        fontSize: 9,
+                        margin: [9, 0, 10, 4],
                     },
                     tableFormasDePago: {
                         fontSize: 9,
@@ -422,6 +450,11 @@ function EnviarFacturaElectronica(
                     },
                     lineaFirmaTexto: {
                         margin: [430, 0, 10, 4],
+                    },
+                    tableHeaderAddInfo: {
+                        fontSize: 9,
+                        alignment: 'center',
+                        bold: true
                     },
                 },
             };
@@ -880,6 +913,10 @@ function facturaElectronica(req, res) {
                                                                     respuestaAutorizacion =
                                                                         xmlDoc.getElementsByTagName("estado")[0]
                                                                         .childNodes[0].text;
+                                                                    var claveAutorizacion =
+                                                                        xmlDoc.getElementsByTagName(
+                                                                            "numeroAutorizacion"
+                                                                        )[0].childNodes[0].text;
                                                                     const actualizarNumeroDeAutorizacion = pool
                                                                         .query(
                                                                             `UPDATE public.cabmovfac
@@ -976,7 +1013,7 @@ function comprobarAutorizacion(req, res) {
                                             </Envelope>`;
     const consultaFactura = pool
         .query(
-            `SELECT FAC.secmovcab, EMP.rucciempresa, EMP.contabilidad,FAC.numfactura,EMP.ambiente,EMP.dirempresa,EMP.contabilidad,CLI.nomcliente,CLI.ruccicliente,CLI.emailcliente,FAC."createdAt",FAC.subtotal,FAC.subtotaliva0,FAC.subtotaliva12,FAC.iva12,FAC.total,EMP.logobase64
+            `SELECT FAC.secmovcab, FAC.comentario,EMP.rucciempresa, EMP.contabilidad,FAC.numfactura,EMP.ambiente,EMP.dirempresa,EMP.contabilidad,CLI.nomcliente,CLI.ruccicliente,CLI.emailcliente,FAC."createdAt",FAC.subtotal,FAC.subtotaliva0,FAC.subtotaliva12,FAC.iva12,FAC.total,EMP.logobase64
         FROM empresa EMP, cabmovfac FAC, clientes CLI
         WHERE FAC.numautosri = '${id}' AND FAC.idcliente = CLI.idcliente AND FAC.idempresa = EMP.idempresa;`
         )
@@ -1026,21 +1063,25 @@ function comprobarAutorizacion(req, res) {
                     WHERE FAC.secmovcab = CC.secmovcab AND
                           CC.seccabcob = DC.seccabcob AND
                           DC.idformapago = F.idformapago AND
-                          FAC.claveacceso = '${id}';`
+                          FAC.numautosri = '${id}';`
                                     )
                                     .then((detallesFormaPago) => {
-                                        var bodyFormasPago = [];
-                                        bodyFormasPago.push([
+                                        var bodyFormas = [];
+                                        bodyFormas.push([
                                             { text: "Forma de Pago", style: "tableHeader" },
                                             { text: "Cantidad", style: "tableHeader" },
                                         ]);
+                                        console.log(detallesFormaPago.rows);
                                         detallesFormaPago.rows.forEach((element) => {
-                                            var aux = [
-                                                element.nomformapago.toString(),
-                                                element.valorcobro.toString(),
-                                            ];
-                                            bodyFormasPago.push(aux);
+                                            bodyFormas.push([
+                                                { text: element.nomformapago, alignment: "left" },
+                                                { text: element.valorcobro, alignment: "left" },
+                                            ]);
                                         });
+                                        for (let index = 0; index < bodyFormas.length; index++) {
+                                            console.log(bodyFormas);
+                                        }
+
                                         //console.log(datosfactura.rows[0].createdAt.toISOString());
                                         var puntoEmision =
                                             datosfactura.rows[0].numfactura[0] +
@@ -1098,6 +1139,11 @@ function comprobarAutorizacion(req, res) {
                                             ];
                                             body.push(aux);
                                         });
+                                        if (body.length == 1) {
+                                            var espaciadoDeDatosAdicionales = 410;
+                                        } else {
+                                            var espaciadoDeDatosAdicionales = (body.length * 20) + 410;
+                                        }
                                         if (datosfactura.rows[0].contabilidad == false) {
                                             var contabilidad = "NO";
                                         } else {
@@ -1337,18 +1383,32 @@ function comprobarAutorizacion(req, res) {
                                                     },
                                                 },
                                                 {
-                                                    style: "tableTotales",
-                                                    table: {
-                                                        widths: [80, 80],
-                                                        body: bodySumatoria,
-                                                    },
+                                                    columns: [{
+                                                            style: "tableInformacion",
+                                                            table: {
+                                                                widths: [260],
+                                                                headerRows: 1,
+                                                                body: [
+                                                                    [{ text: 'Información adicional', style: 'tableHeaderAddInfo' }],
+                                                                    [{ text: `${datosfactura.rows[0].comentario}`, alignment: 'left', fontSize: 9 }],
+                                                                ]
+                                                            },
+                                                        },
+                                                        {
+                                                            style: "tableTotales",
+                                                            table: {
+                                                                widths: [80, 80],
+                                                                body: bodySumatoria,
+                                                            },
+                                                        },
+                                                    ]
                                                 },
                                                 {
                                                     style: "tableFormasDePago",
                                                     table: {
                                                         widths: [80, 100],
                                                         headerRows: 1,
-                                                        body: bodyFormasPago,
+                                                        body: bodyFormas,
                                                     },
                                                 },
                                             ],
@@ -1375,7 +1435,11 @@ function comprobarAutorizacion(req, res) {
                                                 },
                                                 tableTotales: {
                                                     fontSize: 9,
-                                                    margin: [381, 0, 10, 4],
+                                                    margin: [93, 0, 10, 4],
+                                                },
+                                                tableInformacion: {
+                                                    fontSize: 9,
+                                                    margin: [9, 0, 10, 4],
                                                 },
                                                 tableFormasDePago: {
                                                     fontSize: 9,
@@ -1395,8 +1459,14 @@ function comprobarAutorizacion(req, res) {
                                                 lineaFirmaTexto: {
                                                     margin: [430, 0, 10, 4],
                                                 },
+                                                tableHeaderAddInfo: {
+                                                    fontSize: 9,
+                                                    alignment: 'center',
+                                                    bold: true
+                                                },
                                             },
                                         };
+                                        console.log("eSTO ES LO QUE INTENTAS SUMAS!!!!!!!!!!!!!!!!!" + (body.length * 10));
                                         const pdfDocGenerator =
                                             pdfMake.createPdf(documentDefinition);
                                         pdfDocGenerator.getBase64((data) => {

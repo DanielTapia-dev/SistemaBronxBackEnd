@@ -989,7 +989,7 @@ function facturaElectronica(req, res) {
 
 function comprobarAutorizacion(req, res) {
     var url2 =
-        "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl";
+        "https://cel.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl";
     var id = req.params.id;
     var canvas = createCanvas();
     JsBarcode(canvas, id, {
@@ -1006,9 +1006,7 @@ function comprobarAutorizacion(req, res) {
         `<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
                                                 <Body>
                                                     <autorizacionComprobante xmlns="http://ec.gob.sri.ws.autorizacion">
-                                                        <claveAccesoComprobante xmlns="">` +
-        id.toString() +
-        `</claveAccesoComprobante>
+                                                        <claveAccesoComprobante xmlns="">${id}</claveAccesoComprobante>
                                                     </autorizacionComprobante>
                                                 </Body>
                                             </Envelope>`;

@@ -382,7 +382,7 @@ function EnviarFacturaElectronica(
                                     headerRows: 1,
                                     body: [
                                         [{ text: 'Información adicional', style: 'tableHeaderAddInfo' }],
-                                        [{ text: `${detalles.comentario}`, alignment: 'left', fontSize: 9 }],
+                                        [{ text: `${totales.comentario}`, alignment: 'left', fontSize: 9 }],
                                     ]
                                 },
                             },
@@ -543,7 +543,7 @@ function facturaElectronica(req, res) {
                                             var detalle = [];
                                             var obj = {};
                                             var i = 0;
-                                            console.log(detallesFinal.rows);
+                                            //console.log(detallesFinal.rows);
                                             detallesFinal.rows.forEach((element) => {
                                                 //CONSULTAR AQUI EL PRECIO DE CADA PRODUCTO
                                                 if (element.iva12 != 0) {
@@ -811,6 +811,7 @@ function facturaElectronica(req, res) {
                                                         .then(
                                                             (response) => response.text() // .json(), etc.
                                                             // same as function(response) {return response.text();}
+
                                                         )
                                                         .then((xml) => {
                                                             setTimeout(() => {
@@ -820,7 +821,8 @@ function facturaElectronica(req, res) {
                                                                     xml,
                                                                     "text/xml"
                                                                 );
-                                                                var respuestaRecepcion =
+                                                                var respuestaRecepcion = '';
+                                                                respuestaRecepcion =
                                                                     xmlDoc.getElementsByTagName("estado")[0]
                                                                     .childNodes[0].text;
                                                                 console.log(
@@ -828,8 +830,7 @@ function facturaElectronica(req, res) {
                                                                     .childNodes[0].text
                                                                 );
                                                                 if (
-                                                                    xmlDoc.getElementsByTagName("estado")[0]
-                                                                    .childNodes[0].text === "RECIBIDA"
+                                                                    respuestaRecepcion === "RECIBIDA"
                                                                 ) {
                                                                     fetch(url2, {
                                                                             method: "POST",
@@ -941,7 +942,7 @@ function facturaElectronica(req, res) {
                                                                             );
                                                                         });
                                                                 }
-                                                            }, 2000);
+                                                            }, 4000);
                                                         });
 
                                                     //Fin del consumo de servicio post al SRI

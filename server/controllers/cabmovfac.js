@@ -822,13 +822,14 @@ function facturaElectronica(req, res) {
                                                                     "text/xml"
                                                                 );
                                                                 var respuestaRecepcion = '';
-                                                                respuestaRecepcion =
-                                                                    xmlDoc.getElementsByTagName("estado")[0]
-                                                                    .childNodes[0].text;
-                                                                console.log(
-                                                                    xmlDoc.getElementsByTagName("estado")[0]
-                                                                    .childNodes[0].text
-                                                                );
+                                                                try {
+                                                                    respuestaRecepcion =
+                                                                        xmlDoc.getElementsByTagName("estado")[0]
+                                                                        .childNodes[0].text;
+                                                                } catch (error) {
+                                                                    console.log(error);
+                                                                }
+                                                                console.log('Entro al enviado para recepcion');
                                                                 if (
                                                                     respuestaRecepcion === "RECIBIDA"
                                                                 ) {
@@ -852,13 +853,15 @@ function facturaElectronica(req, res) {
                                                                                 xml,
                                                                                 "text/xml"
                                                                             );
-                                                                            var respuestaAutorizacion =
-                                                                                xmlDoc.getElementsByTagName("estado")[0]
-                                                                                .childNodes[0].text;
-                                                                            console.log(
-                                                                                xmlDoc.getElementsByTagName("estado")[0]
-                                                                                .childNodes[0].text
-                                                                            );
+                                                                            var respuestaAutorizacion = '';
+                                                                            try {
+                                                                                var respuestaAutorizacion =
+                                                                                    xmlDoc.getElementsByTagName("estado")[0]
+                                                                                    .childNodes[0].text;
+                                                                            } catch (error) {
+                                                                                console.log(error);
+                                                                            }
+                                                                            console.log('Entro al autorizado');
                                                                             if (
                                                                                 xmlDoc.getElementsByTagName("estado")[0]
                                                                                 .childNodes[0].text === "AUTORIZADO"
@@ -989,7 +992,7 @@ function facturaElectronica(req, res) {
 
 function comprobarAutorizacion(req, res) {
     var url2 =
-        "https://cel.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl";
+        "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl";
     var id = req.params.id;
     var canvas = createCanvas();
     JsBarcode(canvas, id, {

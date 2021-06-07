@@ -989,7 +989,7 @@ function facturaElectronica(req, res) {
 
 function comprobarAutorizacion(req, res) {
     var url2 =
-        "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl";
+        "https://cel.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl";
     var id = req.params.id;
     var canvas = createCanvas();
     JsBarcode(canvas, id, {

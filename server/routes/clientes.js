@@ -8,4 +8,5 @@ module.exports = (app) => {
     app.put('/api/cliente/:id', md_auth.auth, clientesController.update);
     app.get('/api/clientes/:id', md_auth.auth, clientesController.getAll);
     app.delete('/api/clientes/delete/:id', md_auth.auth, clientesController.borrar);
+    app.get('/api/clientescredito/:id', md_auth.auth, clientesController.getAllCredito);
 }

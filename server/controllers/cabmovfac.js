@@ -589,12 +589,10 @@ function facturaElectronica(req, res) {
 
                                                 //FIN DE CONSULTA DE DATOS DEL CLIENTE
                                                 //PROCESO PARA FACTURACION ELECTRONICA
-                                                /*  var fechaNumeroAutorizacion =
-                                                     moment().format("DDMMYYYY");
-                                                 var fechaCabeceraFactura =
-                                                     moment().format("DD/MM/YYYY"); */
-                                                var fechaNumeroAutorizacion = "07062021";
-                                                var fechaCabeceraFactura = "07/06/2021";
+                                                var fechaNumeroAutorizacion =
+                                                    moment().format("DDMMYYYY");
+                                                var fechaCabeceraFactura =
+                                                    moment().format("DD/MM/YYYY");
                                                 var puntoEmision =
                                                     movfactura.numfactura[0] +
                                                     movfactura.numfactura[1] +
@@ -896,7 +894,7 @@ function facturaElectronica(req, res) {
                                                                                 .query(
                                                                                     `UPDATE public.cabmovfac
                                                                         SET claveacceso = ` +
-                                                                                    claveAcceso +
+                                                                                    claveAcceso.toString() +
                                                                                     ` ,numautosri='` +
                                                                                     claveAutorizacion +
                                                                                     `', "EstadoRecepcionSRI" = '` +
@@ -920,7 +918,7 @@ function facturaElectronica(req, res) {
                                                                         .query(
                                                                             `UPDATE public.cabmovfac
                                                                         SET claveacceso = ` +
-                                                                            claveAcceso +
+                                                                            claveAcceso.toString() +
                                                                             ` ,numautosri='` +
                                                                             claveAcceso +
                                                                             `', "EstadoRecepcionSRI" = '` +

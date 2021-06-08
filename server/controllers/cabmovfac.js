@@ -817,12 +817,13 @@ function facturaElectronica(req, res) {
                                                             setTimeout(() => {
                                                                 var DomParser = require("dom-parser");
                                                                 parser = new DomParser();
-                                                                xmlDoc = parser.parseFromString(
-                                                                    xml,
-                                                                    "text/xml"
-                                                                );
+
                                                                 var respuestaRecepcion = '';
                                                                 try {
+                                                                    xmlDoc = parser.parseFromString(
+                                                                        xml,
+                                                                        "text/xml"
+                                                                    );
                                                                     respuestaRecepcion =
                                                                         xmlDoc.getElementsByTagName("estado")[0]
                                                                         .childNodes[0].text;
@@ -849,12 +850,12 @@ function facturaElectronica(req, res) {
                                                                         .then((xml) => {
                                                                             var DomParser = require("dom-parser");
                                                                             parser = new DomParser();
-                                                                            xmlDoc = parser.parseFromString(
-                                                                                xml,
-                                                                                "text/xml"
-                                                                            );
                                                                             var respuestaAutorizacion = '';
                                                                             try {
+                                                                                xmlDoc = parser.parseFromString(
+                                                                                    xml,
+                                                                                    "text/xml"
+                                                                                );
                                                                                 var respuestaAutorizacion =
                                                                                     xmlDoc.getElementsByTagName("estado")[0]
                                                                                     .childNodes[0].text;
@@ -913,25 +914,17 @@ function facturaElectronica(req, res) {
                                                                                 });
                                                                         });
                                                                 } else {
-                                                                    var respuestaAutorizacion = "";
-                                                                    respuestaAutorizacion =
-                                                                        xmlDoc.getElementsByTagName("estado")[0]
-                                                                        .childNodes[0].text;
-                                                                    var claveAutorizacion =
-                                                                        xmlDoc.getElementsByTagName(
-                                                                            "numeroAutorizacion"
-                                                                        )[0].childNodes[0].text;
                                                                     const actualizarNumeroDeAutorizacion = pool
                                                                         .query(
                                                                             `UPDATE public.cabmovfac
                                                                         SET claveacceso = ` +
                                                                             claveAcceso +
                                                                             ` ,numautosri='` +
-                                                                            claveAutorizacion +
+                                                                            claveAcceso +
                                                                             `', "EstadoRecepcionSRI" = '` +
-                                                                            respuestaRecepcion +
+                                                                            'EN ESPERA' +
                                                                             `', "EstadoAutorizacionSRI" = '` +
-                                                                            respuestaAutorizacion +
+                                                                            'EN ESPERA' +
                                                                             `' 
                                                                          WHERE secmovcab=` +
                                                                             movfactura.secmovcab +
@@ -992,7 +985,7 @@ function facturaElectronica(req, res) {
 
 function comprobarAutorizacion(req, res) {
     var url2 =
-        "https://cel.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl";
+        "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl";
     var id = req.params.id;
     var canvas = createCanvas();
     JsBarcode(canvas, id, {

@@ -850,7 +850,7 @@ function facturaElectronica(req, res) {
                                                                         .then((xml) => {
                                                                             var DomParser = require("dom-parser");
                                                                             parser = new DomParser();
-                                                                            var respuestaAutorizacion = '';
+                                                                            var respuestaAutorizacion = 'EN ESPERA';
                                                                             try {
                                                                                 xmlDoc = parser.parseFromString(
                                                                                     xml,
@@ -864,8 +864,7 @@ function facturaElectronica(req, res) {
                                                                             }
                                                                             console.log('Entro al autorizado');
                                                                             if (
-                                                                                xmlDoc.getElementsByTagName("estado")[0]
-                                                                                .childNodes[0].text === "AUTORIZADO"
+                                                                                respuestaAutorizacion === "AUTORIZADO"
                                                                             ) {
                                                                                 var claveAutorizacion =
                                                                                     xmlDoc.getElementsByTagName(

@@ -1,7 +1,7 @@
 const config = {
     user: "postgres",
     host: "localhost",
-    password: "dannyalejo7123tapia",
+    password: "postgres",
     database: "contable",
 };
 /* const config = {

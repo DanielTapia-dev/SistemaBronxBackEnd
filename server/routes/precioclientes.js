@@ -7,4 +7,5 @@ module.exports = (app) => {
     app.put('/api/precioclientes/:id', md_auth.auth, precioclientesController.update);
     app.get('/api/precioclientesall/:id', md_auth.auth, precioclientesController.getAll);
     app.delete('/api/precioclientes/delete/:id', md_auth.auth, precioclientesController.borrar);
+    app.get('/api/preciocliente/:idempresa/:idcliente/:idproducto', md_auth.auth, precioclientesController.precioCliente);
 }

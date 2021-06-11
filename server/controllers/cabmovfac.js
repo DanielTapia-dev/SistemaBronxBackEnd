@@ -51,14 +51,14 @@ cron.schedule("0 0 * * *", () => {
                                                 </Body>
                                             </Envelope>`;
                 fetch(url2, {
-                        method: "POST",
-                        body: ConsultaDeAutorizacionEmpaquetado,
-                        // -- or --
-                        // body : JSON.stringify({
-                        // user : document.getElementById('user').value,
-                        // ...
-                        // })
-                    })
+                    method: "POST",
+                    body: ConsultaDeAutorizacionEmpaquetado,
+                    // -- or --
+                    // body : JSON.stringify({
+                    // user : document.getElementById('user').value,
+                    // ...
+                    // })
+                })
                     .then(
                         (response) => response.text() // .json(), etc.
                         // same as function(response) {return response.text();}
@@ -77,7 +77,7 @@ cron.schedule("0 0 * * *", () => {
                         ) {
                             var claveAutorizacion =
                                 xmlDoc.getElementsByTagName("numeroAutorizacion")[0]
-                                .childNodes[0].text;
+                                    .childNodes[0].text;
                             const actualizarNumeroDeAutorizacion = pool
                                 .query(
                                     `UPDATE public.cabmovfac
@@ -228,181 +228,181 @@ function EnviarFacturaElectronica(
             var documentDefinition = {
                 pageMargins: [10, 10, 10, 10],
                 content: [{
-                        canvas: [{
-                            type: "rect",
-                            x: 0,
-                            y: 0,
-                            w: 290,
-                            h: 310,
-                            r: 5,
-                            lineColor: "black",
-                        }, ],
-                        absolutePosition: { x: 140, y: 10 },
+                    canvas: [{
+                        type: "rect",
+                        x: 0,
+                        y: 0,
+                        w: 290,
+                        h: 310,
+                        r: 5,
+                        lineColor: "black",
+                    },],
+                    absolutePosition: { x: 140, y: 10 },
+                },
+                {
+                    image: "logo",
+                    width: 250,
+                    absolutePosition: { x: 20, y: 40 },
+                },
+                {
+                    canvas: [{
+                        type: "rect",
+                        x: 0,
+                        y: 0,
+                        w: 250,
+                        h: 150,
+                        r: 5,
+                        lineColor: "black",
+                    },],
+                    absolutePosition: { x: 10, y: 90 },
+                },
+                {
+                    text: [
+                        { text: "R.U.C.:    ", fontSize: 14, bold: true },
+                        {
+                            text: empresa.rucciempresa.toString(),
+                            fontSize: 14,
+                            bold: false,
+                        },
+                        { text: "\n\nFACTURA", fontSize: 15, bold: true },
+                        { text: "\n\nNo. ", fontSize: 14, bold: true },
+                        {
+                            text: `${puntoEmision}-${puntoFacturacion}-${secuencial}`,
+                            fontSize: 14,
+                            bold: false,
+                        },
+                        {
+                            text: "\n\nNÚMERO DE AUTORIZACIÓN: ",
+                            fontSize: 12,
+                            bold: true,
+                        },
+                        {
+                            text: `\n${claveAcceso}`,
+                            fontSize: 9.8,
+                            bold: false,
+                        },
+                        {
+                            text: "\n\nFECHA Y HORA DE \nAUTORIZACIÓN           ",
+                            fontSize: 11,
+                            bold: true,
+                        },
+                        { text: `${fechaHoraAutorizacion}`, fontSize: 11, bold: false },
+                        { text: "\n\nAMBIENTE:  ", fontSize: 11, bold: true },
+                        { text: `${empresa.ambiente}`, fontSize: 11, bold: false },
+                        { text: "\n\nEMISIÓN:  ", fontSize: 11, bold: true },
+                        { text: "NORMAL", fontSize: 11, bold: false },
+                        { text: "\n\nCLAVE DE ACCESO ", fontSize: 11, bold: true },
+                    ],
+                    layout: "headerLineOnly",
+                    absolutePosition: { x: 290, y: 25 },
+                },
+                {
+                    text: [
+                        { text: "Laboratorios RedLab", fontSize: 10, bold: true },
+                        { text: "\n", fontSize: 1, bold: true },
+                        { text: "\nDirección \nMatriz: ", fontSize: 9, bold: true },
+                        {
+                            text: `${empresa.dirempresa}`,
+                            fontSize: 9,
+                            bold: false,
+                        },
+                        { text: "\n", fontSize: 1, bold: true },
+                        { text: "\nDirección \nSucursal: ", fontSize: 9, bold: true },
+                        {
+                            text: "SANCHEZ DE ORELLANA Y EMILIO SANDOVAL",
+                            fontSize: 9,
+                            bold: false,
+                        },
+                        { text: "\n", fontSize: 1, bold: true },
+                        {
+                            text: "\nCONTRIBUYENTE ESPECIAL RESOLUCION: ",
+                            fontSize: 9,
+                            bold: true,
+                        },
+                        { text: "0000", fontSize: 9, bold: false },
+                        { text: "\n", fontSize: 1, bold: true },
+                        {
+                            text: "\nOBLIGADO A LLEVAR CONTABILIDAD: ",
+                            fontSize: 9,
+                            bold: true,
+                        },
+                        { text: contabilidad, fontSize: 9, bold: false },
+                    ],
+                    layout: "headerLineOnly",
+                    absolutePosition: { x: 25, y: 185 },
+                },
+                {
+                    image: "barcode",
+                    width: 270,
+                    absolutePosition: { x: 290, y: 272 },
+                },
+                {
+                    canvas: [{
+                        type: "rect",
+                        x: 0,
+                        y: 0,
+                        w: 550,
+                        h: 30,
+                        r: 5,
+                        lineColor: "black",
+                    },],
+                    absolutePosition: { x: 10, y: 170 },
+                },
+                {
+                    text: [{
+                        text: "Razón Social/Nombres y Apellidos:  ",
+                        fontSize: 9,
+                        bold: true,
                     },
                     {
-                        image: "logo",
-                        width: 250,
-                        absolutePosition: { x: 20, y: 40 },
+                        text: `${cliente.nomcliente}     `,
+                        fontSize: 9,
+                        bold: false,
                     },
-                    {
-                        canvas: [{
-                            type: "rect",
-                            x: 0,
-                            y: 0,
-                            w: 250,
-                            h: 150,
-                            r: 5,
-                            lineColor: "black",
-                        }, ],
-                        absolutePosition: { x: 10, y: 90 },
+                    { text: "RUC/CI: ", fontSize: 9, bold: true },
+                    { text: `${cliente.ruccicliente}`, fontSize: 9, bold: false },
+                    { text: "\nFecha Emisión:  ", fontSize: 9, bold: true },
+                    { text: `${totales.createdAt}`, fontSize: 9, bold: false },
+                    ],
+                    absolutePosition: { x: 25, y: 345 },
+                },
+                {
+                    style: "tableDescripcionProductos",
+                    table: {
+                        widths: [80, 200, 51, 61, 51, 54],
+                        headerRows: 1,
+                        body: body,
                     },
-                    {
-                        text: [
-                            { text: "R.U.C.:    ", fontSize: 14, bold: true },
-                            {
-                                text: empresa.rucciempresa.toString(),
-                                fontSize: 14,
-                                bold: false,
-                            },
-                            { text: "\n\nFACTURA", fontSize: 15, bold: true },
-                            { text: "\n\nNo. ", fontSize: 14, bold: true },
-                            {
-                                text: `${puntoEmision}-${puntoFacturacion}-${secuencial}`,
-                                fontSize: 14,
-                                bold: false,
-                            },
-                            {
-                                text: "\n\nNÚMERO DE AUTORIZACIÓN: ",
-                                fontSize: 12,
-                                bold: true,
-                            },
-                            {
-                                text: `\n${claveAcceso}`,
-                                fontSize: 9.8,
-                                bold: false,
-                            },
-                            {
-                                text: "\n\nFECHA Y HORA DE \nAUTORIZACIÓN           ",
-                                fontSize: 11,
-                                bold: true,
-                            },
-                            { text: `${fechaHoraAutorizacion}`, fontSize: 11, bold: false },
-                            { text: "\n\nAMBIENTE:  ", fontSize: 11, bold: true },
-                            { text: `${empresa.ambiente}`, fontSize: 11, bold: false },
-                            { text: "\n\nEMISIÓN:  ", fontSize: 11, bold: true },
-                            { text: "NORMAL", fontSize: 11, bold: false },
-                            { text: "\n\nCLAVE DE ACCESO ", fontSize: 11, bold: true },
-                        ],
-                        layout: "headerLineOnly",
-                        absolutePosition: { x: 290, y: 25 },
-                    },
-                    {
-                        text: [
-                            { text: "Laboratorios RedLab", fontSize: 10, bold: true },
-                            { text: "\n", fontSize: 1, bold: true },
-                            { text: "\nDirección \nMatriz: ", fontSize: 9, bold: true },
-                            {
-                                text: `${empresa.dirempresa}`,
-                                fontSize: 9,
-                                bold: false,
-                            },
-                            { text: "\n", fontSize: 1, bold: true },
-                            { text: "\nDirección \nSucursal: ", fontSize: 9, bold: true },
-                            {
-                                text: "SANCHEZ DE ORELLANA Y EMILIO SANDOVAL",
-                                fontSize: 9,
-                                bold: false,
-                            },
-                            { text: "\n", fontSize: 1, bold: true },
-                            {
-                                text: "\nCONTRIBUYENTE ESPECIAL RESOLUCION: ",
-                                fontSize: 9,
-                                bold: true,
-                            },
-                            { text: "0000", fontSize: 9, bold: false },
-                            { text: "\n", fontSize: 1, bold: true },
-                            {
-                                text: "\nOBLIGADO A LLEVAR CONTABILIDAD: ",
-                                fontSize: 9,
-                                bold: true,
-                            },
-                            { text: contabilidad, fontSize: 9, bold: false },
-                        ],
-                        layout: "headerLineOnly",
-                        absolutePosition: { x: 25, y: 185 },
-                    },
-                    {
-                        image: "barcode",
-                        width: 270,
-                        absolutePosition: { x: 290, y: 272 },
-                    },
-                    {
-                        canvas: [{
-                            type: "rect",
-                            x: 0,
-                            y: 0,
-                            w: 550,
-                            h: 30,
-                            r: 5,
-                            lineColor: "black",
-                        }, ],
-                        absolutePosition: { x: 10, y: 170 },
-                    },
-                    {
-                        text: [{
-                                text: "Razón Social/Nombres y Apellidos:  ",
-                                fontSize: 9,
-                                bold: true,
-                            },
-                            {
-                                text: `${cliente.nomcliente}     `,
-                                fontSize: 9,
-                                bold: false,
-                            },
-                            { text: "RUC/CI: ", fontSize: 9, bold: true },
-                            { text: `${cliente.ruccicliente}`, fontSize: 9, bold: false },
-                            { text: "\nFecha Emisión:  ", fontSize: 9, bold: true },
-                            { text: `${totales.createdAt}`, fontSize: 9, bold: false },
-                        ],
-                        absolutePosition: { x: 25, y: 345 },
-                    },
-                    {
-                        style: "tableDescripcionProductos",
+                },
+                {
+                    columns: [{
+                        style: "tableInformacion",
                         table: {
-                            widths: [80, 200, 51, 61, 51, 54],
+                            widths: [260],
                             headerRows: 1,
-                            body: body,
+                            body: [
+                                [{ text: 'Información adicional', style: 'tableHeaderAddInfo' }],
+                                [{ text: `${totales.comentario}`, alignment: 'left', fontSize: 9 }],
+                            ]
                         },
                     },
                     {
-                        columns: [{
-                                style: "tableInformacion",
-                                table: {
-                                    widths: [260],
-                                    headerRows: 1,
-                                    body: [
-                                        [{ text: 'Información adicional', style: 'tableHeaderAddInfo' }],
-                                        [{ text: `${totales.comentario}`, alignment: 'left', fontSize: 9 }],
-                                    ]
-                                },
-                            },
-                            {
-                                style: "tableTotales",
-                                table: {
-                                    widths: [80, 80],
-                                    body: bodySumatoria,
-                                },
-                            },
-                        ]
-                    },
-                    {
-                        style: "tableFormasDePago",
+                        style: "tableTotales",
                         table: {
-                            widths: [80, 100],
-                            headerRows: 1,
-                            body: bodyFormasPago,
+                            widths: [80, 80],
+                            body: bodySumatoria,
                         },
                     },
+                    ]
+                },
+                {
+                    style: "tableFormasDePago",
+                    table: {
+                        widths: [80, 100],
+                        headerRows: 1,
+                        body: bodyFormasPago,
+                    },
+                },
                 ],
                 images: {
                     barcode: canvas.toDataURL(),
@@ -484,7 +484,7 @@ async function enviarEmail(data, email) {
             filename: "RedLab.pdf",
             content: data,
             encoding: "base64",
-        }, ],
+        },],
     });
 }
 
@@ -567,7 +567,7 @@ function facturaElectronica(req, res) {
                                                             tarifa: element.porcimpuesto,
                                                             baseImponible: element.subtotal,
                                                             valor: ivaFinal,
-                                                        }, ],
+                                                        },],
                                                     },
                                                 };
                                                 detalle.push(obj);
@@ -716,19 +716,19 @@ function facturaElectronica(req, res) {
                                                             totalDescuento: "0.00",
                                                             totalConImpuestos: {
                                                                 totalImpuesto: [{
-                                                                        codigo: impuesto0.codigoSRI,
-                                                                        codigoPorcentaje: impuesto0.codporcentajeSRI,
-                                                                        baseImponible: movfactura.subtotaliva0,
-                                                                        tarifa: impuesto0.porcimpuesto,
-                                                                        valor: movfactura.iva0,
-                                                                    },
-                                                                    {
-                                                                        codigo: impuesto12.codigoSRI,
-                                                                        codigoPorcentaje: impuesto12.codporcentajeSRI,
-                                                                        baseImponible: movfactura.subtotaliva12,
-                                                                        tarifa: impuesto12.porcimpuesto,
-                                                                        valor: movfactura.iva12,
-                                                                    },
+                                                                    codigo: impuesto0.codigoSRI,
+                                                                    codigoPorcentaje: impuesto0.codporcentajeSRI,
+                                                                    baseImponible: movfactura.subtotaliva0,
+                                                                    tarifa: impuesto0.porcimpuesto,
+                                                                    valor: movfactura.iva0,
+                                                                },
+                                                                {
+                                                                    codigo: impuesto12.codigoSRI,
+                                                                    codigoPorcentaje: impuesto12.codporcentajeSRI,
+                                                                    baseImponible: movfactura.subtotaliva12,
+                                                                    tarifa: impuesto12.porcimpuesto,
+                                                                    valor: movfactura.iva12,
+                                                                },
                                                                 ],
                                                             },
                                                             propina: "0.00",
@@ -742,7 +742,7 @@ function facturaElectronica(req, res) {
                                                             campoAdicional: [{
                                                                 $: { nombre: "Comentario" },
                                                                 _: movfactura.comentario
-                                                            }, ],
+                                                            },],
                                                         },
                                                     },
                                                 };
@@ -799,38 +799,38 @@ function facturaElectronica(req, res) {
                                                 </Envelope>`;
                                                     const guardarDatosBase =
                                                         pool
-                                                        .query(
-                                                            `UPDATE public.cabmovfac
+                                                            .query(
+                                                                `UPDATE public.cabmovfac
                                                                         SET claveacceso = ` +
-                                                            claveAcceso.toString() +
-                                                            ` ,numautosri='` +
-                                                            claveAcceso +
-                                                            `', "EstadoRecepcionSRI" = '` +
-                                                            'ESPERANDO' +
-                                                            `', "EstadoAutorizacionSRI" = '` +
-                                                            'ESPERANDO' +
-                                                            `' 
+                                                                claveAcceso.toString() +
+                                                                ` ,numautosri='` +
+                                                                claveAcceso +
+                                                                `', "EstadoRecepcionSRI" = '` +
+                                                                'ESPERANDO' +
+                                                                `', "EstadoAutorizacionSRI" = '` +
+                                                                'ESPERANDO' +
+                                                                `' 
                                                                          WHERE secmovcab=` +
-                                                            movfactura.secmovcab +
-                                                            `;`
-                                                        )
-                                                        .then((detallesFinal) => {
-                                                            console.log(
-                                                                detallesFinal +
-                                                                "Datos base guardados"
-                                                            );
-                                                        });
+                                                                movfactura.secmovcab +
+                                                                `;`
+                                                            )
+                                                            .then((detallesFinal) => {
+                                                                console.log(
+                                                                    detallesFinal +
+                                                                    "Datos base guardados"
+                                                                );
+                                                            });
                                                     const url1 = emp.wsdl1;
                                                     const url2 = emp.wsdl2;
                                                     fetch(url1, {
-                                                            method: "POST",
-                                                            body: EmpaquetadoXML,
-                                                            // -- or --
-                                                            // body : JSON.stringify({
-                                                            // user : document.getElementById('user').value,
-                                                            // ...
-                                                            // })
-                                                        })
+                                                        method: "POST",
+                                                        body: EmpaquetadoXML,
+                                                        // -- or --
+                                                        // body : JSON.stringify({
+                                                        // user : document.getElementById('user').value,
+                                                        // ...
+                                                        // })
+                                                    })
                                                         .then(
                                                             (response) => response.text() // .json(), etc.
                                                             // same as function(response) {return response.text();}
@@ -849,7 +849,7 @@ function facturaElectronica(req, res) {
                                                                     );
                                                                     respuestaRecepcion =
                                                                         xmlDoc.getElementsByTagName("estado")[0]
-                                                                        .childNodes[0].text;
+                                                                            .childNodes[0].text;
                                                                 } catch (error) {
                                                                     console.log(error);
                                                                 }
@@ -858,14 +858,14 @@ function facturaElectronica(req, res) {
                                                                     respuestaRecepcion === "RECIBIDA"
                                                                 ) {
                                                                     fetch(url2, {
-                                                                            method: "POST",
-                                                                            body: ConsultaDeAutorizacionEmpaquetado,
-                                                                            // -- or --
-                                                                            // body : JSON.stringify({
-                                                                            // user : document.getElementById('user').value,
-                                                                            // ...
-                                                                            // })
-                                                                        })
+                                                                        method: "POST",
+                                                                        body: ConsultaDeAutorizacionEmpaquetado,
+                                                                        // -- or --
+                                                                        // body : JSON.stringify({
+                                                                        // user : document.getElementById('user').value,
+                                                                        // ...
+                                                                        // })
+                                                                    })
                                                                         .then(
                                                                             (response) => response.text() // .json(), etc.
                                                                             // same as function(response) {return response.text();}
@@ -881,7 +881,7 @@ function facturaElectronica(req, res) {
                                                                                 );
                                                                                 var respuestaAutorizacion =
                                                                                     xmlDoc.getElementsByTagName("estado")[0]
-                                                                                    .childNodes[0].text;
+                                                                                        .childNodes[0].text;
                                                                             } catch (error) {
                                                                                 console.log(error);
                                                                             }
@@ -913,27 +913,27 @@ function facturaElectronica(req, res) {
                                                                             console.log(claveAcceso);
                                                                             const actualizarNumeroDeAutorizacion =
                                                                                 pool
-                                                                                .query(
-                                                                                    `UPDATE public.cabmovfac
+                                                                                    .query(
+                                                                                        `UPDATE public.cabmovfac
                                                                         SET claveacceso = ` +
-                                                                                    claveAcceso.toString() +
-                                                                                    ` ,numautosri='` +
-                                                                                    claveAutorizacion +
-                                                                                    `', "EstadoRecepcionSRI" = '` +
-                                                                                    respuestaRecepcion +
-                                                                                    `', "EstadoAutorizacionSRI" = '` +
-                                                                                    respuestaAutorizacion +
-                                                                                    `' 
+                                                                                        claveAcceso.toString() +
+                                                                                        ` ,numautosri='` +
+                                                                                        claveAutorizacion +
+                                                                                        `', "EstadoRecepcionSRI" = '` +
+                                                                                        respuestaRecepcion +
+                                                                                        `', "EstadoAutorizacionSRI" = '` +
+                                                                                        respuestaAutorizacion +
+                                                                                        `' 
                                                                          WHERE secmovcab=` +
-                                                                                    movfactura.secmovcab +
-                                                                                    `;`
-                                                                                )
-                                                                                .then((detallesFinal) => {
-                                                                                    console.log(
-                                                                                        detallesFinal +
-                                                                                        " Facturada correctamente"
-                                                                                    );
-                                                                                });
+                                                                                        movfactura.secmovcab +
+                                                                                        `;`
+                                                                                    )
+                                                                                    .then((detallesFinal) => {
+                                                                                        console.log(
+                                                                                            detallesFinal +
+                                                                                            " Facturada correctamente"
+                                                                                        );
+                                                                                    });
                                                                         });
                                                                 } else {
                                                                     const actualizarNumeroDeAutorizacion = pool
@@ -1007,7 +1007,7 @@ function facturaElectronica(req, res) {
 
 function comprobarAutorizacion(req, res) {
     var url2 =
-        "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl";
+        "https://cel.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl";
     var id = req.params.id;
     var canvas = createCanvas();
     JsBarcode(canvas, id, {
@@ -1044,14 +1044,14 @@ function comprobarAutorizacion(req, res) {
                 )
                 .then((datosdetalle) => {
                     fetch(url2, {
-                            method: "POST",
-                            body: ConsultaDeAutorizacionEmpaquetado,
-                            // -- or --
-                            // body : JSON.stringify({
-                            // user : document.getElementById('user').value,
-                            // ...
-                            // })
-                        })
+                        method: "POST",
+                        body: ConsultaDeAutorizacionEmpaquetado,
+                        // -- or --
+                        // body : JSON.stringify({
+                        // user : document.getElementById('user').value,
+                        // ...
+                        // })
+                    })
                         .then(
                             (response) => response.text() // .json(), etc.
                             // same as function(response) {return response.text();}
@@ -1068,10 +1068,10 @@ function comprobarAutorizacion(req, res) {
                             ) {
                                 var claveAutorizacion =
                                     xmlDoc.getElementsByTagName("numeroAutorizacion")[0]
-                                    .childNodes[0].text;
+                                        .childNodes[0].text;
                                 var fechaHoraAutorizacion =
                                     xmlDoc.getElementsByTagName("fechaAutorizacion")[0]
-                                    .childNodes[0].text;
+                                        .childNodes[0].text;
                                 // send mail with defined transport object
                                 const consultaFormasPago = pool
                                     .query(
@@ -1136,23 +1136,23 @@ function comprobarAutorizacion(req, res) {
                                                 var ivaFinal = "0.00";
                                             }
                                             var aux = [{
-                                                    text: element.idproducto.toString(),
-                                                    alignment: "center",
-                                                },
-                                                {
-                                                    text: element.nomproducto.toString(),
-                                                    alignment: "left",
-                                                },
-                                                {
-                                                    text: element.cantidad.toString(),
-                                                    alignment: "right",
-                                                },
-                                                { text: element.precio.toString(), alignment: "right" },
-                                                { text: "0", alignment: "right" },
-                                                {
-                                                    text: element.subtotal.toString(),
-                                                    alignment: "right",
-                                                },
+                                                text: element.idproducto.toString(),
+                                                alignment: "center",
+                                            },
+                                            {
+                                                text: element.nomproducto.toString(),
+                                                alignment: "left",
+                                            },
+                                            {
+                                                text: element.cantidad.toString(),
+                                                alignment: "right",
+                                            },
+                                            { text: element.precio.toString(), alignment: "right" },
+                                            { text: "0", alignment: "right" },
+                                            {
+                                                text: element.subtotal.toString(),
+                                                alignment: "right",
+                                            },
                                             ];
                                             body.push(aux);
                                         });
@@ -1210,224 +1210,224 @@ function comprobarAutorizacion(req, res) {
                                         var documentDefinition = {
                                             pageMargins: [10, 10, 10, 10],
                                             content: [{
-                                                    canvas: [{
-                                                        type: "rect",
-                                                        x: 0,
-                                                        y: 0,
-                                                        w: 290,
-                                                        h: 310,
-                                                        r: 5,
-                                                        lineColor: "black",
-                                                    }, ],
-                                                    absolutePosition: { x: 140, y: 10 },
+                                                canvas: [{
+                                                    type: "rect",
+                                                    x: 0,
+                                                    y: 0,
+                                                    w: 290,
+                                                    h: 310,
+                                                    r: 5,
+                                                    lineColor: "black",
+                                                },],
+                                                absolutePosition: { x: 140, y: 10 },
+                                            },
+                                            {
+                                                image: "logo",
+                                                width: 250,
+                                                absolutePosition: { x: 20, y: 40 },
+                                            },
+                                            {
+                                                canvas: [{
+                                                    type: "rect",
+                                                    x: 0,
+                                                    y: 0,
+                                                    w: 250,
+                                                    h: 150,
+                                                    r: 5,
+                                                    lineColor: "black",
+                                                },],
+                                                absolutePosition: { x: 10, y: 90 },
+                                            },
+                                            {
+                                                text: [
+                                                    { text: "R.U.C.:    ", fontSize: 14, bold: true },
+                                                    {
+                                                        text: datosfactura.rows[0].rucciempresa.toString(),
+                                                        fontSize: 14,
+                                                        bold: false,
+                                                    },
+                                                    { text: "\n\nFACTURA", fontSize: 15, bold: true },
+                                                    { text: "\n\nNo. ", fontSize: 14, bold: true },
+                                                    {
+                                                        text: `${puntoEmision}-${puntoFacturacion}-${secuencial}`,
+                                                        fontSize: 14,
+                                                        bold: false,
+                                                    },
+                                                    {
+                                                        text: "\n\nNÚMERO DE AUTORIZACIÓN: ",
+                                                        fontSize: 12,
+                                                        bold: true,
+                                                    },
+                                                    {
+                                                        text: `\n${claveAutorizacion}`,
+                                                        fontSize: 9.8,
+                                                        bold: false,
+                                                    },
+                                                    {
+                                                        text: "\n\nFECHA Y HORA DE \nAUTORIZACIÓN           ",
+                                                        fontSize: 11,
+                                                        bold: true,
+                                                    },
+                                                    {
+                                                        text: `${fechaHoraAutorizacion}`,
+                                                        fontSize: 11,
+                                                        bold: false,
+                                                    },
+                                                    {
+                                                        text: "\n\nAMBIENTE:  ",
+                                                        fontSize: 11,
+                                                        bold: true,
+                                                    },
+                                                    {
+                                                        text: `${datosfactura.rows[0].ambiente}`,
+                                                        fontSize: 11,
+                                                        bold: false,
+                                                    },
+                                                    {
+                                                        text: "\n\nEMISIÓN:  ",
+                                                        fontSize: 11,
+                                                        bold: true,
+                                                    },
+                                                    { text: "NORMAL", fontSize: 11, bold: false },
+                                                    {
+                                                        text: "\n\nCLAVE DE ACCESO ",
+                                                        fontSize: 11,
+                                                        bold: true,
+                                                    },
+                                                ],
+                                                layout: "headerLineOnly",
+                                                absolutePosition: { x: 290, y: 25 },
+                                            },
+                                            {
+                                                text: [{
+                                                    text: "Laboratorios RedLab",
+                                                    fontSize: 10,
+                                                    bold: true,
+                                                },
+                                                { text: "\n", fontSize: 1, bold: true },
+                                                {
+                                                    text: "\nDirección \nMatriz: ",
+                                                    fontSize: 9,
+                                                    bold: true,
                                                 },
                                                 {
-                                                    image: "logo",
-                                                    width: 250,
-                                                    absolutePosition: { x: 20, y: 40 },
+                                                    text: `${datosfactura.rows[0].dirempresa}`,
+                                                    fontSize: 9,
+                                                    bold: false,
+                                                },
+                                                { text: "\n", fontSize: 1, bold: true },
+                                                {
+                                                    text: "\nDirección \nSucursal: ",
+                                                    fontSize: 9,
+                                                    bold: true,
                                                 },
                                                 {
-                                                    canvas: [{
-                                                        type: "rect",
-                                                        x: 0,
-                                                        y: 0,
-                                                        w: 250,
-                                                        h: 150,
-                                                        r: 5,
-                                                        lineColor: "black",
-                                                    }, ],
-                                                    absolutePosition: { x: 10, y: 90 },
+                                                    text: "SANCHEZ DE ORELLANA Y EMILIO SANDOVAL",
+                                                    fontSize: 9,
+                                                    bold: false,
+                                                },
+                                                { text: "\n", fontSize: 1, bold: true },
+                                                {
+                                                    text: "\nCONTRIBUYENTE ESPECIAL RESOLUCION: ",
+                                                    fontSize: 9,
+                                                    bold: true,
+                                                },
+                                                { text: "0000", fontSize: 9, bold: false },
+                                                { text: "\n", fontSize: 1, bold: true },
+                                                {
+                                                    text: "\nOBLIGADO A LLEVAR CONTABILIDAD: ",
+                                                    fontSize: 9,
+                                                    bold: true,
+                                                },
+                                                { text: contabilidad, fontSize: 9, bold: false },
+                                                ],
+                                                layout: "headerLineOnly",
+                                                absolutePosition: { x: 25, y: 185 },
+                                            },
+                                            {
+                                                image: "barcode",
+                                                width: 270,
+                                                absolutePosition: { x: 290, y: 272 },
+                                            },
+                                            {
+                                                canvas: [{
+                                                    type: "rect",
+                                                    x: 0,
+                                                    y: 0,
+                                                    w: 550,
+                                                    h: 30,
+                                                    r: 5,
+                                                    lineColor: "black",
+                                                },],
+                                                absolutePosition: { x: 10, y: 170 },
+                                            },
+                                            {
+                                                text: [{
+                                                    text: "Razón Social/Nombres y Apellidos:  ",
+                                                    fontSize: 9,
+                                                    bold: true,
                                                 },
                                                 {
-                                                    text: [
-                                                        { text: "R.U.C.:    ", fontSize: 14, bold: true },
-                                                        {
-                                                            text: datosfactura.rows[0].rucciempresa.toString(),
-                                                            fontSize: 14,
-                                                            bold: false,
-                                                        },
-                                                        { text: "\n\nFACTURA", fontSize: 15, bold: true },
-                                                        { text: "\n\nNo. ", fontSize: 14, bold: true },
-                                                        {
-                                                            text: `${puntoEmision}-${puntoFacturacion}-${secuencial}`,
-                                                            fontSize: 14,
-                                                            bold: false,
-                                                        },
-                                                        {
-                                                            text: "\n\nNÚMERO DE AUTORIZACIÓN: ",
-                                                            fontSize: 12,
-                                                            bold: true,
-                                                        },
-                                                        {
-                                                            text: `\n${claveAutorizacion}`,
-                                                            fontSize: 9.8,
-                                                            bold: false,
-                                                        },
-                                                        {
-                                                            text: "\n\nFECHA Y HORA DE \nAUTORIZACIÓN           ",
-                                                            fontSize: 11,
-                                                            bold: true,
-                                                        },
-                                                        {
-                                                            text: `${fechaHoraAutorizacion}`,
-                                                            fontSize: 11,
-                                                            bold: false,
-                                                        },
-                                                        {
-                                                            text: "\n\nAMBIENTE:  ",
-                                                            fontSize: 11,
-                                                            bold: true,
-                                                        },
-                                                        {
-                                                            text: `${datosfactura.rows[0].ambiente}`,
-                                                            fontSize: 11,
-                                                            bold: false,
-                                                        },
-                                                        {
-                                                            text: "\n\nEMISIÓN:  ",
-                                                            fontSize: 11,
-                                                            bold: true,
-                                                        },
-                                                        { text: "NORMAL", fontSize: 11, bold: false },
-                                                        {
-                                                            text: "\n\nCLAVE DE ACCESO ",
-                                                            fontSize: 11,
-                                                            bold: true,
-                                                        },
-                                                    ],
-                                                    layout: "headerLineOnly",
-                                                    absolutePosition: { x: 290, y: 25 },
+                                                    text: `${datosfactura.rows[0].nomcliente}     `,
+                                                    fontSize: 9,
+                                                    bold: false,
+                                                },
+                                                { text: "RUC/CI: ", fontSize: 9, bold: true },
+                                                {
+                                                    text: `${datosfactura.rows[0].ruccicliente}`,
+                                                    fontSize: 9,
+                                                    bold: false,
                                                 },
                                                 {
-                                                    text: [{
-                                                            text: "Laboratorios RedLab",
-                                                            fontSize: 10,
-                                                            bold: true,
-                                                        },
-                                                        { text: "\n", fontSize: 1, bold: true },
-                                                        {
-                                                            text: "\nDirección \nMatriz: ",
-                                                            fontSize: 9,
-                                                            bold: true,
-                                                        },
-                                                        {
-                                                            text: `${datosfactura.rows[0].dirempresa}`,
-                                                            fontSize: 9,
-                                                            bold: false,
-                                                        },
-                                                        { text: "\n", fontSize: 1, bold: true },
-                                                        {
-                                                            text: "\nDirección \nSucursal: ",
-                                                            fontSize: 9,
-                                                            bold: true,
-                                                        },
-                                                        {
-                                                            text: "SANCHEZ DE ORELLANA Y EMILIO SANDOVAL",
-                                                            fontSize: 9,
-                                                            bold: false,
-                                                        },
-                                                        { text: "\n", fontSize: 1, bold: true },
-                                                        {
-                                                            text: "\nCONTRIBUYENTE ESPECIAL RESOLUCION: ",
-                                                            fontSize: 9,
-                                                            bold: true,
-                                                        },
-                                                        { text: "0000", fontSize: 9, bold: false },
-                                                        { text: "\n", fontSize: 1, bold: true },
-                                                        {
-                                                            text: "\nOBLIGADO A LLEVAR CONTABILIDAD: ",
-                                                            fontSize: 9,
-                                                            bold: true,
-                                                        },
-                                                        { text: contabilidad, fontSize: 9, bold: false },
-                                                    ],
-                                                    layout: "headerLineOnly",
-                                                    absolutePosition: { x: 25, y: 185 },
+                                                    text: "\nFecha Emisión:  ",
+                                                    fontSize: 9,
+                                                    bold: true,
                                                 },
                                                 {
-                                                    image: "barcode",
-                                                    width: 270,
-                                                    absolutePosition: { x: 290, y: 272 },
+                                                    text: `${datosfactura.rows[0].createdAt.toLocaleDateString()}`,
+                                                    fontSize: 9,
+                                                    bold: false,
                                                 },
-                                                {
-                                                    canvas: [{
-                                                        type: "rect",
-                                                        x: 0,
-                                                        y: 0,
-                                                        w: 550,
-                                                        h: 30,
-                                                        r: 5,
-                                                        lineColor: "black",
-                                                    }, ],
-                                                    absolutePosition: { x: 10, y: 170 },
+                                                ],
+                                                absolutePosition: { x: 25, y: 345 },
+                                            },
+                                            {
+                                                style: "tableDescripcionProductos",
+                                                table: {
+                                                    widths: [80, 200, 51, 61, 51, 54],
+                                                    headerRows: 1,
+                                                    body: body,
                                                 },
-                                                {
-                                                    text: [{
-                                                            text: "Razón Social/Nombres y Apellidos:  ",
-                                                            fontSize: 9,
-                                                            bold: true,
-                                                        },
-                                                        {
-                                                            text: `${datosfactura.rows[0].nomcliente}     `,
-                                                            fontSize: 9,
-                                                            bold: false,
-                                                        },
-                                                        { text: "RUC/CI: ", fontSize: 9, bold: true },
-                                                        {
-                                                            text: `${datosfactura.rows[0].ruccicliente}`,
-                                                            fontSize: 9,
-                                                            bold: false,
-                                                        },
-                                                        {
-                                                            text: "\nFecha Emisión:  ",
-                                                            fontSize: 9,
-                                                            bold: true,
-                                                        },
-                                                        {
-                                                            text: `${datosfactura.rows[0].createdAt.toLocaleDateString()}`,
-                                                            fontSize: 9,
-                                                            bold: false,
-                                                        },
-                                                    ],
-                                                    absolutePosition: { x: 25, y: 345 },
-                                                },
-                                                {
-                                                    style: "tableDescripcionProductos",
+                                            },
+                                            {
+                                                columns: [{
+                                                    style: "tableInformacion",
                                                     table: {
-                                                        widths: [80, 200, 51, 61, 51, 54],
+                                                        widths: [260],
                                                         headerRows: 1,
-                                                        body: body,
+                                                        body: [
+                                                            [{ text: 'Información adicional', style: 'tableHeaderAddInfo' }],
+                                                            [{ text: `${datosfactura.rows[0].comentario}`, alignment: 'left', fontSize: 9 }],
+                                                        ]
                                                     },
                                                 },
                                                 {
-                                                    columns: [{
-                                                            style: "tableInformacion",
-                                                            table: {
-                                                                widths: [260],
-                                                                headerRows: 1,
-                                                                body: [
-                                                                    [{ text: 'Información adicional', style: 'tableHeaderAddInfo' }],
-                                                                    [{ text: `${datosfactura.rows[0].comentario}`, alignment: 'left', fontSize: 9 }],
-                                                                ]
-                                                            },
-                                                        },
-                                                        {
-                                                            style: "tableTotales",
-                                                            table: {
-                                                                widths: [80, 80],
-                                                                body: bodySumatoria,
-                                                            },
-                                                        },
-                                                    ]
-                                                },
-                                                {
-                                                    style: "tableFormasDePago",
+                                                    style: "tableTotales",
                                                     table: {
-                                                        widths: [80, 100],
-                                                        headerRows: 1,
-                                                        body: bodyFormas,
+                                                        widths: [80, 80],
+                                                        body: bodySumatoria,
                                                     },
                                                 },
+                                                ]
+                                            },
+                                            {
+                                                style: "tableFormasDePago",
+                                                table: {
+                                                    widths: [80, 100],
+                                                    headerRows: 1,
+                                                    body: bodyFormas,
+                                                },
+                                            },
                                             ],
                                             images: {
                                                 barcode: canvas.toDataURL(),
@@ -1529,7 +1529,7 @@ function comprobarAutorizacion(req, res) {
 }
 
 const sendHttpRequest = (method, url, data) => {
-    const promise = new Promise((resolve, reject) => {});
+    const promise = new Promise((resolve, reject) => { });
     return promise;
 };
 
@@ -1867,10 +1867,10 @@ function hexToBase64(str) {
         String.fromCharCode.apply(
             null,
             hex
-            .replace(/\r|\n/g, "")
-            .replace(/([\da-fA-F]{2}) ?/g, "0x$1 ")
-            .replace(/ +$/, "")
-            .split(" ")
+                .replace(/\r|\n/g, "")
+                .replace(/([\da-fA-F]{2}) ?/g, "0x$1 ")
+                .replace(/ +$/, "")
+                .split(" ")
         )
     );
 }
@@ -1879,12 +1879,12 @@ function bigint2base64(bigint) {
     var base64 = "";
     base64 = btoa(
         bigint
-        .toString(16)
-        .match(/\w{2}/g)
-        .map(function(a) {
-            return String.fromCharCode(parseInt(a, 16));
-        })
-        .join("")
+            .toString(16)
+            .match(/\w{2}/g)
+            .map(function (a) {
+                return String.fromCharCode(parseInt(a, 16));
+            })
+            .join("")
     );
 
     base64 = base64.match(/.{1,76}/g).join("\n");

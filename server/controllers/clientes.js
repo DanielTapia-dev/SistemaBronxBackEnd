@@ -93,6 +93,26 @@ function getAll(req, res) {
         });
 }
 
+function getAllCredito(req, res) {
+    var idEmpresa = req.params.id;
+    clientes
+        .findAll({
+            where: {
+                idempresa: idEmpresa,
+                tipocliente: 'Credito'
+            },
+        })
+        .then((clientes) => {
+            res.status(200).send({ clientes });
+        })
+        .catch((err) => {
+            res
+                .status(500)
+                .send({ message: "Ocurrio un error al buscar los clientes" });
+        });
+}
+
+
 function borrar(req, res) {
     var id = req.params.id;
     var body = req.body;
@@ -127,5 +147,6 @@ module.exports = {
     getAll,
     borrar,
     getOne,
-    getOnePorCedula
+    getOnePorCedula,
+    getAllCredito
 };

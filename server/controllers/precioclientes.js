@@ -1,4 +1,8 @@
 const precioclientes = require("../models").precioclientes;
+const { Pool, Client } = require("pg");
+const configuracion = require("../config/configpg").config;
+const pool = new Pool(configuracion);
+
 
 function create(req, res) {
   precioclientes
@@ -103,10 +107,38 @@ function borrar(req, res) {
     });
 }
 
+function precioCliente(req, res) {
+  //:idEmpresa/:fechaIni/:fechaFin
+  var idEmpresa = req.params.idempresa;
+  var idCliente = req.params.idcliente;
+  var idProducto = req.params.idproducto;
+  const consulta = pool
+      .query(
+  `select pre.precio 
+  from precioclientes pre
+  where pre.idempresa = '` +
+          idEmpresa +
+          `' and pre.idcliente = '` +
+          idCliente +
+          `' and pre.idproducto = '` +
+          idProducto +
+  `';`
+      )
+      .then((precioproducto) => {
+          res.send(precioproducto.rows);
+      })
+      .catch((err) => {
+          res
+              .status(500)
+              .send({ message: "Ocurrio un error al comprobar el reporte " + err });
+      });
+}
+
 module.exports = {
   create,
   update,
   getAll,
   borrar,
-  getOne
+  getOne,
+  precioCliente
 }

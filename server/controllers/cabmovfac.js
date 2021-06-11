@@ -796,7 +796,30 @@ function facturaElectronica(req, res) {
                                                         `</claveAccesoComprobante>
                                                     </autorizacionComprobante>
                                                 </Body>
-                                            </Envelope>`;
+                                                </Envelope>`;
+                                                    const guardarDatosBase =
+                                                        pool
+                                                        .query(
+                                                            `UPDATE public.cabmovfac
+                                                                        SET claveacceso = ` +
+                                                            claveAcceso.toString() +
+                                                            ` ,numautosri='` +
+                                                            claveAcceso +
+                                                            `', "EstadoRecepcionSRI" = '` +
+                                                            'ESPERANDO' +
+                                                            `', "EstadoAutorizacionSRI" = '` +
+                                                            'ESPERANDO' +
+                                                            `' 
+                                                                         WHERE secmovcab=` +
+                                                            movfactura.secmovcab +
+                                                            `;`
+                                                        )
+                                                        .then((detallesFinal) => {
+                                                            console.log(
+                                                                detallesFinal +
+                                                                "Datos base guardados"
+                                                            );
+                                                        });
                                                     const url1 = emp.wsdl1;
                                                     const url2 = emp.wsdl2;
                                                     fetch(url1, {

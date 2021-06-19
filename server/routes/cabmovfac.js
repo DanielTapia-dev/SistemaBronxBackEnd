@@ -28,4 +28,9 @@ module.exports = (app) => {
         md_auth.auth,
         cabmovfacController.borrar
     );
+    app.get(
+        "/api/cuentasporcobrar/:idEmpresa/:fechaIni/:fechaFin/:idcaja/:idestado",
+        md_auth.auth,
+        cabmovfacController.reporteCuentasporCobrar
+    );
 };

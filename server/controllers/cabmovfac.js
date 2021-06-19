@@ -1007,7 +1007,7 @@ function facturaElectronica(req, res) {
 
 function comprobarAutorizacion(req, res) {
     var url2 =
-        "https://cel.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl";
+        "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl";
     var id = req.params.id;
     var canvas = createCanvas();
     JsBarcode(canvas, id, {
@@ -2060,6 +2060,71 @@ and fac.idempresa = '` +
         });
 }
 
+function reporteCuentasporCobrar(req, res) {
+    //:idEmpresa/:fechaIni/:fechaFin
+    var idEmpresa = req.params.idEmpresa;
+    var fechaIni = req.params.fechaIni;
+    var fechaFin = req.params.fechaFin;
+    var idCaja = req.params.idcaja;
+    var idEstado = req.params.idestado;
+
+    // Consulta completa SQL para Cuentas por cobrar
+    var cadena = '';
+
+    if (idEstado == 'pagada') {
+        this.cadena = `SELECT caj.nomcaja, cli.ruccicliente, cli.nomcliente, 
+        fac.numfactura, fac."createdAt", fac.subtotal, fac.subtotaliva0, 
+        fac.subtotaliva12, fac.iva0, fac.iva12, fac.total, fac.estadocobro, fac.valorcobro
+        FROM cabmovfac fac, parsucursal suc, parcaja caj, clientes cli
+        where fac.idsucursal = suc.idsucursal and fac.idcaja = caj.idcaja
+        and fac.idcliente = cli.idcliente and cli.tipocliente = 'Credito'
+        and fac.estado ='FACTURADA' and fac.estadocobro = 'pagada'
+        and fac.idempresa = '` +
+                idEmpresa +
+                `'
+        and fac.idcaja = '` +
+                idCaja +
+                `' 
+        and (fac."createdAt" between '` +
+                fechaIni +
+                `' and '` +
+                fechaFin +
+                `');`
+    }else{
+        this.cadena = `SELECT caj.nomcaja, cli.ruccicliente, cli.nomcliente, 
+        fac.numfactura, fac."createdAt", fac.subtotal, fac.subtotaliva0, 
+        fac.subtotaliva12, fac.iva0, fac.iva12, fac.total, fac.estadocobro, fac.valorcobro
+        FROM cabmovfac fac, parsucursal suc, parcaja caj, clientes cli
+        where fac.idsucursal = suc.idsucursal and fac.idcaja = caj.idcaja
+        and fac.idcliente = cli.idcliente and cli.tipocliente = 'Credito'
+        and fac.estado ='FACTURADA' and fac.valorcobro = 0
+        and fac.idempresa = '` +
+                idEmpresa +
+                `'
+        and fac.idcaja = '` +
+                idCaja +
+                `' 
+        and (fac."createdAt" between '` +
+                fechaIni +
+                `' and '` +
+                fechaFin +
+                `');`
+
+
+    }
+    const consulta = pool
+        .query(this.cadena
+        )
+        .then((reporteFacturas) => {
+            res.send(reporteFacturas.rows);
+        })
+        .catch((err) => {
+            res
+                .status(500)
+                .send({ message: "Ocurrio un error al comprobar el reporte" + err });
+        });
+}
+
 module.exports = {
     create,
     update,
@@ -2070,4 +2135,5 @@ module.exports = {
     reportesFacturasClientesContado,
     comprobarAutorizacion,
     descargarXML,
+    reporteCuentasporCobrar,
 };

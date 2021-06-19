@@ -100,6 +100,7 @@ const getMenuFrontEnd = (role) => {
             submenu: [
                 { titulo: 'Reportes Facturas', url: 'reportesFacturas' },
                 { titulo: 'Reportes Proformas', url: 'reportesProformas' },
+                { titulo: 'Cuentas por Cobrar', url: 'reportesCuentasCobrar' },
             ]
         }
 

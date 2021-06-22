@@ -33,4 +33,9 @@ module.exports = (app) => {
         md_auth.auth,
         cabmovfacController.reporteCuentasporCobrar
     );
+    app.get(
+        "/api/facturasporcobrar/:idEmpresa/:idRucCi",
+        md_auth.auth,
+        cabmovfacController.facturasporCobrar
+    );
 };

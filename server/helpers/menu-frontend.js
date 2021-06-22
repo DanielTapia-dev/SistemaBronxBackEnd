@@ -84,7 +84,8 @@ const getMenuFrontEnd = (role) => {
             titulo: 'Cobros',
             icono: 'icon-speedometer',
             submenu: [
-                { titulo: 'Cobros', url: 'cobros' }
+                { titulo: 'Cobros Facturas', url: 'cobrosfacturas' },
+                { titulo: 'Listar Cobros', url: 'cobros' }
             ]
         },
         {

@@ -2125,6 +2125,39 @@ function reporteCuentasporCobrar(req, res) {
         });
 }
 
+function facturasporCobrar(req, res) {
+    var idEmpresa = req.params.idEmpresa;
+    var RucCicliente = req.params.idRucCi;
+
+    // Consulta completa SQL para Cuentas por cobrar
+    var cadena = '';
+
+    this.cadena = `SELECT caj.nomcaja, cli.ruccicliente, cli.nomcliente, 
+    fac.numfactura, fac."createdAt", fac.subtotal, fac.subtotaliva0, 
+    fac.subtotaliva12, fac.iva0, fac.iva12, fac.total, fac.estadocobro, fac.valorcobro
+    FROM cabmovfac fac, parsucursal suc, parcaja caj, clientes cli
+    where fac.idsucursal = suc.idsucursal and fac.idcaja = caj.idcaja
+    and fac.idcliente = cli.idcliente and cli.tipocliente = 'Credito'
+    and fac.estado ='FACTURADA' and fac.valorcobro = 0
+    and fac.idempresa = '` +
+            idEmpresa +
+            `'
+    and cli.ruccicliente = '` +
+            RucCicliente +
+            `';`
+    const consulta = pool
+        .query(this.cadena
+        )
+        .then((reporteFacturas) => {
+            res.send(reporteFacturas.rows);
+        })
+        .catch((err) => {
+            res
+                .status(500)
+                .send({ message: "Ocurrio un error al comprobar el reporte " + err });
+        });
+}
+
 module.exports = {
     create,
     update,
@@ -2136,4 +2169,5 @@ module.exports = {
     comprobarAutorizacion,
     descargarXML,
     reporteCuentasporCobrar,
+    facturasporCobrar,
 };

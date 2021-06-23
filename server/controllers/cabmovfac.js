@@ -467,7 +467,7 @@ function EnviarFacturaElectronica(
             const printer = new PdfPrinter(fonts);
 
             const pdfDoc = printer.createPdfKitDocument(documentDefinition);
-            pdfDoc.pipe(fs.createWriteStream(`facturaspdf/factura${id}.pdf`));
+            pdfDoc.pipe(fs.createWriteStream(`facturaspdf/factura${secuencial}.pdf`));
             pdfDoc.end();
         });
 }

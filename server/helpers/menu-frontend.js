@@ -84,7 +84,8 @@ const getMenuFrontEnd = (role) => {
             titulo: 'Cobros',
             icono: 'icon-speedometer',
             submenu: [
-                { titulo: 'Cobros', url: 'cobros' }
+                { titulo: 'Cobros Facturas', url: 'cobrosfacturas' },
+                { titulo: 'Listar Cobros', url: 'cobros' }
             ]
         },
         {
@@ -100,6 +101,7 @@ const getMenuFrontEnd = (role) => {
             submenu: [
                 { titulo: 'Reportes Facturas', url: 'reportesFacturas' },
                 { titulo: 'Reportes Proformas', url: 'reportesProformas' },
+                { titulo: 'Cuentas por Cobrar', url: 'reportesCuentasCobrar' },
             ]
         }
 

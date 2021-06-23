@@ -2080,17 +2080,17 @@ function reporteCuentasporCobrar(req, res) {
         and fac.idcliente = cli.idcliente and cli.tipocliente = 'Credito'
         and fac.estado ='FACTURADA' and fac.estadocobro = 'pagada'
         and fac.idempresa = '` +
-                idEmpresa +
-                `'
+            idEmpresa +
+            `'
         and fac.idcaja = '` +
-                idCaja +
-                `' 
+            idCaja +
+            `' 
         and (fac."createdAt" between '` +
-                fechaIni +
-                `' and '` +
-                fechaFin +
-                `');`
-    }else{
+            fechaIni +
+            `' and '` +
+            fechaFin +
+            `');`
+    } else {
         this.cadena = `SELECT caj.nomcaja, cli.ruccicliente, cli.nomcliente, 
         fac.numfactura, fac."createdAt", fac.subtotal, fac.subtotaliva0, 
         fac.subtotaliva12, fac.iva0, fac.iva12, fac.total, fac.estadocobro, fac.valorcobro
@@ -2099,16 +2099,16 @@ function reporteCuentasporCobrar(req, res) {
         and fac.idcliente = cli.idcliente and cli.tipocliente = 'Credito'
         and fac.estado ='FACTURADA' and fac.valorcobro = 0
         and fac.idempresa = '` +
-                idEmpresa +
-                `'
+            idEmpresa +
+            `'
         and fac.idcaja = '` +
-                idCaja +
-                `' 
+            idCaja +
+            `' 
         and (fac."createdAt" between '` +
-                fechaIni +
-                `' and '` +
-                fechaFin +
-                `');`
+            fechaIni +
+            `' and '` +
+            fechaFin +
+            `');`
 
 
     }
@@ -2140,11 +2140,11 @@ function facturasporCobrar(req, res) {
     and fac.idcliente = cli.idcliente and cli.tipocliente = 'Credito'
     and fac.estado ='FACTURADA' and fac.valorcobro = 0
     and fac.idempresa = '` +
-            idEmpresa +
-            `'
+        idEmpresa +
+        `'
     and cli.ruccicliente = '` +
-            RucCicliente +
-            `';`
+        RucCicliente +
+        `';`
     const consulta = pool
         .query(this.cadena
         )

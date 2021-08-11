@@ -298,7 +298,7 @@ function EnviarFacturaElectronica(
                 },
                 {
                     text: [
-                        { text: "Laboratorios RedLab", fontSize: 10, bold: true },
+                        { text: "SEMPÉRTEGUI REGALADO MARGARITA SOLEDAD", fontSize: 10, bold: true },
                         { text: "\n", fontSize: 1, bold: true },
                         { text: "\nDirección \nMatriz: ", fontSize: 9, bold: true },
                         {
@@ -1299,7 +1299,7 @@ function comprobarAutorizacion(req, res) {
                                             },
                                             {
                                                 text: [{
-                                                    text: "Laboratorios RedLab",
+                                                    text: "SEMPÉRTEGUI REGALADO MARGARITA SOLEDAD",
                                                     fontSize: 10,
                                                     bold: true,
                                                 },

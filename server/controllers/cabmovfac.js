@@ -840,7 +840,6 @@ function facturaElectronica(req, res) {
                                                             setTimeout(() => {
                                                                 var DomParser = require("dom-parser");
                                                                 parser = new DomParser();
-
                                                                 var respuestaRecepcion = '';
                                                                 try {
                                                                     xmlDoc = parser.parseFromString(
@@ -953,6 +952,7 @@ function facturaElectronica(req, res) {
                                                                             `;`
                                                                         )
                                                                         .then((detallesFinal) => {
+                                                                            console.log(xmlDoc)
                                                                             console.log(
                                                                                 detallesFinal +
                                                                                 "Hubo un error y fue " +

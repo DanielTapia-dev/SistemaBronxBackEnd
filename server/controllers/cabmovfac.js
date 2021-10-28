@@ -112,7 +112,8 @@ function EnviarFacturaElectronica(
     cliente,
     totales,
     claveAcceso,
-    fechaHoraAutorizacion
+    fechaHoraAutorizacion,
+    xml
 ) {
     var canvas = createCanvas();
     JsBarcode(canvas, claveAcceso, {
@@ -241,8 +242,8 @@ function EnviarFacturaElectronica(
                 },
                 {
                     image: "logo",
-                    width: 250,
-                    absolutePosition: { x: 20, y: 40 },
+                    width: 135,
+                    absolutePosition: { x: 75, y: 30 },
                 },
                 {
                     canvas: [{
@@ -298,7 +299,7 @@ function EnviarFacturaElectronica(
                 },
                 {
                     text: [
-                        { text: "SEMPÉRTEGUI REGALADO MARGARITA SOLEDAD", fontSize: 10, bold: true },
+                        { text: "GRUPO INNOVA", fontSize: 10, bold: true },
                         { text: "\n", fontSize: 1, bold: true },
                         { text: "\nDirección \nMatriz: ", fontSize: 9, bold: true },
                         {
@@ -309,7 +310,7 @@ function EnviarFacturaElectronica(
                         { text: "\n", fontSize: 1, bold: true },
                         { text: "\nDirección \nSucursal: ", fontSize: 9, bold: true },
                         {
-                            text: "SANCHEZ DE ORELLANA Y EMILIO SANDOVAL",
+                            text: "Laguna Colta y Laguna Cuyabeno",
                             fontSize: 9,
                             bold: false,
                         },
@@ -320,12 +321,6 @@ function EnviarFacturaElectronica(
                             bold: true,
                         },
                         { text: contabilidad, fontSize: 9, bold: false },
-                        { text: "\n", fontSize: 1, bold: true },
-                        {
-                            text: "\nCONTRIBUYENTE RÉGIMEN MICROEMPRESAS",
-                            fontSize: 9,
-                            bold: true,
-                        },
                     ],
                     layout: "headerLineOnly",
                     absolutePosition: { x: 25, y: 185 },
@@ -459,7 +454,7 @@ function EnviarFacturaElectronica(
             };
             const pdfDocGenerator = pdfMake.createPdf(documentDefinition);
             pdfDocGenerator.getBase64((data) => {
-                enviarEmail(data, cliente.emailcliente);
+                enviarEmail(data, cliente.emailcliente, xml);
                 //console.log(data);
             });
             // Define font files
@@ -471,18 +466,22 @@ function EnviarFacturaElectronica(
         });
 }
 
-async function enviarEmail(data, email) {
+async function enviarEmail(data, email, xml) {
     await transporter.transporter.sendMail({
         from: '"RedLab" <alejodanny94@gmail.com>', // sender address
         to: email, // list of receivers
         subject: "Factura Electrónica", // plain text body
         html: `
-        <h1>Muchas gracias por preferirnos!</h1>
+        <h1>Innova</h1>
+        <h2>Muchas gracias por preferirnos!</h2>
         `, // html body
         attachments: [{
-            filename: "RedLab.pdf",
+            filename: "FacturaInnova.pdf",
             content: data,
             encoding: "base64",
+        }, {
+            filename: "FacturaXML.xml",
+            content: xml
         },],
     });
 }
@@ -622,7 +621,7 @@ function facturaElectronica(req, res) {
                                                 var claveAcceso =
                                                     fechaNumeroAutorizacion +
                                                     "01" +
-                                                    "1706610738001" +
+                                                    "0591759183001" +
                                                     ambiente +
                                                     puntoEmision +
                                                     puntoFacturacion +
@@ -701,7 +700,6 @@ function facturaElectronica(req, res) {
                                                             ptoEmi: puntoFacturacion,
                                                             secuencial: secuencial,
                                                             dirMatriz: emp.dirempresa.toUpperCase(),
-                                                            regimenMicroempresas: "CONTRIBUYENTE RÉGIMEN MICROEMPRESAS",
                                                         },
                                                         infoFactura: {
                                                             fechaEmision: fechaCabeceraFactura,
@@ -763,16 +761,15 @@ function facturaElectronica(req, res) {
                                                 fs.writeFileSync("facturas/factura" + id + ".xml", xml);
                                                 //console.log('Se ha escrito en el archivo');
 
-                                                fs.readFile("FirmaCorrecta.pfx", (err, data) => {
+                                                fs.readFile("FirmaInnova.pfx", (err, data) => {
                                                     if (err) throw err;
                                                     var archivop12 = data;
                                                     var xmlbase64 = firmarComprobante(
                                                         archivop12,
-                                                        "Solsito2204",
+                                                        "2311M@GUIPEREZ",
                                                         xml,
                                                         id
                                                     );
-
                                                     // Inicio de consumo de servicio post con EndPoint del SRI
                                                     var EmpaquetadoXML =
                                                         `<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
@@ -821,6 +818,7 @@ function facturaElectronica(req, res) {
                                                             });
                                                     const url1 = emp.wsdl1;
                                                     const url2 = emp.wsdl2;
+                                                    console.log(url2)
                                                     fetch(url1, {
                                                         method: "POST",
                                                         body: EmpaquetadoXML,
@@ -845,9 +843,8 @@ function facturaElectronica(req, res) {
                                                                         xml,
                                                                         "text/xml"
                                                                     );
-                                                                    respuestaRecepcion =
-                                                                        xmlDoc.getElementsByTagName("estado")[0]
-                                                                            .childNodes[0].text;
+                                                                    console.log(xmlDoc);
+                                                                    respuestaRecepcion = xmlDoc.getElementsByTagName("estado")[0].childNodes[0].text;
                                                                 } catch (error) {
                                                                     console.log(error);
                                                                 }
@@ -902,7 +899,8 @@ function facturaElectronica(req, res) {
                                                                                     cliente,
                                                                                     movfactura,
                                                                                     claveAcceso,
-                                                                                    fechaHoraAutorizacion
+                                                                                    fechaHoraAutorizacion,
+                                                                                    atob(xmlbase64)
                                                                                 );
                                                                             } else {
                                                                                 var claveAutorizacion = claveAcceso;
@@ -959,7 +957,7 @@ function facturaElectronica(req, res) {
                                                                             );
                                                                         });
                                                                 }
-                                                            }, 4000);
+                                                            }, 1000);
                                                         });
 
                                                     //Fin del consumo de servicio post al SRI
@@ -1006,7 +1004,7 @@ function facturaElectronica(req, res) {
 
 function comprobarAutorizacion(req, res) {
     var url2 =
-        "https://cel.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl";
+        "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl";
     var id = req.params.id;
     var canvas = createCanvas();
     JsBarcode(canvas, id, {
@@ -1222,8 +1220,8 @@ function comprobarAutorizacion(req, res) {
                                             },
                                             {
                                                 image: "logo",
-                                                width: 250,
-                                                absolutePosition: { x: 20, y: 40 },
+                                                width: 135,
+                                                absolutePosition: { x: 75, y: 30 },
                                             },
                                             {
                                                 canvas: [{
@@ -1299,7 +1297,7 @@ function comprobarAutorizacion(req, res) {
                                             },
                                             {
                                                 text: [{
-                                                    text: "SEMPÉRTEGUI REGALADO MARGARITA SOLEDAD",
+                                                    text: "GRUPO INNOVA",
                                                     fontSize: 10,
                                                     bold: true,
                                                 },
@@ -1321,7 +1319,7 @@ function comprobarAutorizacion(req, res) {
                                                     bold: true,
                                                 },
                                                 {
-                                                    text: "SANCHEZ DE ORELLANA Y EMILIO SANDOVAL",
+                                                    text: "Laguna Colta y Laguna Cuyabeno",
                                                     fontSize: 9,
                                                     bold: false,
                                                 },
@@ -1332,12 +1330,6 @@ function comprobarAutorizacion(req, res) {
                                                     bold: true,
                                                 },
                                                 { text: contabilidad, fontSize: 9, bold: false },
-                                                { text: "\n", fontSize: 1, bold: true },
-                                                {
-                                                    text: "\nCONTRIBUYENTE RÉGIMEN MICROEMPRESAS",
-                                                    fontSize: 9,
-                                                    bold: true,
-                                                },
                                                 ],
                                                 layout: "headerLineOnly",
                                                 absolutePosition: { x: 25, y: 185 },
@@ -1481,7 +1473,6 @@ function comprobarAutorizacion(req, res) {
                                                 },
                                             },
                                         };
-                                        console.log("eSTO ES LO QUE INTENTAS SUMAS!!!!!!!!!!!!!!!!!" + (body.length * 10));
                                         const pdfDocGenerator =
                                             pdfMake.createPdf(documentDefinition);
                                         pdfDocGenerator.getBase64((data) => {
@@ -1571,7 +1562,9 @@ function firmarComprobante(mi_contenido_p12, mi_pwd_p12, comprobante, id) {
 
     //Serial Number
     var X509SerialNumber = parseInt(cert.serialNumber, 16);
-
+    //var SerialNumberComplete = X509SerialNumber.toLocaleString('fullwide', { useGrouping: false });
+    //console.log(cert)
+    console.log("Este es el numero de serie" + X509SerialNumber);
     exponent = hexToBase64(key.e.data[0].toString(16));
     modulus = bigint2base64(key.n);
 
@@ -1642,11 +1635,11 @@ function firmarComprobante(mi_contenido_p12, mi_pwd_p12, comprobante, id) {
     SignedProperties += "<etsi:IssuerSerial>";
     SignedProperties += "<ds:X509IssuerName>";
     SignedProperties +=
-        "CN=AC BANCO CENTRAL DEL ECUADOR,L=QUITO,OU=ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE,O=BANCO CENTRAL DEL ECUADOR,C=EC";
+        "CN=ANF High Assurance Ecuador Intermediate CA,OU=ANF Autoridad intermedia  EC,O=ANFAC AUTORIDAD DE CERTIFICACION ECUADOR C.A.,C=EC,2.5.4.5=#130d31373932363031323135303031";
     SignedProperties += "</ds:X509IssuerName>";
     SignedProperties += "<ds:X509SerialNumber>";
 
-    SignedProperties += X509SerialNumber;
+    SignedProperties += '9962845856148588608232230903';
 
     SignedProperties += "</ds:X509SerialNumber>";
     SignedProperties += "</etsi:IssuerSerial>";
@@ -1825,7 +1818,6 @@ function firmarComprobante(mi_contenido_p12, mi_pwd_p12, comprobante, id) {
     //FIN DE LA FIRMA DIGITAL
 
     fs.writeFileSync(archivo, comprobante.replace(/(<[^<]+)$/, xades_bes + "$1"));
-
     //Inicio de conversión del archivo en base64
 
     var archivoString = comprobante.replace(/(<[^<]+)$/, xades_bes + "$1");
@@ -2111,8 +2103,7 @@ function reporteCuentasporCobrar(req, res) {
 
     }
     const consulta = pool
-        .query(this.cadena
-        )
+        .query(this.cadena)
         .then((reporteFacturas) => {
             res.send(reporteFacturas.rows);
         })
@@ -2144,8 +2135,7 @@ function facturasporCobrar(req, res) {
         RucCicliente +
         `';`
     const consulta = pool
-        .query(this.cadena
-        )
+        .query(this.cadena)
         .then((reporteFacturas) => {
             res.send(reporteFacturas.rows);
         })

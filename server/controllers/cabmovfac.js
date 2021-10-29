@@ -468,12 +468,14 @@ function EnviarFacturaElectronica(
 
 async function enviarEmail(data, email, xml) {
     await transporter.transporter.sendMail({
-        from: '"RedLab" <alejodanny94@gmail.com>', // sender address
+        from: '"Innova" <grupoinnova6@gmail.com>', // sender address
         to: email, // list of receivers
         subject: "Factura Electrónica", // plain text body
         html: `
-        <h1>Innova</h1>
-        <h2>Muchas gracias por preferirnos!</h2>
+        <p>Estimado Cliente:</p>
+        <p>Nos complace informale que su documento electrónico ha sido generado correctamente:</p>
+        </br>
+        <p>Tipo de documento: FACTURA</p>
         `, // html body
         attachments: [{
             filename: "FacturaInnova.pdf",
@@ -1089,7 +1091,7 @@ function comprobarAutorizacion(req, res) {
                                         detallesFormaPago.rows.forEach((element) => {
                                             bodyFormas.push([
                                                 { text: element.nomformapago, alignment: "left" },
-                                                { text: element.valorcobro, alignment: "left" },
+                                                { text: element.valorcobro, alignment: "right" },
                                             ]);
                                         });
                                         for (let index = 0; index < bodyFormas.length; index++) {

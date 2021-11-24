@@ -1,9 +1,9 @@
 {
     "development": {
-        "username": "postgres",
-        "password": "dannyalejo7123tapia",
-        "database": "innova",
-        "host": "localhost",
+        "username": "myddjzqqxebpvr",
+        "password": "cabf00ac3c194adcbbd4fe271afabbea0f4ee0d3492b9c616e8e6b14edaad92e",
+        "database": "dfjjb408kt3gkv",
+        "host": "ec2-44-196-71-136.compute-1.amazonaws.com",
         "dialect": "postgres"
     },
     "test": {
@@ -14,10 +14,10 @@
         "dialect": "postgres"
     },
     "production": {
-        "username": "postgres",
-        "password": "dannyalejo7123tapia",
-        "database": "contable",
-        "host": "localhost",
+        "username": "myddjzqqxebpvr",
+        "password": "cabf00ac3c194adcbbd4fe271afabbea0f4ee0d3492b9c616e8e6b14edaad92e",
+        "database": "dfjjb408kt3gkv",
+        "host": "ec2-44-196-71-136.compute-1.amazonaws.com",
         "dialect": "postgres",
         "dialectOptions": {
             "ssl": {

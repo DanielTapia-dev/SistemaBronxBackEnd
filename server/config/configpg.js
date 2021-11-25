@@ -1,18 +1,18 @@
+/* const config = {
+  user: "postgres",
+  host: "localhost",
+  password: "dannyalejo7123tapia",
+  database: "innova",
+}; */
 const config = {
   user: "myddjzqqxebpvr",
   host: "ec2-44-196-71-136.compute-1.amazonaws.com",
   password: "cabf00ac3c194adcbbd4fe271afabbea0f4ee0d3492b9c616e8e6b14edaad92e",
   database: "dfjjb408kt3gkv",
+  ssl: {
+    rejectUnauthorized: false,
+  },
 };
-/* const config = {
-    user: "orbnggveukawgo",
-    host: "ec2-107-20-153-39.compute-1.amazonaws.com",
-    password: "6e78fad641772ae6d9be773d3f5fe56e3e47119ac747fb18e6f4bc22f0db44ba",
-    database: "d2o06sd0oim7ud",
-    ssl: {
-        rejectUnauthorized: false,
-    },
-}; */
 
 module.exports = {
   config,

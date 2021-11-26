@@ -37,7 +37,7 @@ cron.schedule("0 0 * * *", () => {
     )
     .then((res) => {
       var url2 =
-        "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl";
+        "https://cel.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl";
       for (let index = 0; index < res.rows.length; index++) {
         console.log(res.rows[index].claveacceso);
         var ConsultaDeAutorizacionEmpaquetado =
@@ -1039,7 +1039,7 @@ function facturaElectronica(req, res) {
 
 function comprobarAutorizacion(req, res) {
   var url2 =
-    "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl";
+    "https://cel.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl";
   var id = req.params.id;
   var canvas = createCanvas();
   JsBarcode(canvas, id, {

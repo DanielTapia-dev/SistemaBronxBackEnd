@@ -1,9 +1,9 @@
 {
     "development": {
-        "username": "myddjzqqxebpvr",
-        "password": "cabf00ac3c194adcbbd4fe271afabbea0f4ee0d3492b9c616e8e6b14edaad92e",
-        "database": "dfjjb408kt3gkv",
-        "host": "ec2-44-196-71-136.compute-1.amazonaws.com",
+        "username": "dnpxryufcppioa",
+        "password": "071f1a279626fa41302eb3b011b4a5554c70a1b1d99daebd7070df6dde6011e0",
+        "database": "d6lfa0c8l71e20",
+        "host": "ec2-54-204-56-171.compute-1.amazonaws.com",
         "dialect": "postgres"
     },
     "test": {
@@ -14,10 +14,10 @@
         "dialect": "postgres"
     },
     "production": {
-        "username": "myddjzqqxebpvr",
-        "password": "cabf00ac3c194adcbbd4fe271afabbea0f4ee0d3492b9c616e8e6b14edaad92e",
-        "database": "dfjjb408kt3gkv",
-        "host": "ec2-44-196-71-136.compute-1.amazonaws.com",
+        "username": "dnpxryufcppioa",
+        "password": "071f1a279626fa41302eb3b011b4a5554c70a1b1d99daebd7070df6dde6011e0",
+        "database": "d6lfa0c8l71e20",
+        "host": "ec2-54-204-56-171.compute-1.amazonaws.com",
         "dialect": "postgres",
         "dialectOptions": {
             "ssl": {
@@ -25,7 +25,7 @@
                 "rejectUnauthorized": false
             }
         },
-        "URI": "postgres://orbnggveukawgo:6e78fad641772ae6d9be773d3f5fe56e3e47119ac747fb18e6f4bc22f0db44ba@ec2-107-20-153-39.compute-1.amazonaws.com:5432/d2o06sd0oim7ud",
+        "URI": "postgres://dnpxryufcppioa:071f1a279626fa41302eb3b011b4a5554c70a1b1d99daebd7070df6dde6011e0@ec2-54-204-56-171.compute-1.amazonaws.com:5432/d6lfa0c8l71e20",
         "Port": "5432"
     },
     "token_secret": "123ABc456r%SERT987o_"

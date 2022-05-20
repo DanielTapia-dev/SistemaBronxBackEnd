@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<factura id="comprobante" version="1.0.0">
+  <infoTributaria>
+    <ambiente>1</ambiente>
+    <tipoEmision>1</tipoEmision>
+    <razonSocial>INGENIERIA Y DISEÑO INTEGRAL DE PROYECTOS AP PROJECT</razonSocial>
+    <nombreComercial>INGENIERIA Y DISEÑO INTEGRAL DE PROYECTOS AP PROJECT</nombreComercial>
+    <ruc>0591756060001</ruc>
+    <claveAcceso>2204202201059175918300110010010000000021234567810</claveAcceso>
+    <codDoc>01</codDoc>
+    <estab>001</estab>
+    <ptoEmi>001</ptoEmi>
+    <secuencial>000000002</secuencial>
+    <dirMatriz>LATACUNGA - LOCOA - LAGUNA CUYABENO Y LAGUNA CONONACO</dirMatriz>
+  </infoTributaria>
+  <infoFactura>
+    <fechaEmision>22/04/2022</fechaEmision>
+    <dirEstablecimiento>LATACUNGA - LOCOA - LAGUNA CUYABENO Y LAGUNA CONONACO</dirEstablecimiento>
+    <obligadoContabilidad>NO</obligadoContabilidad>
+    <tipoIdentificacionComprador>05</tipoIdentificacionComprador>
+    <razonSocialComprador>DANIEL TAPIA</razonSocialComprador>
+    <identificacionComprador>0502644206</identificacionComprador>
+    <direccionComprador>LA MERCED</direccionComprador>
+    <totalSinImpuestos>10.99</totalSinImpuestos>
+    <totalDescuento>0.00</totalDescuento>
+    <totalConImpuestos>
+      <totalImpuesto>
+        <codigo>2</codigo>
+        <codigoPorcentaje>0</codigoPorcentaje>
+        <baseImponible>0.00</baseImponible>
+        <tarifa>0</tarifa>
+        <valor>0.00</valor>
+      </totalImpuesto>
+      <totalImpuesto>
+        <codigo>2</codigo>
+        <codigoPorcentaje>2</codigoPorcentaje>
+        <baseImponible>10.99</baseImponible>
+        <tarifa>12</tarifa>
+        <valor>1.32</valor>
+      </totalImpuesto>
+    </totalConImpuestos>
+    <propina>0.00</propina>
+    <importeTotal>12.31</importeTotal>
+    <moneda>DOLAR</moneda>
+  </infoFactura>
+  <detalles>
+    <detalle>
+      <codigoPrincipal>PR0182</codigoPrincipal>
+      <descripcion>PRUEBA</descripcion>
+      <cantidad>1</cantidad>
+      <precioUnitario>10.99</precioUnitario>
+      <descuento>0</descuento>
+      <precioTotalSinImpuesto>10.99</precioTotalSinImpuesto>
+      <impuestos>
+        <impuesto>
+          <codigo>2</codigo>
+          <codigoPorcentaje>2</codigoPorcentaje>
+          <tarifa>12</tarifa>
+          <baseImponible>10.99</baseImponible>
+          <valor>1.32</valor>
+        </impuesto>
+      </impuestos>
+    </detalle>
+  </detalles>
+  <infoAdicional>
+    <campoAdicional nombre="Comentario">Ninguno</campoAdicional>
+  </infoAdicional>
+</factura>

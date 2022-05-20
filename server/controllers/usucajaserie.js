@@ -65,7 +65,7 @@ function getOneSec(req, res) {
         .findOne({
             where: {
                 sectabla: idsectabla,
-                },
+            },
         })
         .then((usucajaserie) => {
             res.status(200).send(usucajaserie);

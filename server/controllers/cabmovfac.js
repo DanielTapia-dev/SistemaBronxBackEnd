@@ -245,8 +245,8 @@ function EnviarFacturaElectronica(
           },
           {
             image: "logo",
-            width: 135,
-            absolutePosition: { x: 75, y: 30 },
+            width: 180,
+            absolutePosition: { x: 55, y: 30 },
           },
           {
             canvas: [
@@ -304,7 +304,7 @@ function EnviarFacturaElectronica(
           },
           {
             text: [
-              { text: "GRUPO INNOVA", fontSize: 10, bold: true },
+              { text: "INGENIERIA Y DISEÑO INTEGRAL DE PROYECTOS\nAP PROJECT", fontSize: 10, bold: true },
               { text: "\n", fontSize: 1, bold: true },
               { text: "\nDirección \nMatriz: ", fontSize: 9, bold: true },
               {
@@ -488,7 +488,7 @@ function EnviarFacturaElectronica(
 
 async function enviarEmail(data, email, xml) {
   await transporter.transporter.sendMail({
-    from: '"Innova" <grupoinnova6@gmail.com>', // sender address
+    from: '"INGENIERIA Y DISEÑO INTEGRAL DE PROYECTOS AP PROJECT" <apgrupoconsultor@gmail.com>', // sender address
     to: email, // list of receivers
     subject: "Factura Electrónica", // plain text body
     html: `
@@ -499,12 +499,12 @@ async function enviarEmail(data, email, xml) {
         `, // html body
     attachments: [
       {
-        filename: "FacturaInnova.pdf",
+        filename: "FacturaApProject.pdf",
         content: data,
         encoding: "base64",
       },
       {
-        filename: "FacturaXML.xml",
+        filename: "FacturaApProjectXML.xml",
         content: xml,
       },
     ],
@@ -548,8 +548,8 @@ function facturaElectronica(req, res) {
                   `SELECT D.idempresa, D.idsucursal, I.idimpuesto, I.porcimpuesto, I."codigoSRI", I."codporcentajeSRI", D.secmovcab, D.idproducto, P.nomproducto, D.cantidad, D.precio, D.subsindesc, D.porcdescuento, D.descuento, D.subtotal, D.iva0, D.iva12, D.total
                             FROM detmovimientos D, producto P, parimpuesto I
                             WHERE D.secmovcab=` +
-                    movfactura.secmovcab +
-                    `AND D.idproducto = P.idproducto
+                  movfactura.secmovcab +
+                  `AND D.idproducto = P.idproducto
                             AND P.idimpuesto = I.idimpuesto;`
                 )
                 .then((detallesFinal) => {
@@ -650,7 +650,7 @@ function facturaElectronica(req, res) {
                         var claveAcceso =
                           fechaNumeroAutorizacion +
                           "01" +
-                          "0591759183001" +
+                          "0591756060001" +
                           ambiente +
                           puntoEmision +
                           puntoFacturacion +
@@ -798,12 +798,12 @@ function facturaElectronica(req, res) {
                         fs.writeFileSync("facturas/factura" + id + ".xml", xml);
                         //console.log('Se ha escrito en el archivo');
 
-                        fs.readFile("FirmaInnova.pfx", (err, data) => {
+                        fs.readFile("FirmaApProject.p12", (err, data) => {
                           if (err) throw err;
                           var archivop12 = data;
                           var xmlbase64 = firmarComprobante(
                             archivop12,
-                            "2311M@GUIPEREZ",
+                            "APfp2022",
                             xml,
                             id
                           );
@@ -834,17 +834,17 @@ function facturaElectronica(req, res) {
                             .query(
                               `UPDATE public.cabmovfac
                                                                         SET claveacceso = ` +
-                                claveAcceso.toString() +
-                                ` ,numautosri='` +
-                                claveAcceso +
-                                `', "EstadoRecepcionSRI" = '` +
-                                "ESPERANDO" +
-                                `', "EstadoAutorizacionSRI" = '` +
-                                "ESPERANDO" +
-                                `' 
+                              claveAcceso.toString() +
+                              ` ,numautosri='` +
+                              claveAcceso +
+                              `', "EstadoRecepcionSRI" = '` +
+                              "ESPERANDO" +
+                              `', "EstadoAutorizacionSRI" = '` +
+                              "ESPERANDO" +
+                              `' 
                                                                          WHERE secmovcab=` +
-                                movfactura.secmovcab +
-                                `;`
+                              movfactura.secmovcab +
+                              `;`
                             )
                             .then((detallesFinal) => {
                               console.log(
@@ -947,22 +947,22 @@ function facturaElectronica(req, res) {
                                           .query(
                                             `UPDATE public.cabmovfac
                                                                         SET claveacceso = ` +
-                                              claveAcceso.toString() +
-                                              ` ,numautosri='` +
-                                              claveAutorizacion +
-                                              `', "EstadoRecepcionSRI" = '` +
-                                              respuestaRecepcion +
-                                              `', "EstadoAutorizacionSRI" = '` +
-                                              respuestaAutorizacion +
-                                              `' 
+                                            claveAcceso.toString() +
+                                            ` ,numautosri='` +
+                                            claveAutorizacion +
+                                            `', "EstadoRecepcionSRI" = '` +
+                                            respuestaRecepcion +
+                                            `', "EstadoAutorizacionSRI" = '` +
+                                            respuestaAutorizacion +
+                                            `' 
                                                                          WHERE secmovcab=` +
-                                              movfactura.secmovcab +
-                                              `;`
+                                            movfactura.secmovcab +
+                                            `;`
                                           )
                                           .then((detallesFinal) => {
                                             console.log(
                                               detallesFinal +
-                                                " Facturada correctamente"
+                                              " Facturada correctamente"
                                             );
                                           });
                                     });
@@ -971,24 +971,24 @@ function facturaElectronica(req, res) {
                                     .query(
                                       `UPDATE public.cabmovfac
                                                                         SET claveacceso = ` +
-                                        claveAcceso.toString() +
-                                        ` ,numautosri='` +
-                                        claveAcceso +
-                                        `', "EstadoRecepcionSRI" = '` +
-                                        "EN ESPERA" +
-                                        `', "EstadoAutorizacionSRI" = '` +
-                                        "EN ESPERA" +
-                                        `' 
+                                      claveAcceso.toString() +
+                                      ` ,numautosri='` +
+                                      claveAcceso +
+                                      `', "EstadoRecepcionSRI" = '` +
+                                      "EN ESPERA" +
+                                      `', "EstadoAutorizacionSRI" = '` +
+                                      "EN ESPERA" +
+                                      `' 
                                                                          WHERE secmovcab=` +
-                                        movfactura.secmovcab +
-                                        `;`
+                                      movfactura.secmovcab +
+                                      `;`
                                     )
                                     .then((detallesFinal) => {
                                       console.log(xmlDoc);
                                       console.log(
                                         detallesFinal +
-                                          "Hubo un error y fue " +
-                                          respuestaRecepcion
+                                        "Hubo un error y fue " +
+                                        respuestaRecepcion
                                       );
                                     });
                                 }
@@ -1258,8 +1258,8 @@ function comprobarAutorizacion(req, res) {
                         },
                         {
                           image: "logo",
-                          width: 135,
-                          absolutePosition: { x: 75, y: 30 },
+                          width: 180,
+                          absolutePosition: { x: 55, y: 30 },
                         },
                         {
                           canvas: [
@@ -1338,7 +1338,7 @@ function comprobarAutorizacion(req, res) {
                         {
                           text: [
                             {
-                              text: "GRUPO INNOVA",
+                              text: "INGENIERIA Y DISEÑO INTEGRAL DE PROYECTOS\nAP PROJECT",
                               fontSize: 10,
                               bold: true,
                             },
@@ -1574,7 +1574,7 @@ function comprobarAutorizacion(req, res) {
 }
 
 const sendHttpRequest = (method, url, data) => {
-  const promise = new Promise((resolve, reject) => {});
+  const promise = new Promise((resolve, reject) => { });
   return promise;
 };
 
@@ -1693,11 +1693,11 @@ function firmarComprobante(mi_contenido_p12, mi_pwd_p12, comprobante, id) {
   SignedProperties += "<etsi:IssuerSerial>";
   SignedProperties += "<ds:X509IssuerName>";
   SignedProperties +=
-    "CN=ANF High Assurance Ecuador Intermediate CA,OU=ANF Autoridad intermedia  EC,O=ANFAC AUTORIDAD DE CERTIFICACION ECUADOR C.A.,C=EC,2.5.4.5=#130d31373932363031323135303031";
+    "CN=AUTORIDAD DE CERTIFICACION SUBCA-2 SECURITY DATA,OU=ENTIDAD DE CERTIFICACION DE INFORMACION,O=SECURITY DATA S.A. 2,C=EC";
   SignedProperties += "</ds:X509IssuerName>";
   SignedProperties += "<ds:X509SerialNumber>";
 
-  SignedProperties += "9962845856148588608232230903";
+  SignedProperties += "597220137";
 
   SignedProperties += "</ds:X509SerialNumber>";
   SignedProperties += "</etsi:IssuerSerial>";
@@ -2087,16 +2087,16 @@ and fac.idempresa = '` +
     and fac.idcliente = cli.idcliente and cli.tipocliente = 'Contado'
     and fac.estado ='FACTURADA'
     and fac.idempresa = '` +
-        idEmpresa +
-        `'
+      idEmpresa +
+      `'
     and fac.idcaja = '` +
-        idCaja +
-        `' 
+      idCaja +
+      `' 
     and (fac."createdAt" between '` +
-        fechaIni +
-        `' and '` +
-        fechaFin +
-        `');`
+      fechaIni +
+      `' and '` +
+      fechaFin +
+      `');`
     )
     .then((reporteFacturas) => {
       res.send(reporteFacturas.rows);

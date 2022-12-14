@@ -14,10 +14,10 @@
         "dialect": "postgres"
     },
     "production": {
-        "username": "cpses_kejkgzo3l8",
-        "password": "U9mA3L1o4bKDZexEPxOQ4Pn5sDj_DbJP",
-        "database": "kengisoft_thebronx",
-        "host": "localhost",
+        "username": "yagtgymbcvesov",
+        "password": "8b217138a90568e116f31050328001a6353c765e962319c618ea060d4ba70812",
+        "database": "d5dt248035saq7",
+        "host": "ec2-54-157-79-121.compute-1.amazonaws.com",
         "dialect": "postgres",
         "dialectOptions": {
             "ssl": {

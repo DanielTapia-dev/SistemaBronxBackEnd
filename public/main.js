@@ -6357,13 +6357,19 @@ function CrearFacturasComponent_mat_list_item_52_Template(rf, ctx) { if (rf & 1)
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 37);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function CrearFacturasComponent_mat_list_item_52_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r9); const producto_r7 = ctx.$implicit; const ctx_r8 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r8.AgregarProducto(producto_r7.idproducto, producto_r7.nomproducto, producto_r7.precioprodu, producto_r7.idimpuesto, ctx_r8.cantidad, ctx_r8.precioEditado); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](3, "slice");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "b");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](5);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](3, "mat-divider");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](6, "mat-divider");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const producto_r7 = ctx.$implicit;
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", producto_r7.nomprodcomercial, " ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind3"](3, 2, producto_r7.nomprodcomercial, 0, 30), " - ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](producto_r7.precioprodu);
 } }
 function CrearFacturasComponent_tr_73_Template(rf, ctx) { if (rf & 1) {
     const _r13 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
@@ -6400,7 +6406,7 @@ function CrearFacturasComponent_tr_73_Template(rf, ctx) { if (rf & 1) {
     const transaction_r10 = ctx.$implicit;
     const i_r11 = ctx.index;
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](i_r11);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](i_r11 + 1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" ", transaction_r10.idproducto, " ");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
@@ -7125,7 +7131,7 @@ class CrearFacturasComponent {
                         sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.fire('Error', 'No puede ingresar productos con cantidad 0', 'error');
                     }
                     else {
-                        if (precioEditado != 0) {
+                        if (precioEditado != 0 && precioEditado != null) {
                             precio = precioEditado;
                             this.CargarLineaTransacion(id, nombre, precio, impuesto, cantidad);
                         }
@@ -7407,31 +7413,40 @@ class CrearFacturasComponent {
         this.modal.dismissAll();
     }
     EscogerFormaDePago(contenido) {
-        if (this.cliente.tipocliente == 'Credito') {
-            this.FacturarClientesCredito();
+        if (this.total >= 50.00 && this.cliente.nomcliente == 'CONSUMIDOR FINAL') {
+            sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.fire({
+                title: 'Error',
+                text: 'La factura supera los 50 USD de importe total por cuanto no puede ser emitida a nombre del CONSUMIDOR FINAL',
+                icon: 'error',
+            });
         }
         else {
-            if (this.total == 0.00 || this.total == -0.00 || this.total.toFixed(2) == '0.00' || this.total.toFixed(2) == '-0.00') {
-                sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.fire({
-                    title: 'Error',
-                    text: 'Factura incompleta no exiten productos',
-                    icon: 'error',
-                });
+            if (this.cliente.tipocliente == 'Credito') {
+                this.FacturarClientesCredito();
             }
             else {
-                if (this.cliente.idcliente == '') {
+                if (this.total == 0.00 || this.total == -0.00 || this.total.toFixed(2) == '0.00' || this.total.toFixed(2) == '-0.00') {
                     sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.fire({
                         title: 'Error',
-                        text: 'Factura incompleta no exite cliente',
+                        text: 'Factura incompleta no exiten productos',
                         icon: 'error',
                     });
                 }
                 else {
-                    this.modal.open(contenido, {
-                        size: 'xl',
-                        centered: true,
-                        scrollable: true,
-                    });
+                    if (this.cliente.idcliente == '') {
+                        sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.fire({
+                            title: 'Error',
+                            text: 'Factura incompleta no exite cliente',
+                            icon: 'error',
+                        });
+                    }
+                    else {
+                        this.modal.open(contenido, {
+                            size: 'xl',
+                            centered: true,
+                            scrollable: true,
+                        });
+                    }
                 }
             }
         }
@@ -7710,6 +7725,7 @@ class CrearFacturasComponent {
                     this.secuencial = this.nueveCifras(resp.secuencia);
                     //console.log(this.puntoEmision + this.puntoFacturacion + this.secuencial);
                     var numeroDeSecuencia = this.puntoEmision + this.puntoFacturacion + this.secuencial;
+                    console.log(numeroDeSecuencia);
                     // var myDate = this.datePipe.transform(myDate, 'yyyy-MM-dd hh:mm:ss');
                     this.jstoday = Object(_angular_common__WEBPACK_IMPORTED_MODULE_6__["formatDate"])(this.today, 'yyyy-MM-dd hh:mm:ss', 'en-US', '-5:00');
                     //Proceso de subida de facturas
@@ -7977,7 +7993,7 @@ class CrearFacturasComponent {
     }
 }
 CrearFacturasComponent.ɵfac = function CrearFacturasComponent_Factory(t) { return new (t || CrearFacturasComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_services_facturas_service__WEBPACK_IMPORTED_MODULE_7__["FacturasService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_services_parserie_service__WEBPACK_IMPORTED_MODULE_8__["ParserieService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_services_proformas_service__WEBPACK_IMPORTED_MODULE_9__["ProformasService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_services_productos_service__WEBPACK_IMPORTED_MODULE_10__["ProductosService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_services_clientes_service__WEBPACK_IMPORTED_MODULE_11__["ClientesService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_services_impuestos_service__WEBPACK_IMPORTED_MODULE_12__["ImpuestosService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_facturacionelectronica_service__WEBPACK_IMPORTED_MODULE_13__["FacturacionelectronicaService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_14__["NgbModal"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_formas_pago_service__WEBPACK_IMPORTED_MODULE_15__["FormasPagoService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_cobros_service__WEBPACK_IMPORTED_MODULE_16__["CobrosService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_precioclientes_service__WEBPACK_IMPORTED_MODULE_17__["PrecioclientesService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_auth_service__WEBPACK_IMPORTED_MODULE_18__["AuthService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_usucajaserie_service__WEBPACK_IMPORTED_MODULE_19__["UsucajaserieService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_services_empresa_service__WEBPACK_IMPORTED_MODULE_20__["EmpresaService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_14__["NgbModalConfig"])); };
-CrearFacturasComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: CrearFacturasComponent, selectors: [["app-crear-facturas"]], decls: 143, vars: 26, consts: [[1, "row"], [1, "col"], [1, "example-form"], [1, "example-full-width"], [1, "prueba"], ["type", "text", "aria-label", "Number", "matInput", "", 3, "formControl", "matAutocomplete"], ["autoActiveFirstOption", "", 3, "optionSelected"], ["auto", "matAutocomplete"], [3, "value", 4, "ngFor", "ngForOf"], ["type", "text", "readonly", "", "placeholder", "Identificacion", 1, "form-control", 3, "value"], ["type", "text", "readonly", "", "placeholder", "Nombre Cliente", 1, "form-control", 3, "value"], ["type", "text", "readonly", "", "placeholder", "Direcci\u00F3n", 1, "form-control", 3, "value"], ["type", "text", "readonly", "", "placeholder", "Tel\u00E9fono", 1, "form-control", 3, "value"], ["type", "text", "readonly", "", "placeholder", "Email", 1, "form-control", 3, "value"], ["type", "button", 1, "btn", "btn-primary", "btn-sm", 2, "margin-right", "5px", "margin-top", "10px", 3, "routerLink"], ["type", "button", 1, "btn", "btn-danger", "btn-sm", 2, "margin-top", "10px", 3, "click"], ["type", "button", 1, "btn", "btn-info", "btn-sm", 2, "margin-left", "5px", "margin-top", "10px", 3, "click"], [1, "col-8"], ["type", "text", "matInput", "", 3, "ngModel", "ngModelChange"], [1, "col-6"], [1, "control-label"], ["type", "number", "id", "precio", "placeholder", "Precio", 1, "form-control", 2, "margin-bottom", "6px", 3, "ngModel", "ngModelChange"], ["type", "number", "min", "1", "id", "cantidad", "placeholder", "Cantidad", 1, "form-control", 2, "margin-bottom", "6px", 3, "ngModel", "ngModelChange"], ["type", "text", "placeholder", "Nombre de Producto", "name", "filterClientesCodigo", 1, "form-control", "idproductos", 2, "margin-bottom", "6px", 3, "ngModel", "ngModelChange"], ["style", "margin-bottom: 8px", 4, "ngFor", "ngForOf"], [1, "col-9"], [1, "table", "table-sm"], ["width", ""], ["width", "", 1, "d-none", "d-sm-block"], [4, "ngFor", "ngForOf"], [1, "d-flex", "justify-content-end", "align-items-center"], ["type", "button", 1, "btn", "btn-danger", 2, "margin-right", "2px", 3, "click"], ["type", "button", 1, "btn", "btn-warning", 2, "color", "black", 3, "click"], [1, "fas", "fa-dollar-sign"], ["contenido", ""], [3, "value"], [2, "margin-bottom", "8px"], ["type", "button", 1, "btn", "btn-outline-primary", "btn-lg", "btn-block", 2, "text-align", "left", "font-size", "medium", 3, "click"], ["type", "button", 1, "btn", "btn-danger", "btn-sm", 2, "margin-right", "2px", 3, "click"], [1, "fa", "fa-window-close"], [1, "modal-header"], [1, ""], ["aria-label", "close", "type", "button", 1, "close", 3, "click"], ["aria-hidden", "true"], [1, "modal-body"], [1, "container", "tablita"], [1, "ng-autocomplete"], ["placeholder", "Forma de pago", 3, "data", "searchKeyword", "itemTemplate", "notFoundTemplate", "selected"], ["itemTemplate", ""], ["notFoundTemplate", ""], ["type", "text", "placeholder", "Cantidad", "type", "number", 1, "form-control", 2, "margin-top", "10px", 3, "ngModel", "ngModelChange"], [1, "col-3"], ["type", "button", 1, "btn", "btn-primary", 2, "margin-top", "10px", 3, "click"], [1, "fa", "fa-plus"], [1, "text-center"], [1, "modal-footer"], ["type", "button", 1, "btn", "btn-success", 3, "click"], [1, "fa", "fa-shopping-cart"], [3, "innerHTML"], ["width", "", 1, "text-center"]], template: function CrearFacturasComponent_Template(rf, ctx) { if (rf & 1) {
+CrearFacturasComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: CrearFacturasComponent, selectors: [["app-crear-facturas"]], decls: 143, vars: 26, consts: [[1, "row"], [1, "col"], [1, "example-form"], [1, "example-full-width"], [1, "prueba"], ["type", "text", "aria-label", "Number", "matInput", "", 3, "formControl", "matAutocomplete"], ["autoActiveFirstOption", "", 3, "optionSelected"], ["auto", "matAutocomplete"], [3, "value", 4, "ngFor", "ngForOf"], ["type", "text", "readonly", "", "placeholder", "Identificacion", 1, "form-control", 3, "value"], ["type", "text", "readonly", "", "placeholder", "Nombre Cliente", 1, "form-control", 3, "value"], ["type", "text", "readonly", "", "placeholder", "Direcci\u00F3n", 1, "form-control", 3, "value"], ["type", "text", "readonly", "", "placeholder", "Tel\u00E9fono", 1, "form-control", 3, "value"], ["type", "text", "readonly", "", "placeholder", "Email", 1, "form-control", 3, "value"], ["type", "button", 1, "btn", "btn-primary", "btn-sm", 2, "margin-right", "5px", "margin-top", "10px", 3, "routerLink"], ["type", "button", 1, "btn", "btn-danger", "btn-sm", 2, "margin-top", "10px", 3, "click"], ["type", "button", 1, "btn", "btn-info", "btn-sm", 2, "margin-left", "5px", "margin-top", "10px", 3, "click"], [1, "col-8"], ["type", "text", "matInput", "", 3, "ngModel", "ngModelChange"], [1, "col-6"], [1, "control-label"], ["type", "number", "id", "precio", "placeholder", "Precio", 1, "form-control", 2, "margin-bottom", "6px", 3, "ngModel", "ngModelChange"], ["type", "number", "min", "1", "id", "cantidad", "placeholder", "Cantidad", 1, "form-control", 2, "margin-bottom", "6px", 3, "ngModel", "ngModelChange"], ["type", "text", "placeholder", "Nombre de Producto", "name", "filterClientesCodigo", 1, "form-control", "idproductos", 2, "margin-bottom", "6px", 3, "ngModel", "ngModelChange"], ["style", "margin-bottom: 8px", 4, "ngFor", "ngForOf"], [1, "col-9"], [1, "table", "table-sm"], ["width", ""], ["width", "", 1, "d-none", "d-sm-block"], [4, "ngFor", "ngForOf"], [1, "d-flex", "justify-content-end", "align-items-center"], ["type", "button", 1, "btn", "btn-danger", 2, "margin-right", "2px", 3, "click"], ["type", "button", 1, "btn", "btn-warning", 2, "color", "black", 3, "click"], [1, "fas", "fa-dollar-sign"], ["contenido", ""], [3, "value"], [2, "margin-bottom", "8px"], ["type", "button", 1, "btn", "btn-outline-primary", "btn-lg", "btn-block", 2, "text-align", "left", "font-size", "14px", 3, "click"], ["type", "button", 1, "btn", "btn-danger", "btn-sm", 2, "margin-right", "2px", 3, "click"], [1, "fa", "fa-window-close"], [1, "modal-header"], [1, ""], ["aria-label", "close", "type", "button", 1, "close", 3, "click"], ["aria-hidden", "true"], [1, "modal-body"], [1, "container", "tablita"], [1, "ng-autocomplete"], ["placeholder", "Forma de pago", 3, "data", "searchKeyword", "itemTemplate", "notFoundTemplate", "selected"], ["itemTemplate", ""], ["notFoundTemplate", ""], ["type", "text", "placeholder", "Cantidad", "type", "number", 1, "form-control", 2, "margin-top", "10px", 3, "ngModel", "ngModelChange"], [1, "col-3"], ["type", "button", 1, "btn", "btn-primary", 2, "margin-top", "10px", 3, "click"], [1, "fa", "fa-plus"], [1, "text-center"], [1, "modal-footer"], ["type", "button", 1, "btn", "btn-success", 3, "click"], [1, "fa", "fa-shopping-cart"], [3, "innerHTML"], ["width", "", 1, "text-center"]], template: function CrearFacturasComponent_Template(rf, ctx) { if (rf & 1) {
         const _r32 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
@@ -8069,7 +8085,7 @@ CrearFacturasComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵd
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](51, "mat-list");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](52, CrearFacturasComponent_mat_list_item_52_Template, 4, 1, "mat-list-item", 24);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](52, CrearFacturasComponent_mat_list_item_52_Template, 7, 6, "mat-list-item", 24);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](53, "productoFilter");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -8240,7 +8256,7 @@ CrearFacturasComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵd
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx.iva.toFixed(2));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](10);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx.total.toFixed(2));
-    } }, directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgForm"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_21__["MatFormField"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_21__["MatLabel"], _angular_material_input__WEBPACK_IMPORTED_MODULE_22__["MatInput"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["DefaultValueAccessor"], _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_23__["MatAutocompleteTrigger"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControlDirective"], _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_23__["MatAutocomplete"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgForOf"], _angular_router__WEBPACK_IMPORTED_MODULE_24__["RouterLink"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgModel"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NumberValueAccessor"], _angular_material_list__WEBPACK_IMPORTED_MODULE_25__["MatList"], _angular_material_core__WEBPACK_IMPORTED_MODULE_26__["MatOption"], _angular_material_list__WEBPACK_IMPORTED_MODULE_25__["MatListItem"], _angular_material_divider__WEBPACK_IMPORTED_MODULE_27__["MatDivider"], angular_ng_autocomplete__WEBPACK_IMPORTED_MODULE_28__["AutocompleteComponent"]], pipes: [_angular_common__WEBPACK_IMPORTED_MODULE_6__["AsyncPipe"], _pipes_producto_filter_pipe__WEBPACK_IMPORTED_MODULE_29__["ProductoFilterPipe"]], styles: [".example-form[_ngcontent-%COMP%] {\r\n  min-width: 150px;\r\n  max-width: 500px;\r\n  width: 100%;\r\n  border-color: black;\r\n}\r\n\r\n.example-full-width[_ngcontent-%COMP%] {\r\n  width: 100%;\r\n  color: black;\r\n}\r\n\r\n.prueba[_ngcontent-%COMP%] {\r\n  color: black;\r\n}\r\n\r\n.input-cedula[_ngcontent-%COMP%] {\r\n  border-color: black;\r\n}\r\n\r\n.ng-autocomplete[_ngcontent-%COMP%] {\r\n  width: 100%;\r\n  min-width: 100px;\r\n}\r\n\r\n.tablita[_ngcontent-%COMP%] {\r\n  min-height: 400px;\r\n}\r\n\r\nmat-list[_ngcontent-%COMP%] {\r\n  overflow: auto;\r\n  height: 400px;\r\n  flex-direction: column;\r\n  margin: 0%;\r\n  padding: 0%;\r\n  display: 1;\r\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvZmFjdHVyYXMvY3JlYXItZmFjdHVyYXMvY3JlYXItZmFjdHVyYXMuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGdCQUFnQjtFQUNoQixnQkFBZ0I7RUFDaEIsV0FBVztFQUNYLG1CQUFtQjtBQUNyQjs7QUFFQTtFQUNFLFdBQVc7RUFDWCxZQUFZO0FBQ2Q7O0FBRUE7RUFDRSxZQUFZO0FBQ2Q7O0FBRUE7RUFDRSxtQkFBbUI7QUFDckI7O0FBRUE7RUFDRSxXQUFXO0VBQ1gsZ0JBQWdCO0FBQ2xCOztBQUVBO0VBQ0UsaUJBQWlCO0FBQ25COztBQUVBO0VBQ0UsY0FBYztFQUNkLGFBQWE7RUFDYixzQkFBc0I7RUFDdEIsVUFBVTtFQUNWLFdBQVc7RUFDWCxVQUFVO0FBQ1oiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9mYWN0dXJhcy9jcmVhci1mYWN0dXJhcy9jcmVhci1mYWN0dXJhcy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmV4YW1wbGUtZm9ybSB7XHJcbiAgbWluLXdpZHRoOiAxNTBweDtcclxuICBtYXgtd2lkdGg6IDUwMHB4O1xyXG4gIHdpZHRoOiAxMDAlO1xyXG4gIGJvcmRlci1jb2xvcjogYmxhY2s7XHJcbn1cclxuXHJcbi5leGFtcGxlLWZ1bGwtd2lkdGgge1xyXG4gIHdpZHRoOiAxMDAlO1xyXG4gIGNvbG9yOiBibGFjaztcclxufVxyXG5cclxuLnBydWViYSB7XHJcbiAgY29sb3I6IGJsYWNrO1xyXG59XHJcblxyXG4uaW5wdXQtY2VkdWxhIHtcclxuICBib3JkZXItY29sb3I6IGJsYWNrO1xyXG59XHJcblxyXG4ubmctYXV0b2NvbXBsZXRlIHtcclxuICB3aWR0aDogMTAwJTtcclxuICBtaW4td2lkdGg6IDEwMHB4O1xyXG59XHJcblxyXG4udGFibGl0YSB7XHJcbiAgbWluLWhlaWdodDogNDAwcHg7XHJcbn1cclxuXHJcbm1hdC1saXN0IHtcclxuICBvdmVyZmxvdzogYXV0bztcclxuICBoZWlnaHQ6IDQwMHB4O1xyXG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XHJcbiAgbWFyZ2luOiAwJTtcclxuICBwYWRkaW5nOiAwJTtcclxuICBkaXNwbGF5OiAxO1xyXG59XHJcbiJdfQ== */"] });
+    } }, directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgForm"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_21__["MatFormField"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_21__["MatLabel"], _angular_material_input__WEBPACK_IMPORTED_MODULE_22__["MatInput"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["DefaultValueAccessor"], _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_23__["MatAutocompleteTrigger"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControlDirective"], _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_23__["MatAutocomplete"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgForOf"], _angular_router__WEBPACK_IMPORTED_MODULE_24__["RouterLink"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgModel"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NumberValueAccessor"], _angular_material_list__WEBPACK_IMPORTED_MODULE_25__["MatList"], _angular_material_core__WEBPACK_IMPORTED_MODULE_26__["MatOption"], _angular_material_list__WEBPACK_IMPORTED_MODULE_25__["MatListItem"], _angular_material_divider__WEBPACK_IMPORTED_MODULE_27__["MatDivider"], angular_ng_autocomplete__WEBPACK_IMPORTED_MODULE_28__["AutocompleteComponent"]], pipes: [_angular_common__WEBPACK_IMPORTED_MODULE_6__["AsyncPipe"], _pipes_producto_filter_pipe__WEBPACK_IMPORTED_MODULE_29__["ProductoFilterPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["SlicePipe"]], styles: [".example-form[_ngcontent-%COMP%] {\r\n  min-width: 150px;\r\n  max-width: 500px;\r\n  width: 100%;\r\n  border-color: black;\r\n}\r\n\r\n.example-full-width[_ngcontent-%COMP%] {\r\n  width: 100%;\r\n  color: black;\r\n}\r\n\r\n.prueba[_ngcontent-%COMP%] {\r\n  color: black;\r\n}\r\n\r\n.input-cedula[_ngcontent-%COMP%] {\r\n  border-color: black;\r\n}\r\n\r\n.ng-autocomplete[_ngcontent-%COMP%] {\r\n  width: 100%;\r\n  min-width: 100px;\r\n}\r\n\r\n.tablita[_ngcontent-%COMP%] {\r\n  min-height: 400px;\r\n}\r\n\r\nmat-list[_ngcontent-%COMP%] {\r\n  overflow: auto;\r\n  height: 400px;\r\n  flex-direction: column;\r\n  margin: 0%;\r\n  padding: 0%;\r\n  display: 1;\r\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvZmFjdHVyYXMvY3JlYXItZmFjdHVyYXMvY3JlYXItZmFjdHVyYXMuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGdCQUFnQjtFQUNoQixnQkFBZ0I7RUFDaEIsV0FBVztFQUNYLG1CQUFtQjtBQUNyQjs7QUFFQTtFQUNFLFdBQVc7RUFDWCxZQUFZO0FBQ2Q7O0FBRUE7RUFDRSxZQUFZO0FBQ2Q7O0FBRUE7RUFDRSxtQkFBbUI7QUFDckI7O0FBRUE7RUFDRSxXQUFXO0VBQ1gsZ0JBQWdCO0FBQ2xCOztBQUVBO0VBQ0UsaUJBQWlCO0FBQ25COztBQUVBO0VBQ0UsY0FBYztFQUNkLGFBQWE7RUFDYixzQkFBc0I7RUFDdEIsVUFBVTtFQUNWLFdBQVc7RUFDWCxVQUFVO0FBQ1oiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9mYWN0dXJhcy9jcmVhci1mYWN0dXJhcy9jcmVhci1mYWN0dXJhcy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmV4YW1wbGUtZm9ybSB7XHJcbiAgbWluLXdpZHRoOiAxNTBweDtcclxuICBtYXgtd2lkdGg6IDUwMHB4O1xyXG4gIHdpZHRoOiAxMDAlO1xyXG4gIGJvcmRlci1jb2xvcjogYmxhY2s7XHJcbn1cclxuXHJcbi5leGFtcGxlLWZ1bGwtd2lkdGgge1xyXG4gIHdpZHRoOiAxMDAlO1xyXG4gIGNvbG9yOiBibGFjaztcclxufVxyXG5cclxuLnBydWViYSB7XHJcbiAgY29sb3I6IGJsYWNrO1xyXG59XHJcblxyXG4uaW5wdXQtY2VkdWxhIHtcclxuICBib3JkZXItY29sb3I6IGJsYWNrO1xyXG59XHJcblxyXG4ubmctYXV0b2NvbXBsZXRlIHtcclxuICB3aWR0aDogMTAwJTtcclxuICBtaW4td2lkdGg6IDEwMHB4O1xyXG59XHJcblxyXG4udGFibGl0YSB7XHJcbiAgbWluLWhlaWdodDogNDAwcHg7XHJcbn1cclxuXHJcbm1hdC1saXN0IHtcclxuICBvdmVyZmxvdzogYXV0bztcclxuICBoZWlnaHQ6IDQwMHB4O1xyXG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XHJcbiAgbWFyZ2luOiAwJTtcclxuICBwYWRkaW5nOiAwJTtcclxuICBkaXNwbGF5OiAxO1xyXG59XHJcbiJdfQ== */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](CrearFacturasComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -11982,7 +11998,7 @@ class NuevoProductosComponent {
                 modpor: [0],
                 idsucursal: ['SUC01'],
                 activo: [true],
-                precioprodu: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]
+                precioprodu: [, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]
             });
         };
     }
@@ -12015,7 +12031,7 @@ class NuevoProductosComponent {
     }
 }
 NuevoProductosComponent.ɵfac = function NuevoProductosComponent_Factory(t) { return new (t || NuevoProductosComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_productos_service__WEBPACK_IMPORTED_MODULE_3__["ProductosService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_familias_service__WEBPACK_IMPORTED_MODULE_5__["FamiliasService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_unidad_service__WEBPACK_IMPORTED_MODULE_6__["UnidadService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_impuestos_service__WEBPACK_IMPORTED_MODULE_7__["ImpuestosService"])); };
-NuevoProductosComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: NuevoProductosComponent, selectors: [["app-nuevo-productos"]], decls: 77, vars: 5, consts: [[1, "row"], [1, "col-md-8"], [1, "card", "card-body"], [1, "box-title", "m-b-0"], [1, "col-sm-12", "col-xs-12"], [3, "formGroup"], [1, "form-group"], ["for", "exampleInputEmail1"], ["type", "text", "formControlName", "nomproducto", "id", "nomproducto", 1, "form-control"], ["type", "text", "formControlName", "nomprodcomercial", "id", "nombreComercial2", 1, "form-control"], ["type", "text", "formControlName", "precioprodu", "id", "nombreComercial2", 1, "form-control"], [1, "text-danger"], [1, "controls"], ["formControlName", "idfamilia", "name", "select", "id", "select", "required", "", 1, "form-control"], ["value", ""], [3, "value", 4, "ngFor", "ngForOf"], ["formControlName", "idunidad", "name", "select", "id", "select", "required", "", 1, "form-control"], ["formControlName", "tipproducto", "name", "select", "id", "select", "required", "", 1, "form-control"], ["formControlName", "idimpuesto", "name", "select", "id", "select", "required", "", 1, "form-control"], ["formControlName", "activo", "name", "select", "id", "select", "required", "", 1, "form-control"], ["value", "true"], ["value", "false"], [1, "btn", "btn-success", "waves-effect", "waves-light", "m-r-10", 3, "disabled", "click"], [1, "btn", "btn-inverse", "waves-effect", "waves-light", 3, "click"], [3, "value"]], template: function NuevoProductosComponent_Template(rf, ctx) { if (rf & 1) {
+NuevoProductosComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: NuevoProductosComponent, selectors: [["app-nuevo-productos"]], decls: 77, vars: 5, consts: [[1, "row"], [1, "col-md-8"], [1, "card", "card-body"], [1, "box-title", "m-b-0"], [1, "col-sm-12", "col-xs-12"], [3, "formGroup"], [1, "form-group"], ["for", "exampleInputEmail1"], ["type", "text", "formControlName", "nomproducto", "id", "nomproducto", 1, "form-control"], ["type", "text", "formControlName", "nomprodcomercial", "id", "nombreComercial2", 1, "form-control"], ["type", "number", "formControlName", "precioprodu", "id", "nombreComercial2", 1, "form-control"], [1, "text-danger"], [1, "controls"], ["formControlName", "idfamilia", "name", "select", "id", "select", "required", "", 1, "form-control"], ["value", ""], [3, "value", 4, "ngFor", "ngForOf"], ["formControlName", "idunidad", "name", "select", "id", "select", "required", "", 1, "form-control"], ["formControlName", "tipproducto", "name", "select", "id", "select", "required", "", 1, "form-control"], ["formControlName", "idimpuesto", "name", "select", "id", "select", "required", "", 1, "form-control"], ["formControlName", "activo", "name", "select", "id", "select", "required", "", 1, "form-control"], ["value", "true"], ["value", "false"], [1, "btn", "btn-success", "waves-effect", "waves-light", "m-r-10", 3, "disabled", "click"], [1, "btn", "btn-inverse", "waves-effect", "waves-light", 3, "click"], [3, "value"]], template: function NuevoProductosComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "div", 2);
@@ -12153,7 +12169,7 @@ NuevoProductosComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵ
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx.impuestos);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](12);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("disabled", ctx.productosForm.invalid);
-    } }, directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroupDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControlName"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["SelectControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["RequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_x"], _angular_common__WEBPACK_IMPORTED_MODULE_8__["NgForOf"]], encapsulation: 2 });
+    } }, directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroupDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControlName"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NumberValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["SelectControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["RequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_x"], _angular_common__WEBPACK_IMPORTED_MODULE_8__["NgForOf"]], encapsulation: 2 });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](NuevoProductosComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -19440,8 +19456,8 @@ FormasPagoService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefin
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GLOBAL", function() { return GLOBAL; });
 var GLOBAL = {
-    //url: 'http://localhost:8010/api/'
-    url: 'https://app-project4.herokuapp.com/api/'
+    url: 'http://localhost:8010/api/'
+    //url: 'https://app-innova.herokuapp.com/api/'
 };
 
 
@@ -20948,7 +20964,7 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 const environment = {
     production: false,
-    base_url: 'https://app-innova.herokuapp.com/'
+    base_url: 'http://localhost:8010/api/'
 };
 /*
  * For easier debugging in development mode, you can import the following file
@@ -20995,7 +21011,7 @@ _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__["platformBrowser"]().boot
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\Proyectos EN CURSO\Nuevos Proyectos\Ap-Project\Sistema\FrontEnd\SistemaApProject-FrontEnd\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! D:\Proyectos EN CURSO\Nuevos Proyectos\Innova\Sistema\FrontEnd\SistemaInnova-FrontEnd\src\main.ts */"./src/main.ts");
 
 
 /***/ }),

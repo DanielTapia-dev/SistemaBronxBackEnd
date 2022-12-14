@@ -10,10 +10,10 @@ const transporter = nodemailer.createTransport({
         ciphers: 'TLS_AES_128_GCM_SHA256',
     },
     auth: {
-        user: "apgrupoconsultor@gmail.com", // generated ethereal user
-        pass: "xqdblhakqrlgwtle", // generated ethereal password
+        user: "d.tapialopez1@gmail.com", // generated ethereal user
+        pass: "lptajmwlvbbtpvrq", // generated ethereal password
     },
-    from: 'apgrupoconsultor@gmail.com'
+    from: 'd.tapialopez1@gmail.com'
 });
 
 transporter.verify().then(() => {

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<factura id="comprobante" version="1.0.0">
+  <infoTributaria>
+    <ambiente>1</ambiente>
+    <tipoEmision>1</tipoEmision>
+    <razonSocial>THE BRONX HOTEL</razonSocial>
+    <nombreComercial>THE BRONX HOTEL</nombreComercial>
+    <ruc>0502575897001</ruc>
+    <claveAcceso>1212202201059175606000110010010000000061234567810</claveAcceso>
+    <codDoc>01</codDoc>
+    <estab>001</estab>
+    <ptoEmi>001</ptoEmi>
+    <secuencial>000000006</secuencial>
+    <dirMatriz>REMIGIO ROMERO Y CORDERO 1088, LATACUNGA</dirMatriz>
+  </infoTributaria>
+  <infoFactura>
+    <fechaEmision>12/12/2022</fechaEmision>
+    <dirEstablecimiento>REMIGIO ROMERO Y CORDERO 1088, LATACUNGA</dirEstablecimiento>
+    <obligadoContabilidad>NO</obligadoContabilidad>
+    <tipoIdentificacionComprador>07</tipoIdentificacionComprador>
+    <razonSocialComprador>CONSUMIDOR FINAL</razonSocialComprador>
+    <identificacionComprador>9999999999999</identificacionComprador>
+    <direccionComprador>NINGUNA</direccionComprador>
+    <totalSinImpuestos>10.99</totalSinImpuestos>
+    <totalDescuento>0.00</totalDescuento>
+    <totalConImpuestos>
+      <totalImpuesto>
+        <codigo>2</codigo>
+        <codigoPorcentaje>0</codigoPorcentaje>
+        <baseImponible>0.00</baseImponible>
+        <tarifa>0</tarifa>
+        <valor>0.00</valor>
+      </totalImpuesto>
+      <totalImpuesto>
+        <codigo>2</codigo>
+        <codigoPorcentaje>2</codigoPorcentaje>
+        <baseImponible>10.99</baseImponible>
+        <tarifa>12</tarifa>
+        <valor>1.32</valor>
+      </totalImpuesto>
+    </totalConImpuestos>
+    <propina>0.00</propina>
+    <importeTotal>12.31</importeTotal>
+    <moneda>DOLAR</moneda>
+  </infoFactura>
+  <detalles>
+    <detalle>
+      <codigoPrincipal>PR0182</codigoPrincipal>
+      <descripcion>PRUEBA</descripcion>
+      <cantidad>1</cantidad>
+      <precioUnitario>10.99</precioUnitario>
+      <descuento>0</descuento>
+      <precioTotalSinImpuesto>10.99</precioTotalSinImpuesto>
+      <impuestos>
+        <impuesto>
+          <codigo>2</codigo>
+          <codigoPorcentaje>2</codigoPorcentaje>
+          <tarifa>12</tarifa>
+          <baseImponible>10.99</baseImponible>
+          <valor>1.32</valor>
+        </impuesto>
+      </impuestos>
+    </detalle>
+  </detalles>
+  <infoAdicional>
+    <campoAdicional nombre="Comentario">Ninguno</campoAdicional>
+  </infoAdicional>
+</factura>

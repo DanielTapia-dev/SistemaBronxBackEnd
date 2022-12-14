@@ -486,8 +486,8 @@ module.exports = content.locals || {};
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\Proyectos EN CURSO\Nuevos Proyectos\Ap-Project\Sistema\FrontEnd\SistemaApProject-FrontEnd\node_modules\@angular\material\prebuilt-themes\pink-bluegrey.css */"./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css");
-module.exports = __webpack_require__(/*! D:\Proyectos EN CURSO\Nuevos Proyectos\Ap-Project\Sistema\FrontEnd\SistemaApProject-FrontEnd\src\styles.css */"./src/styles.css");
+__webpack_require__(/*! D:\Proyectos EN CURSO\Nuevos Proyectos\Innova\Sistema\FrontEnd\SistemaInnova-FrontEnd\node_modules\@angular\material\prebuilt-themes\pink-bluegrey.css */"./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css");
+module.exports = __webpack_require__(/*! D:\Proyectos EN CURSO\Nuevos Proyectos\Innova\Sistema\FrontEnd\SistemaInnova-FrontEnd\src\styles.css */"./src/styles.css");
 
 
 /***/ })

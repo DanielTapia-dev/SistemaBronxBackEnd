@@ -245,8 +245,8 @@ function EnviarFacturaElectronica(
           },
           {
             image: "logo",
-            width: 180,
-            absolutePosition: { x: 55, y: 30 },
+            width: 150,
+            absolutePosition: { x: 60, y: 15 },
           },
           {
             canvas: [
@@ -304,18 +304,18 @@ function EnviarFacturaElectronica(
           },
           {
             text: [
-              { text: "INGENIERIA Y DISEÑO INTEGRAL DE PROYECTOS\nAP PROJECT", fontSize: 10, bold: true },
+              { text: "THE BRONX HOTEL", fontSize: 10, bold: true },
               { text: "\n", fontSize: 1, bold: true },
               { text: "\nDirección \nMatriz: ", fontSize: 9, bold: true },
               {
-                text: `${empresa.dirempresa}`,
+                text: `${empresa.dirempresa}.`,
                 fontSize: 9,
                 bold: false,
               },
               { text: "\n", fontSize: 1, bold: true },
               { text: "\nDirección \nSucursal: ", fontSize: 9, bold: true },
               {
-                text: "Laguna Colta y Laguna Cuyabeno",
+                text: "Remigio Romero y Cordero 1088, Latacunga.",
                 fontSize: 9,
                 bold: false,
               },
@@ -488,7 +488,7 @@ function EnviarFacturaElectronica(
 
 async function enviarEmail(data, email, xml) {
   await transporter.transporter.sendMail({
-    from: '"INGENIERIA Y DISEÑO INTEGRAL DE PROYECTOS AP PROJECT" <apgrupoconsultor@gmail.com>', // sender address
+    from: '"THE BRONX HOTEL" <apgrupoconsultor@gmail.com>', // sender address
     to: email, // list of receivers
     subject: "Factura Electrónica", // plain text body
     html: `
@@ -499,12 +499,12 @@ async function enviarEmail(data, email, xml) {
         `, // html body
     attachments: [
       {
-        filename: "FacturaApProject.pdf",
+        filename: "FacturaTheBronx.pdf",
         content: data,
         encoding: "base64",
       },
       {
-        filename: "FacturaApProjectXML.xml",
+        filename: "FacturaTheBronxXML.xml",
         content: xml,
       },
     ],
@@ -650,7 +650,7 @@ function facturaElectronica(req, res) {
                         var claveAcceso =
                           fechaNumeroAutorizacion +
                           "01" +
-                          "0591756060001" +
+                          "0502575897001" +
                           ambiente +
                           puntoEmision +
                           puntoFacturacion +
@@ -798,12 +798,12 @@ function facturaElectronica(req, res) {
                         fs.writeFileSync("facturas/factura" + id + ".xml", xml);
                         //console.log('Se ha escrito en el archivo');
 
-                        fs.readFile("FirmaApProject.p12", (err, data) => {
+                        fs.readFile("FirmaTheBronx.pfx", (err, data) => {
                           if (err) throw err;
                           var archivop12 = data;
                           var xmlbase64 = firmarComprobante(
                             archivop12,
-                            "APfp2022",
+                            "Dereknicolas25",
                             xml,
                             id
                           );
@@ -1338,7 +1338,7 @@ function comprobarAutorizacion(req, res) {
                         {
                           text: [
                             {
-                              text: "INGENIERIA Y DISEÑO INTEGRAL DE PROYECTOS\nAP PROJECT",
+                              text: "THE BRONX HOTEL",
                               fontSize: 10,
                               bold: true,
                             },
@@ -1360,7 +1360,7 @@ function comprobarAutorizacion(req, res) {
                               bold: true,
                             },
                             {
-                              text: "Laguna Colta y Laguna Cuyabeno",
+                              text: "Remigio Romero y Cordero 1088, Latacunga",
                               fontSize: 9,
                               bold: false,
                             },
@@ -1697,7 +1697,7 @@ function firmarComprobante(mi_contenido_p12, mi_pwd_p12, comprobante, id) {
   SignedProperties += "</ds:X509IssuerName>";
   SignedProperties += "<ds:X509SerialNumber>";
 
-  SignedProperties += "597220137";
+  SignedProperties += X509SerialNumber;
 
   SignedProperties += "</ds:X509SerialNumber>";
   SignedProperties += "</etsi:IssuerSerial>";
@@ -2008,11 +2008,15 @@ function getAll(req, res) {
       where: {
         idempresa: idEmpresa,
       },
+      order: [
+        ['secmovcab', 'DESC'],
+      ],
     })
     .then((cabmovfac) => {
       res.status(200).send({ cabmovfac });
     })
     .catch((err) => {
+      console.log(err);
       res
         .status(500)
         .send({ message: "Ocurrio un error al buscar las facturas" });

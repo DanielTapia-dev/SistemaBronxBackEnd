@@ -1,9 +1,9 @@
 {
     "development": {
-        "username": "dnpxryufcppioa",
-        "password": "071f1a279626fa41302eb3b011b4a5554c70a1b1d99daebd7070df6dde6011e0",
-        "database": "d6lfa0c8l71e20",
-        "host": "ec2-54-204-56-171.compute-1.amazonaws.com",
+        "username": "postgres",
+        "password": "dannyalejo7123tapia",
+        "database": "thebronx",
+        "host": "localhost",
         "dialect": "postgres"
     },
     "test": {
@@ -14,19 +14,17 @@
         "dialect": "postgres"
     },
     "production": {
-        "username": "dnpxryufcppioa",
-        "password": "071f1a279626fa41302eb3b011b4a5554c70a1b1d99daebd7070df6dde6011e0",
-        "database": "d6lfa0c8l71e20",
-        "host": "ec2-54-204-56-171.compute-1.amazonaws.com",
+        "username": "cpses_kejkgzo3l8",
+        "password": "U9mA3L1o4bKDZexEPxOQ4Pn5sDj_DbJP",
+        "database": "kengisoft_thebronx",
+        "host": "localhost",
         "dialect": "postgres",
         "dialectOptions": {
             "ssl": {
                 "require": true,
                 "rejectUnauthorized": false
             }
-        },
-        "URI": "postgres://dnpxryufcppioa:071f1a279626fa41302eb3b011b4a5554c70a1b1d99daebd7070df6dde6011e0@ec2-54-204-56-171.compute-1.amazonaws.com:5432/d6lfa0c8l71e20",
-        "Port": "5432"
+        }
     },
     "token_secret": "123ABc456r%SERT987o_"
 }

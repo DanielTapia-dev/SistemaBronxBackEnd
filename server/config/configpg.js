@@ -2,13 +2,14 @@
   user: "postgres",
   host: "localhost",
   password: "dannyalejo7123tapia",
-  database: "ap-project",
+  database: "thebronx",
 }; */
+
 const config = {
-  user: "dnpxryufcppioa",
-  host: "ec2-54-204-56-171.compute-1.amazonaws.com",
-  password: "071f1a279626fa41302eb3b011b4a5554c70a1b1d99daebd7070df6dde6011e0",
-  database: "d6lfa0c8l71e20",
+  user: "cpses_keaioww93y",
+  host: "ec2-44-196-71-136.compute-1.amazonaws.com",
+  password: "GYDkFq4qObRWwkc0XzcnnRfO7uv8Eaf7",
+  database: "kengisof_thebronx",
   ssl: {
     rejectUnauthorized: false,
   },

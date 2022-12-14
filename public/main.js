@@ -19456,8 +19456,8 @@ FormasPagoService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefin
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GLOBAL", function() { return GLOBAL; });
 var GLOBAL = {
-    url: 'http://localhost:8010/api/'
-    //url: 'https://app-innova.herokuapp.com/api/'
+    //url: 'http://localhost:8010/api/'
+    url: 'https://app-thebronx.herokuapp.com/'
 };
 
 
@@ -20964,7 +20964,7 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 const environment = {
     production: false,
-    base_url: 'http://localhost:8010/api/'
+    base_url: 'https://app-thebronx.herokuapp.com/'
 };
 /*
  * For easier debugging in development mode, you can import the following file

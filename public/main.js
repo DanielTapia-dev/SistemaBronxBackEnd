@@ -19457,7 +19457,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GLOBAL", function() { return GLOBAL; });
 var GLOBAL = {
     //url: 'http://localhost:8010/api/'
-    url: 'https://app-thebronx.herokuapp.com/'
+    url: 'https://app-thebronx.herokuapp.com/api/'
 };
 
 
@@ -20964,7 +20964,7 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 const environment = {
     production: false,
-    base_url: 'https://app-thebronx.herokuapp.com/'
+    base_url: 'https://app-thebronx.herokuapp.com/api/'
 };
 /*
  * For easier debugging in development mode, you can import the following file
